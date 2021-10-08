@@ -1,5 +1,4 @@
 import os
-import pytest
 
 from sqlalchemy import (
     Column,
@@ -14,10 +13,7 @@ from sqlalchemy.sql import func
 
 from databases import Database
 
-if os.getenv("CI"):
-    pytest.skip("No PostgreSQL on GH Actions CI/CD", allow_module_level=True)
-else:
-    DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # SQLAlchemy
 engine = create_engine(DATABASE_URL)
