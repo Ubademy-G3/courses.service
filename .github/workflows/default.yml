@@ -10,7 +10,6 @@ on:
 
 jobs:
   run_linter:
-
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -31,7 +30,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
   run_tests:
     runs-on: ubuntu-latest
-
+    needs: [run_eslint]
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
@@ -46,3 +45,29 @@ jobs:
     - name: Test with pytest
       run: |
         pytest ./tests/
+  deploy: 
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    env:
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+    needs: [run_linter, run_tests]
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Build container
+        run: docker build -t courses.service .
+
+      - name: Log in to Heroku Container Registry
+        run: heroku container:login
+
+      - name: Tag container
+        run: docker tag courses.service registry.heroku.com/staging-courses-service-app/web
+
+      - name: Push container
+        run: docker push registry.heroku.com/staging-courses-service-app/web
+
+      - name: Release container
+        run: heroku container:release web --app staging-courses-service-app
+
+      - name: Set NODE_ENV to stage
+        run: heroku config:set NODE_ENV=stage --app staging-courses-service-app
