@@ -40,11 +40,7 @@ ENV PYTHONUNBUFFERED 1
 COPY requirements.txt /app/requirements.txt
 
 # install dependencies
-RUN set -eux \
-    && apt-get --no-cache --virtual .build-deps build-base \
-        libressl-dev libffi-dev gcc musl-dev python3-dev \
-        postgresql-dev bash \
-    && pip install --upgrade pip setuptools wheel \
+RUN pip install --upgrade pip setuptools wheel \
     && pip install -r /app/requirements.txt \
     && rm -rf /root/.cache/pip
 
