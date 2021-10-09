@@ -2,15 +2,17 @@ version: '3.8'
 
 services:
   web:
-    build: ./src
+    build: .
     command: |
-      bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000'
+      bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn main:app --reload --workers 1 --host 0.0.0.0 --port 8000'
     volumes:
-      - ./src/:/usr/src/app/
+      - .:/app/
     ports:
       - 8002:8000
     environment:
       - DATABASE_URL=postgresql://hello_fastapi:hello_fastapi@db/hello_fastapi_dev
+    depends_on:
+      - db
   db:
     image: postgres:13-alpine
     volumes:
