@@ -4,6 +4,9 @@ FROM python:3.9.4-alpine
 # set work directory
 WORKDIR /app/
 
+# Actualizar repositorios de apt
+RUN apt-get update
+
 # Copy Datadog configuration
 COPY monitoring/ /etc/datadog-agent/
 
