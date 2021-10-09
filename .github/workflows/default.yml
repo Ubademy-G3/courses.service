@@ -30,7 +30,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
   run_tests:
     runs-on: ubuntu-latest
-    needs: [run_eslint]
+    needs: [run_linter]
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
