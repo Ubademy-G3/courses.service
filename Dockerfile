@@ -1,11 +1,11 @@
 # pull official base image
-FROM python:3.9.4-alpine
+FROM python:3.8
 
 # set work directory
 WORKDIR /app/
 
 # Actualizar repositorios de apt
-RUN apt-get update
+RUN apt update
 
 # Copy Datadog configuration
 COPY monitoring/ /etc/datadog-agent/
