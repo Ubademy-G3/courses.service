@@ -48,4 +48,4 @@ RUN pip install --upgrade pip setuptools wheel \
 COPY . /app/
 
 # Ejecutar el script entrypoint.sh
-CMD ["sh", "/app/docker-entrypoint-prod.sh"]
+CMD ["sh", "/app/deploy/heroku-entrypoint.sh"]
