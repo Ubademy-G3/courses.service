@@ -3,6 +3,7 @@ from infrastructure.db.database import database
 from infrastructure.db.course_schema import courses
 from domain.course_repository import CourseRepository
 
+
 class CourseRepositoryPostgres(CourseRepository):
 
     async def add_course(self, payload: Course):
@@ -15,12 +16,12 @@ class CourseRepositoryPostgres(CourseRepository):
 
     async def get_course_by_id(self, id: int):
         query = courses.select(courses.c.id == id)
-        return await database.fetch_one(query=query)    
+        return await database.fetch_one(query=query)
 
     async def update_course(self, id: int, payload: Course):
         query = (courses.update().
-                where(courses.c.id == id)
-                .values(**payload.dict()))
+                 where(courses.c.id == id)
+                 .values(**payload.dict()))
         return await database.execute(query=query)
 
     async def delete_course(self, id: int):
