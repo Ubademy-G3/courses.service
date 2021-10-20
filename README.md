@@ -1,9 +1,9 @@
-# Microservicio de Cursos
+# Courses Microservice
 
 [![CI](https://github.com/Ubademy-G3/courses.service/actions/workflows/default.yml/badge.svg)](https://github.com/Ubademy-G3/courses.service/actions/workflows/default.yml)
 [![codecov](https://codecov.io/gh/Ubademy-G3/courses.service/branch/main/graph/badge.svg?token=P5PT97QTE2)](https://codecov.io/gh/Ubademy-G3/courses.service)
 
-# Estructura de archivos:
+# File Structure:
 ```tree
 ├── main.py
 ├── src
@@ -31,23 +31,23 @@
 └── tests
 ```
 
-# Entorno local
+# Local Environment 
 
-## Requerimientos
+## Requirements 
 
 * Docker
 * Docker-compose
 
-## Construir y levantar servicios
+## Build and Deploy Services
 
 ```docker-compose up -d --build```
 
-Este comando levanta los servicios:
+This command deploys the service:
 
-* `coursesservice_web`: Servicio web
-* `coursesservice_db`: Base de datos
-* `pgadmin`: Admin para base de datos
+* `coursesservice_web`: Web Service
+* `coursesservice_db`: Data base
+* `pgadmin`: Data base admin
 
-## Detener servicios
+## Stop services
 
 ```docker-compose stop```
