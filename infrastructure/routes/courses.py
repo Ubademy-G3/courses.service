@@ -18,9 +18,9 @@ async def get_all_courses():
     return await CourseController.get_all_courses()
 
 
-@courses.put('/{id}')
-async def update_course(id: str, payload: Course):
-    return await CourseController.update_course(id, payload)
+@courses.patch('/{id}', response_model = Course, status_code = 200)
+async def update_course(id: str, course: Course):
+    return await CourseController.update_course(id, course)
 
 
 @courses.delete('/{id}')
