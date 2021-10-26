@@ -14,17 +14,17 @@ class CourseRepositoryPostgres(CourseRepository):
         query = courses.select()
         return await database.fetch_all(query=query)
 
-    async def get_course_by_id(self, id: UUID):
+    async def get_course_by_id(self, id: str):
         query = courses.select(courses.c.id == id)
         return await database.fetch_one(query=query)
 
-    async def update_course(self, id: UUID, payload: Course):
+    async def update_course(self, id: str, payload: Course):
         query = (courses.update().
                  where(courses.c.id == id)
                  .values(**payload.dict()))
         return await database.execute(query=query)
 
-    async def delete_course(self, id: int):
+    async def delete_course(self, id: str):
         query = courses.delete().where(courses.c.id == id)
         return await database.execute(query=query)
 

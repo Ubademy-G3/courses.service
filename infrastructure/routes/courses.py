@@ -18,17 +18,17 @@ async def get_all_courses():
     return await CourseController.get_all_courses()
 
 
-'''@courses.put('/{id}')
-async def update_course(id: UUID, payload: Course):
+@courses.put('/{id}')
+async def update_course(id: str, payload: Course):
     return await CourseController.update_course(id, payload)
 
 
 @courses.delete('/{id}')
-async def delete_course(id: int):
+async def delete_course(id: str):
     course = await crp.get_course_by_id(id)
     if not course:
         raise HTTPException(status_code=404, detail="Course not found")
-    return await crp.delete_course(id)'''
+    return await crp.delete_course(id)
 
 
 @courses.delete('/')
