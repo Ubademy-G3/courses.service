@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from infrastructure.routes.courses import courses
+from infrastructure.routes import (course_router, course_media_router)
 from infrastructure.db.database import database, engine
 from infrastructure.db.course_schema import metadata
 
@@ -17,4 +17,6 @@ async def startup():
 async def shutdown():
     await database.disconnect()
 
-app.include_router(courses, prefix='/api/v1/courses', tags=['courses'])
+app.include_router(course_router.router, prefix='/api/v1/courses', tags=['courses'])
+
+app.include_router(course_media_router.router, prefix='/api/v1/courses_media', tags=['media'])

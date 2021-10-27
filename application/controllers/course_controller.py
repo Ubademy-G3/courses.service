@@ -3,6 +3,7 @@ from domain.course_model import Course
 from application.use_cases.create import *
 from application.use_cases.get import *
 from application.use_cases.update import *
+from application.use_cases.delete import *
 
 class CourseController:
     @classmethod
@@ -60,5 +61,11 @@ class CourseController:
         update_data = course_in_db.dict(exclude_unset=True)
         updated_course = course_in_db.copy(update=update_data)
         return await update_course(course_id, updated_course)
+
+    @classmethod
+    async def delete_course_by_id(self, course_id):
+        return await delete_course_by_id(course_id)
         
-        
+    @classmethod
+    async def delete_all_courses(self):
+        return await delete_all_courses()

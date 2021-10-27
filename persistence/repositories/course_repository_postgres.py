@@ -24,7 +24,7 @@ class CourseRepositoryPostgres(CourseRepository):
                  .values(**payload.dict()))
         return await database.execute(query=query)
 
-    async def delete_course(self, id: str):
+    async def delete_course_by_id(self, id: str):
         query = courses.delete().where(courses.c.id == id)
         return await database.execute(query=query)
 

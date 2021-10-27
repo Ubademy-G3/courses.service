@@ -20,7 +20,7 @@ class CourseRepository(ABC):
         pass
 
     @abstractmethod
-    def delete_course(self, id):
+    def delete_course_by_id(self, id):
         pass
 
     @abstractmethod
