@@ -1,4 +1,4 @@
-from domain.course_model import Course, uuid4, UUID
+from domain.course_model import (Course, CoursePatch, uuid4, UUID)
 from infrastructure.db.database import database
 from infrastructure.db.course_schema import courses
 from domain.course_repository import CourseRepository
@@ -18,7 +18,7 @@ class CourseRepositoryPostgres(CourseRepository):
         query = courses.select(courses.c.id == id)
         return await database.fetch_one(query=query)
 
-    async def update_course(self, id: str, payload: Course):
+    async def update_course(self, id: str, payload: CoursePatch):
         query = (courses.update().
                  where(courses.c.id == id)
                  .values(**payload.dict()))

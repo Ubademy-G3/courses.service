@@ -16,7 +16,7 @@ async def get_all_courses():
 
 
 @router.patch('/{id}', response_model = Course, status_code = 200)
-async def update_course(id: str, course: Course):
+async def update_course(id: str, course: CoursePatch):
     return await CourseController.update_course(id, course)
 
 

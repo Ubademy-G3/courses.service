@@ -1,5 +1,6 @@
 from fastapi import HTTPException
 from domain.course_media_model import CourseMedia
+from application.serializers.course_media_serializer import CourseMediaSerializer
 from application.use_cases.create import *
 from application.use_cases.get import *
 from application.use_cases.update import *
@@ -15,11 +16,7 @@ class CourseMediaController:
             url = args.url
         )
         await add_course_media(new_course_media)
-        return {
-            "id": args.id,
-            "course_id": args.course_id,
-            "url": args.url
-        }
+        return CourseMediaSerializer.serialize(new_course_media)
 
     @classmethod
     async def get_all_courses_media(self):
@@ -37,7 +34,8 @@ class CourseMediaController:
                 
         update_data = course_media_in_db.dict(exclude_unset=True)
         updated_course_media = course_media_in_db.copy(update=update_data)
-        return await update_course_media(course_media_id, updated_course_media)
+        await update_course_media(course_media_id, updated_course_media)
+        return CourseMediaSerializer.serialize(updated_course_media)
 
     @classmethod
     async def delete_course_media_by_id(self, media_id):

@@ -1,5 +1,6 @@
 from fastapi import HTTPException
-from domain.course_model import Course
+from domain.course_model import (Course, CoursePatch)
+from application.serializers.course_serializer import CourseSerializer
 from application.use_cases.create import *
 from application.use_cases.get import *
 from application.use_cases.update import *
@@ -19,15 +20,7 @@ class CourseController:
             location = args.location
         )
         await add_course(new_course)
-        return {
-            "id": args.id,
-            "name": args.name,
-            "description": args.description,
-            "hashtags": args.hashtags,
-            "kind": args.kind,
-            "subscription_type": args.subscription_type,
-            "location": args.location
-        }
+        return CourseSerializer.serialize(new_course)
 
     @classmethod
     async def get_all_courses(self):
@@ -60,7 +53,8 @@ class CourseController:
                 
         update_data = course_in_db.dict(exclude_unset=True)
         updated_course = course_in_db.copy(update=update_data)
-        return await update_course(course_id, updated_course)
+        await update_course(course_id, updated_course)
+        return CourseSerializer.serialize(updated_course)
 
     @classmethod
     async def delete_course_by_id(self, course_id):

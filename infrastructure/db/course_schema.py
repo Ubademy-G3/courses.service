@@ -12,6 +12,6 @@ courses = Table(
     Column('description',String(255), nullable=False),
     Column('hashtags', ARRAY(String(255))),
     Column('kind',String(255), nullable=False),
-    Column('subscription_type',String(255)),
+    Column('subscription_type',ARRAY(String(255))),
     Column('location',String(255))
 )
