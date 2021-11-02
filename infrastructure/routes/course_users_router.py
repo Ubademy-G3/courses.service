@@ -10,7 +10,7 @@ async def create_course_user(payload: CourseUser):
 
 @router.get('/',response_model=List[CourseUser], status_code = 200)
 async def get_all_course_users():
-    return await CourseUserController.get_all_courses_users()
+    return await CourseUserController.get_all_course_users()
 
 @router.delete('/{id}')
 async def delete_course_user(id: str):
