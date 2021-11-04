@@ -13,8 +13,8 @@ async def get_course_by_id(id):
     return await crp.get_course_by_id(id)
 
 
-async def get_all_courses_media():
-    return await cmrp.get_all_courses_media()
+def get_all_course_media(course_id):
+    return cmrp.get_all_course_media(course_id)
 
 async def get_course_media_by_id(id):
     return await cmrp.get_course_media_by_id(id)

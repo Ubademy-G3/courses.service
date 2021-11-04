@@ -20,6 +20,6 @@ async def shutdown():
 
 app.include_router(course_router.router, prefix='/courses', tags=['courses'])
 
-app.include_router(course_media_router.router, prefix='/courses/media', tags=['media'])
+app.include_router(course_media_router.router, prefix='/courses/{course_id}/media', tags=['media'])
 
-app.include_router(course_users_router.router, prefix='/courses/users', tags=['users'])
+app.include_router(course_users_router.router, prefix='/courses/{course_id}/users', tags=['users'])

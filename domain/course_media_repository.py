@@ -8,7 +8,7 @@ class CourseMediaRepository(ABC):
         pass
 
     @abstractmethod
-    def get_all_courses_media(self):
+    def get_all_course_media(self, course_id):
         pass
 
     @abstractmethod
@@ -16,13 +16,5 @@ class CourseMediaRepository(ABC):
         pass
 
     @abstractmethod
-    def update_course_media(self, id, payload):
-        pass
-
-    @abstractmethod
     def delete_course_media(self, id):
-        pass
-
-    @abstractmethod
-    def delete_all_courses_media(self):
         pass
