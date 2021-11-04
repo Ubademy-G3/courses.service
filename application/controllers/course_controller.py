@@ -14,7 +14,7 @@ class CourseController:
             id = args.id,
             name = args.name,
             description = args.description,
-            hashtags = args.hashtags,
+            category = args.category,
             kind = args.kind,
             subscription_type = args.subscription_type,
             location = args.location
@@ -30,7 +30,7 @@ class CourseController:
     async def update_course(self, course_id, update_args):
         course_to_update = await get_course_by_id(course_id)
         if not course_to_update:
-            raise HTTPException(status_code=404, detail="Course {course_id} not found")
+            raise HTTPException(status_code=404, detail="Course {} not found".format(course_id))
         
         course_in_db = Course(**course_to_update)
         if update_args.name is not None:
@@ -40,7 +40,7 @@ class CourseController:
             course_in_db.description = update_args.description
 
         if update_args.hashtags is not None:
-            course_in_db.hashtags = update_args.hashtags
+            course_in_db.category = update_args.category
         
         if update_args.kind is not None:
             course_in_db.kind = update_args.kind

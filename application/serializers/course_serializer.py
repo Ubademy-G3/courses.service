@@ -8,7 +8,7 @@ class CourseSerializer:
             "id": course.id,
             "name": course.name,
             "description": course.description,
-            "hashtags": course.hashtags,
+            "category": course.category,
             "kind": course.kind,
             "subscription_type": course.subscription_type,
             "location": course.location
