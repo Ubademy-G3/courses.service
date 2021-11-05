@@ -7,6 +7,7 @@ class CourseUserSerializer:
         return {
             "id": user.id,
             "course_id": user.course_id,
+            "user_id": user.user_id,
             "user_type": user.user_type,
             "progress": user.progress,
             "aprobal_state": user.aprobal_state

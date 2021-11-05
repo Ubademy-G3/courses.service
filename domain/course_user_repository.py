@@ -8,17 +8,13 @@ class CourseUserRepository(ABC):
         pass
 
     @abstractmethod
-    def get_all_course_users(self):
+    def get_all_course_users(self, course_id):
         pass
 
     @abstractmethod
-    def get_course_user_by_id(self, id):
+    def get_course_user(self, course_id, user_id):
         pass
 
     @abstractmethod
-    def delete_course_user(self, id):
-        pass
-
-    @abstractmethod
-    def delete_all_course_users(self):
+    def delete_course_user(self, course_id, user_id):
         pass
