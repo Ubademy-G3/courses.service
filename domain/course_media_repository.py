@@ -12,9 +12,9 @@ class CourseMediaRepository(ABC):
         pass
 
     @abstractmethod
-    def get_course_media_by_id(self, id):
+    def get_course_media(self, course_id, media_id):
         pass
 
     @abstractmethod
-    def delete_course_media(self, id):
+    def delete_course_media(self, course_id, media_id):
         pass

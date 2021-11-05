@@ -1,10 +1,8 @@
 from fastapi import HTTPException
 from domain.course_model import (Course, CoursePatch)
 from application.serializers.course_serializer import CourseSerializer
-from application.use_cases.create import *
-from application.use_cases.get import *
-from application.use_cases.update import *
-from application.use_cases.delete import *
+from application.use_cases.course import (create,get,update,delete)
+
 
 class CourseController:
     @classmethod
@@ -19,16 +17,16 @@ class CourseController:
             subscription_type = args.subscription_type,
             location = args.location
         )
-        await add_course(new_course)
+        await create.add_course(new_course)
         return CourseSerializer.serialize(new_course)
 
     @classmethod
     async def get_all_courses(self):
-        return await get_all_courses()
+        return await get.get_all_courses()
 
     @classmethod
     async def update_course(self, course_id, update_args):
-        course_to_update = await get_course_by_id(course_id)
+        course_to_update = await get.get_course_by_id(course_id)
         if not course_to_update:
             raise HTTPException(status_code=404, detail="Course {} not found".format(course_id))
         
@@ -53,13 +51,13 @@ class CourseController:
                 
         update_data = course_in_db.dict(exclude_unset=True)
         updated_course = course_in_db.copy(update=update_data)
-        await update_course(course_id, updated_course)
+        await update.update_course(course_id, updated_course)
         return CourseSerializer.serialize(updated_course)
 
     @classmethod
     async def delete_course_by_id(self, course_id):
-        return await delete_course_by_id(course_id)
+        return await delete.delete_course_by_id(course_id)
         
     @classmethod
     async def delete_all_courses(self):
-        return await delete_all_courses()
+        return await delete.delete_all_courses()

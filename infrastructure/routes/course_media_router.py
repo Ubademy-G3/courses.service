@@ -19,8 +19,12 @@ async def get_all_course_media(course_id: str):
             "course_media": course_media_list}    
 
 
-@router.delete('/{id}')
-async def delete_course_media(id: str):
+@router.get('/{media_id}', response_model = CourseMediaDB, status_code=200)
+async def get_course_media(course_id: str, media_id: str):
+    return await CourseMediaController.get_course_media(course_id, media_id)
     
-    return await CourseMediaController.delete_course_media_by_id(id)
 
+@router.delete('/{media_id}', response_model = str, status_code=200)
+async def delete_course_media(course_id: str, media_id: str):    
+    course_deleted = await CourseMediaController.delete_course_media(course_id, media_id)
+    return "The media {} was deleted successfully".format(media_id)
