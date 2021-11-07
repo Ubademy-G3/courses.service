@@ -1,9 +1,18 @@
 from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
+from errors.http_error import NotFoundError
 
 crp = CourseRepositoryPostgres()
 
 async def get_all_courses():
-    return await crp.get_all_courses()
 
-async def get_course_by_id(id):
-    return await crp.get_course_by_id(id)
+    courses = await crp.get_all_courses()
+    if courses is None or len(courses) == 0:
+        raise NotFoundError("Courses")
+    return courses
+
+async def get_course(course_id):
+
+    course = await crp.get_course(course_id)
+    if course is None:
+        raise NotFoundError("Course {}".format(course_id))
+    return course

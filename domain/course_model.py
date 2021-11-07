@@ -19,3 +19,11 @@ class CoursePatch(BaseModel):
     kind: Optional[str] = None
     subscription_type: Optional[list] = None
     location: Optional[str] = None
+
+class CourseSchema(BaseModel):
+    name: str
+    description: str
+    category: str
+    kind: str
+    subscription_type: list
+    location: str

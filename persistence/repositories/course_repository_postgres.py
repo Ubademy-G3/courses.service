@@ -13,9 +13,10 @@ class CourseRepositoryPostgres(CourseRepository):
     async def get_all_courses(self):
         query = courses.select()
         return await database.fetch_all(query=query)
+        
 
-    async def get_course_by_id(self, id: str):
-        query = courses.select(courses.c.id == id)
+    async def get_course(self, course_id: str):
+        query = courses.select(courses.c.id == course_id)
         return await database.fetch_one(query=query)
 
     async def update_course(self, id: str, payload: CoursePatch):
@@ -24,8 +25,8 @@ class CourseRepositoryPostgres(CourseRepository):
                  .values(**payload.dict()))
         return await database.execute(query=query)
 
-    async def delete_course_by_id(self, id: str):
-        query = courses.delete().where(courses.c.id == id)
+    async def delete_course(self, course_id: str):
+        query = courses.delete().where(courses.c.id == course_id)
         return await database.execute(query=query)
 
     async def delete_all_courses(self):

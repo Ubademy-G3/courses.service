@@ -5,26 +5,27 @@ from uuid import uuid4, UUID
 
 router = APIRouter()
 
-@router.post('/', status_code = 201)
-async def create_course(payload: Course):
+@router.post('/',response_model = Course, status_code = 201)
+async def create_course(payload: CourseSchema):
     return await CourseController.create_course(payload)
 
 
-@router.get('/',response_model=List[Course], status_code = 200)
+@router.get('/',response_model = List[Course], status_code = 200)
 async def get_all_courses():
     return await CourseController.get_all_courses()
 
 
-@router.patch('/{id}', response_model = Course, status_code = 200)
-async def update_course(id: str, course: CoursePatch):
-    return await CourseController.update_course(id, course)
+@router.get('/{course_id}', response_model = Course, status_code = 200)
+async def get_course(course_id: str):
+    return await CourseController.get_course(course_id)
+
+
+@router.patch('/{course_id}', response_model = Course, status_code = 200)
+async def update_course(course_id: str, course: CoursePatch):
+    return await CourseController.update_course(course_id, course)
 
 
 @router.delete('/{id}')
 async def delete_course(id: str):
     return await CourseController.delete_course_by_id(id)
 
-
-@router.delete('/')
-async def delete_all_courses():
-    return await CourseController.delete_all_courses()
