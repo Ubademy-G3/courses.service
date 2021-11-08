@@ -18,6 +18,6 @@ async def get_course_user(course_id, user_id):
     return user
 
 
-async def user_already_registered(course_id, user_id):
+async def course_already_acquired(course_id, user_id):
 
     return await curp.get_course_user(course_id, user_id) != None

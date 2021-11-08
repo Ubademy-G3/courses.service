@@ -1,5 +1,4 @@
 from persistence.repositories.course_media_repository_postgres import CourseMediaRepositoryPostgres
-from fastapi import HTTPException
 from domain.course_media_model import *
 from application.serializers.course_media_serializer import CourseMediaSerializer
 

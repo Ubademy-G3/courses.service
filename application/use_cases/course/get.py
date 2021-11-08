@@ -17,7 +17,7 @@ async def get_course(course_id):
         raise NotFoundError("Course {}".format(course_id))
     return course
 
-async def course_is_present(course_id):
+async def course_exists(course_id):
 
     return await crp.get_course(course_id) != None
     

@@ -6,5 +6,15 @@ class UbademyException(Exception):
 
 class CourseAlreadyAcquired(UbademyException):
     def __init__(self):
-        msg = "The course is already acquired by this user"
+        msg = "Course already acquired by this user"
+        super().__init__(status_code = 400, detail = msg)
+
+class CourseAlradyScored(UbademyException):
+    def __init__(self):
+        msg = "Course already scored by this user"
+        super().__init__(status_code = 400, detail = msg)
+
+class CourseNotAcquired(UbademyException):
+    def __init__(self):
+        msg = "Course not acquired by this user"
         super().__init__(status_code = 400, detail = msg)
