@@ -6,6 +6,7 @@ from infrastructure.routes import (course_router, course_media_router,
                                 course_user_router)
 from infrastructure.db.database import database, engine
 from infrastructure.db.course_schema import metadata
+from errors.ubademy_error import UbademyException
 
 metadata.create_all(engine)
 
@@ -26,7 +27,14 @@ async def shutdown():
 async def http_exception_handler(request, exc):
     error = {"error": exc.detail}
     logging.error(f"status_code: {exc.status_code} message: {exc.detail}")
-    return JSONResponse(status_code = exc.status_code, content=error)
+    return JSONResponse(status_code = exc.status_code, content = error)
+
+
+@app.exception_handler(UbademyException)
+async def ubademy_exception_hanlder(request, exc):
+    error = {"error": exc.detail}
+    logging.error(f"status_code: {exc.status_code} message: {exc.detail}")
+    return JSONResponse(status_code = exc.status_code, content = error)
 
 
 app.include_router(course_router.router, prefix='/courses', tags=['courses'])
