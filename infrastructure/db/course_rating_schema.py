@@ -4,8 +4,8 @@ import uuid
 
 metadata = MetaData()
 
-course_rating = Table(
-    'course_rating',
+course_ratings = Table(
+    'course_ratings',
     metadata,
     Column('id', UUID, primary_key=True,default=uuid.uuid4),
     Column('course_id', UUID, ForeignKey('courses.id')),

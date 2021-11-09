@@ -11,12 +11,13 @@ class CourseRating(BaseModel):
     opinion: str
 
 class CourseRatingSchema(BaseModel):
+    user_id: UUID
     score: int
     opinion:str
 
 class CourseRatingDB(CourseRatingSchema):
     id: UUID
-    user_id: UUID    
+    course_id: UUID    
 
 class CourseRatingResponse(BaseModel):
     amount: int

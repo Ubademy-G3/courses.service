@@ -9,7 +9,7 @@ class CourseAlreadyAcquired(UbademyException):
         msg = "Course already acquired by this user"
         super().__init__(status_code = 400, detail = msg)
 
-class CourseAlradyScored(UbademyException):
+class CourseAlreadyScored(UbademyException):
     def __init__(self):
         msg = "Course already scored by this user"
         super().__init__(status_code = 400, detail = msg)

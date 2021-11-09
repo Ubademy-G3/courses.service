@@ -3,7 +3,7 @@ import logging
 from fastapi.responses import JSONResponse
 from fastapi import HTTPException
 from infrastructure.routes import (course_router, course_media_router,
-                                course_user_router)
+                                course_user_router, course_rating_router)
 from infrastructure.db.database import database, engine
 from infrastructure.db.course_schema import metadata
 from errors.ubademy_error import UbademyException
@@ -42,3 +42,5 @@ app.include_router(course_router.router, prefix='/courses', tags=['courses'])
 app.include_router(course_media_router.router, prefix='/courses/{course_id}/media', tags=['media'])
 
 app.include_router(course_user_router.router, prefix='/courses/{course_id}/users', tags=['users'])
+
+app.include_router(course_rating_router.router, prefix='/courses/{course_id}/ratings', tags=['ratings'])

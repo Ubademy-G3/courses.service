@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from typing import List,Dict
 from application.controllers.course_user_controller import *
 

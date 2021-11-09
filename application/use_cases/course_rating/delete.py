@@ -1,7 +1,7 @@
 from persistence.repositories.course_rating_repository_postgres import CourseRatingRepositoryPostgres
 from errors.http_error import NotFoundError
 
-crrp = CourseUserRepositoryPostgres()
+crrp = CourseRatingRepositoryPostgres()
 
 async def delete_course_rating(course_id, rating_id):
 
