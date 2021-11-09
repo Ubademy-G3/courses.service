@@ -7,6 +7,7 @@ from infrastructure.routes import (course_router, course_media_router,
 from infrastructure.db.database import database, engine
 from infrastructure.db.course_schema import metadata
 from errors.ubademy_error import UbademyException
+from errors.auth_error import AuthorizationException
 
 metadata.create_all(engine)
 
@@ -32,6 +33,13 @@ async def http_exception_handler(request, exc):
 
 @app.exception_handler(UbademyException)
 async def ubademy_exception_hanlder(request, exc):
+    error = {"error": exc.detail}
+    logging.error(f"status_code: {exc.status_code} message: {exc.detail}")
+    return JSONResponse(status_code = exc.status_code, content = error)
+
+
+@app.exception_handler(AuthorizationException)
+async def auth_exception_handler(request, exc):
     error = {"error": exc.detail}
     logging.error(f"status_code: {exc.status_code} message: {exc.detail}")
     return JSONResponse(status_code = exc.status_code, content = error)

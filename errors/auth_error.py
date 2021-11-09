@@ -8,4 +8,4 @@ class AuthorizationException(Exception):
 class ApiKeyError(AuthorizationException):
     def __init__(self):
         msg = "Error with API Key"
-        super().__init__(status_code = 400, detail = msg)
+        super().__init__(status_code = 401, detail = msg)
