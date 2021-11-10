@@ -11,3 +11,4 @@ requests==2.25.1
 flake8
 pep8
 pytest-cov
+python-dotenv==0.19.1
