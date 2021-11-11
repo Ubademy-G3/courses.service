@@ -23,5 +23,6 @@ async def add_course_user(course_id, args):
         progress = args.progress,
         aprobal_state = args.aprobal_state
     )
+    
     await curp.add_course_user(new_user)
     return CourseUserSerializer.serialize(new_user)

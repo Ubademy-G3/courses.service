@@ -6,6 +6,7 @@ crp = CourseRepositoryPostgres()
 async def delete_all_courses():
 
     return await crp.delete_all_courses()
+    
 
 async def delete_course(course_id):
 

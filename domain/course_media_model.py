@@ -8,12 +8,14 @@ class CourseMedia(BaseModel):
     course_id: UUID
     url: str
 
+
 class CourseMediaSchema(BaseModel):
     url: str
 
+
 class CourseMediaDB(CourseMediaSchema):
     id: UUID
-    #course_id: UUID
+
 
 class CourseMediaList(BaseModel):
     amount: int

@@ -9,6 +9,7 @@ def get_all_course_media(course_id):
     if media_list is None or len(media_list) == 0:
         raise NotFoundError("Media of course {}".format(course_id))
     return media_list
+    
 
 async def get_course_media(course_id, media_id):
 

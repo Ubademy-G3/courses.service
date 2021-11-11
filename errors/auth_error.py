@@ -1,4 +1,5 @@
 class AuthorizationException(Exception):
+
     def __init__(self, status_code, detail):
         super().__init__(detail)
         self.detail = detail
@@ -6,6 +7,7 @@ class AuthorizationException(Exception):
 
     
 class ApiKeyError(AuthorizationException):
+    
     def __init__(self):
         msg = "Error with API Key"
         super().__init__(status_code = 401, detail = msg)
