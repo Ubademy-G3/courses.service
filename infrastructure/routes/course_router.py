@@ -47,10 +47,10 @@ async def update_course(
 
 @router.delete('/{course_id}')
 async def delete_course(
-                        id: str,
+                        course_id: str,
                         api_key: Optional[str] = Header(None)
                     ):
 
     auth_service.check_api_key(api_key)
-    return await CourseController.delete_course_by_id(id)
+    return await CourseController.delete_course(course_id)
 
