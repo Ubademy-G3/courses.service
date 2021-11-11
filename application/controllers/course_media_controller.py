@@ -3,7 +3,7 @@ from domain.course_media_model import *
 
 class CourseMediaController:
     @classmethod
-    async def create_course_media(self,args,course_id):
+    async def create_course_media(self, args, course_id):
 
         return await create.add_course_media(course_id, args)
 

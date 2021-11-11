@@ -10,12 +10,14 @@ async def get_all_courses():
         raise NotFoundError("Courses")
     return courses
 
+
 async def get_course(course_id):
 
     course = await crp.get_course(course_id)
     if course is None:
         raise NotFoundError("Course {}".format(course_id))
     return course
+    
 
 async def course_exists(course_id):
 

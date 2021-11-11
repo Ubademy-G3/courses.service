@@ -4,6 +4,7 @@ class CourseSerializer:
 
     @classmethod
     def serialize(self, course: Course):
+        
         return {
             "id": course.id,
             "name": course.name,
@@ -11,5 +12,6 @@ class CourseSerializer:
             "category": course.category,
             "kind": course.kind,
             "subscription_type": course.subscription_type,
-            "location": course.location
+            "location": course.location,
+            "info": course.info
         }

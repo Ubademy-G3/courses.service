@@ -27,5 +27,6 @@ async def add_course_rating(course_id, args):
         score = args.score,
         opinion = args.opinion
     )
+    
     await crrp.add_course_rating(new_course_rating)
     return CourseRatingSerializer.serialize(new_course_rating)
