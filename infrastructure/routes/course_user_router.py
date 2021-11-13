@@ -9,20 +9,19 @@ router = APIRouter()
 async def create_course_user(
                             payload: CourseUserSchema,
                             course_id: str,
-                            api_key: Optional[str] = Header(None)
+                            apikey: str = Header(None)
                         ):
-
-    auth_service.check_api_key(api_key)
+    auth_service.check_api_key(apikey)
     return await CourseUserController.create_course_user(payload, course_id)
     
 
 @router.get('/',response_model = Dict, status_code = 200)
 async def get_all_course_users(
                                 course_id: str,
-                                api_key: Optional[str] = Header(None)
+                                apikey: str = Header(None)
                             ):
 
-    auth_service.check_api_key(api_key)                       
+    auth_service.check_api_key(apikey)                       
     course_users_list = await CourseUserController.get_all_course_users(course_id)
     return {"amount": len(course_users_list),
             "course_id": course_id,
@@ -33,9 +32,9 @@ async def get_all_course_users(
 async def delete_course_user(
                             course_id: str,
                             user_id: str,
-                            api_key: Optional[str] = Header(None)
+                            apikey: str = Header(None)
                         ):
 
-    auth_service.check_api_key(api_key)                    
+    auth_service.check_api_key(apikey)                    
     user_deleted = await CourseUserController.delete_course_user(course_id, user_id)
     return "The user {} was deleted successfully".format(user_id)
