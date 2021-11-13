@@ -18,7 +18,6 @@ async def create_course(
 async def get_all_courses(
                             apikey: str = Header(None)
                         ):
-    print(apikey)
     auth_service.check_api_key(apikey)
     return await CourseController.get_all_courses()
 
