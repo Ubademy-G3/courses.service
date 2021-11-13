@@ -24,7 +24,7 @@ async def get_all_courses(
     return await CourseController.get_all_courses()
 
 
-@router.get('/{course_id}', response_model = Course, status_code = 200)
+@router.get('/{course_id}', response_model = CourseDB, status_code = 200)
 async def get_course(
                     course_id: str,
                     api_key: Optional[str] = Header(None)

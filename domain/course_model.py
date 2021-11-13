@@ -32,3 +32,6 @@ class CourseSchema(BaseModel):
     subscription_type: list
     location: str
     info: dict
+
+class CourseDB(CourseSchema):
+    id: UUID
