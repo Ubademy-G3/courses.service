@@ -16,7 +16,7 @@ class CourseRepositoryPostgres(CourseRepository):
         return await database.fetch_all(query=query)
         
 
-    async def get_course(self, course_id: str):
+    async def get_course_by_id(self, course_id: str):
         query = courses.select(courses.c.id == course_id)
         return await database.fetch_one(query=query)
 
