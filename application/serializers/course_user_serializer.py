@@ -4,6 +4,7 @@ class CourseUserSerializer:
 
     @classmethod
     def serialize(self, user: CourseUser):
+        
         return {
             "id": user.id,
             "course_id": user.course_id,

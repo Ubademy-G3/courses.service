@@ -3,4 +3,5 @@ from persistence.repositories.course_media_repository_postgres import CourseMedi
 cmrp = CourseMediaRepositoryPostgres()
 
 async def update_course_media(id, new_args):
+    
     return await cmrp.update_course_media(id, new_args)

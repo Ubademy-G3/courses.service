@@ -11,6 +11,8 @@ class Course(BaseModel):
     kind: str
     subscription_type: list
     location: str
+    info: dict
+
 
 class CoursePatch(BaseModel):
     name: Optional[str] = None
@@ -19,6 +21,8 @@ class CoursePatch(BaseModel):
     kind: Optional[str] = None
     subscription_type: Optional[list] = None
     location: Optional[str] = None
+    info: Optional[dict] = None
+    
 
 class CourseSchema(BaseModel):
     name: str
@@ -27,3 +31,4 @@ class CourseSchema(BaseModel):
     kind: str
     subscription_type: list
     location: str
+    info: dict
