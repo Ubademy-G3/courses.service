@@ -12,7 +12,7 @@ class CourseRepository(ABC):
         pass
 
     @abstractmethod
-    def get_course(self, course_id):
+    def get_course_by_id(self, course_id):
         pass
 
     @abstractmethod
