@@ -20,7 +20,7 @@ async def add_course_user(course_id, args):
         id = uuid4(),
         course_id = course_id,
         user_id = args.user_id,
-        user_type = args.user_type,
+        user_type = args.user_type.lower(),
         progress = args.progress,
         aprobal_state = args.aprobal_state
     )

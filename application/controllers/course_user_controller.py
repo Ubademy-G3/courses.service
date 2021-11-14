@@ -9,9 +9,9 @@ class CourseUserController:
 
 
     @classmethod
-    def get_all_course_users(self, course_id):
+    def get_all_course_users(self, course_id, user_type):
 
-        return get.get_all_course_users(course_id)
+        return get.get_all_course_users(course_id, user_type)
 
 
     @classmethod

@@ -19,11 +19,12 @@ async def create_course_user(
 @router.get('/',response_model = Dict, status_code = 200)
 async def get_all_course_users(
                                 course_id: str,
-                                api_key: Optional[str] = Header(None)
+                                api_key: Optional[str] = Header(None),
+                                user_type: Optional[str] = None
                             ):
 
     auth_service.check_api_key(api_key)                       
-    course_users_list = await CourseUserController.get_all_course_users(course_id)
+    course_users_list = await CourseUserController.get_all_course_users(course_id, user_type)
     return {"amount": len(course_users_list),
             "course_id": course_id,
             "users": course_users_list}

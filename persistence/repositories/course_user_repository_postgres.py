@@ -1,4 +1,4 @@
-from domain.course_user_model import CourseUser
+from domain.course_user_model import (CourseUser, Optional)
 from infrastructure.db.database import database
 from infrastructure.db.course_user_schema import course_users
 from domain.course_user_repository import CourseUserRepository
@@ -12,8 +12,12 @@ class CourseUserRepositoryPostgres(CourseUserRepository):
         return await database.execute(query=query)
 
 
-    async def get_all_course_users(self, course_id: str):
-        query = course_users.select(course_users.c.course_id == course_id)
+    async def get_all_course_users(self, course_id: str, user_type: str):
+        if user_type != None:
+            query = course_users.select(course_users.c.course_id == course_id).\
+            where(course_users.c.user_type == user_type.lower())
+        else:
+            query = course_users.select(course_users.c.course_id == course_id)
         return await database.fetch_all(query=query)
 
 
