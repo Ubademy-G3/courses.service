@@ -1,7 +1,18 @@
 import json
+#import pytest
+#import uuid
+#from tests.conftest import test_app
+import os
 import pytest
-import uuid
-from tests.conftest import test_app
+from main import app
+from fastapi.testclient import TestClient
+
+@pytest.fixture(scope = "module")
+def test_app():
+    
+    client = TestClient(app)
+    yield client
+
 
 from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
 
