@@ -12,7 +12,7 @@ courses = Table(
     Column('description', Text, nullable = False),
     Column('category', String(255), nullable = False),
     Column('kind', String(255), nullable = False),
-    Column('subscription_type', ARRAY(String(255)), nullable = False),
+    Column('subscription_type', String(255), nullable = False),
     Column('location', String(255), nullable = False),
     Column('info', JSON, nullable = False)
 )
