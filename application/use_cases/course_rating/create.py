@@ -22,6 +22,7 @@ async def add_course_rating(course_id, args):
         raise CourseAlreadyScored()
 
     new_course_rating = CourseRating(
+        id = uuid4(),
         course_id = course_id,
         user_id = args.user_id,
         score = args.score,

@@ -3,7 +3,7 @@ from uuid import UUID, uuid4
 from typing import List,Optional
 
 class CourseUser(BaseModel):
-    id: UUID = uuid4()
+    id: UUID
     course_id: UUID
     user_id: UUID
     user_type: list

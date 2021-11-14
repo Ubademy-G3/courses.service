@@ -4,7 +4,7 @@ from typing import Optional
 
 
 class Course(BaseModel):
-    id: UUID = uuid4()
+    id: UUID
     name: str
     description: str
     category: str

@@ -17,7 +17,7 @@ class CourseUserRepositoryPostgres(CourseUserRepository):
         return await database.fetch_all(query=query)
 
 
-    async def get_course_user(self, course_id: str, user_id):
+    async def get_course_user(self, course_id: str, user_id: str):
         query = course_users.select().where(and_(course_users.c.course_id == course_id,
                                             course_users.c.user_id == user_id))
         return await database.fetch_one(query=query)
