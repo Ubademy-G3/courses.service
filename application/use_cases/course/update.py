@@ -1,5 +1,6 @@
 from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
 from domain.course_model import *
+from domain.course_entity import Course
 from errors.http_error import NotFoundError
 from application.serializers.course_serializer import CourseSerializer
 

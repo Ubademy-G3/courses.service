@@ -1,4 +1,4 @@
-from domain.course_user_model import CourseUser
+from domain.course_user_entity import CourseUser
 
 class CourseUserSerializer:
 

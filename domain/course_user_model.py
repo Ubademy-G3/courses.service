@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from uuid import UUID, uuid4
 from typing import List,Optional
 
-class CourseUser(BaseModel):
+class CourseResponseModel(BaseModel):
     id: UUID = uuid4()
     course_id: UUID
     user_id: UUID

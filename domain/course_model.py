@@ -2,9 +2,8 @@ from pydantic import BaseModel
 from uuid import uuid4, UUID
 from typing import Optional
 
-
-class Course(BaseModel):
-    id: UUID = uuid4()
+class CourseResponseModel(BaseModel):
+    id: UUID
     name: str
     description: str
     category: str
@@ -12,7 +11,6 @@ class Course(BaseModel):
     subscription_type: list
     location: str
     info: dict
-
 
 class CoursePatch(BaseModel):
     name: Optional[str] = None

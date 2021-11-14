@@ -5,16 +5,17 @@ from application.services.auth import auth_service
 
 router = APIRouter()
 
-@router.post('/',response_model = Course, status_code = 201)
+@router.post('/',response_model = CourseResponseModel, status_code = 201)
 async def create_course(
                         payload: CourseSchema,
                         apikey: str = Header(None)
                     ):
+    print("HAY POST")
     auth_service.check_api_key(apikey)
     return await CourseController.create_course(payload)
 
 
-@router.get('/',response_model = List[Course], status_code = 200)
+@router.get('/',response_model = List[CourseResponseModel], status_code = 200)
 async def get_all_courses(
                             apikey: str = Header(None)
                         ):
@@ -22,7 +23,7 @@ async def get_all_courses(
     return await CourseController.get_all_courses()
 
 
-@router.get('/{course_id}', response_model = Course, status_code = 200)
+@router.get('/{course_id}', response_model = CourseResponseModel, status_code = 200)
 async def get_course(
                     course_id: str,
                     apikey: str = Header(None)
@@ -32,7 +33,7 @@ async def get_course(
     return await CourseController.get_course(course_id)
 
 
-@router.patch('/{course_id}', response_model = Course, status_code = 200)
+@router.patch('/{course_id}', response_model = CourseResponseModel, status_code = 200)
 async def update_course(
                         course_id: str,
                         course: CoursePatch,

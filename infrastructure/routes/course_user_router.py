@@ -5,7 +5,7 @@ from application.services.auth import auth_service
 
 router = APIRouter()
 
-@router.post('/', response_model = CourseUserDB, status_code = 201)
+@router.post('/', response_model = CourseResponseModel, status_code = 201)
 async def create_course_user(
                             payload: CourseUserSchema,
                             course_id: str,

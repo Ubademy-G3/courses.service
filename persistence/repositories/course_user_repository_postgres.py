@@ -1,4 +1,4 @@
-from domain.course_user_model import CourseUser
+from domain.course_user_entity import CourseUser
 from infrastructure.db.database import database
 from infrastructure.db.course_user_schema import course_users
 from domain.course_user_repository import CourseUserRepository
@@ -8,7 +8,7 @@ from sqlalchemy import and_
 class CourseUserRepositoryPostgres(CourseUserRepository):
 
     async def add_course_user(self, payload: CourseUser):
-        query = course_users.insert().values(**payload.dict())
+        query = course_users.insert().values(vars(payload))
         return await database.execute(query=query)
 
 

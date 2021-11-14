@@ -1,5 +1,6 @@
 from persistence.repositories.course_user_repository_postgres import CourseUserRepositoryPostgres
 from domain.course_user_model import *
+from domain.course_user_entity import *
 from errors.http_error import NotFoundError
 from errors.ubademy_error import CourseAlreadyAcquired
 from application.serializers.course_user_serializer import CourseUserSerializer
@@ -23,6 +24,6 @@ async def add_course_user(course_id, args):
         progress = args.progress,
         aprobal_state = args.aprobal_state
     )
-    
+
     await curp.add_course_user(new_user)
     return CourseUserSerializer.serialize(new_user)

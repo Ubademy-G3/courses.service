@@ -1,4 +1,5 @@
 from domain.course_user_model import *
+from domain.course_user_entity import *
 from application.use_cases.course_user import (create, get, delete)
 
 class CourseUserController:
