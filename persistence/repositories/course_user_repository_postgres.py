@@ -1,4 +1,4 @@
-from domain.course_user_model import (CourseUser, Optional)
+from domain.course_user_model import (CourseUser, CourseUserPatch, Optional)
 from infrastructure.db.database import database
 from infrastructure.db.course_user_schema import course_users
 from domain.course_user_repository import CourseUserRepository
@@ -25,6 +25,13 @@ class CourseUserRepositoryPostgres(CourseUserRepository):
         query = course_users.select().where(and_(course_users.c.course_id == course_id,
                                             course_users.c.user_id == user_id))
         return await database.fetch_one(query=query)
+
+
+    async def update_course_user(self, course_id: str, user_id: str, payload: CourseUserPatch):
+        query = (course_users.update().
+                 where(and_(course_users.c.course_id == course_id, course_users.c.user_id == user_id))
+                 .values(**payload.dict()))
+        return await database.execute(query=query)
         
 
     async def delete_course_user(self, course_id, user_id: str):

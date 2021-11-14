@@ -1,5 +1,5 @@
 from domain.course_user_model import *
-from application.use_cases.course_user import (create, get, delete)
+from application.use_cases.course_user import (create, get, update, delete)
 
 class CourseUserController:
     @classmethod
@@ -12,6 +12,12 @@ class CourseUserController:
     def get_all_course_users(self, course_id, user_type):
 
         return get.get_all_course_users(course_id, user_type)
+
+
+    @classmethod
+    async def update_course_user(self, course_id, user_id, update_args):
+       
+        return await update.update_course_user(course_id, user_id, update_args)
 
 
     @classmethod
