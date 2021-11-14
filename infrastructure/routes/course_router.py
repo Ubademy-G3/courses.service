@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Header
+from fastapi import APIRouter, Header, Query
 from typing import List, Optional
 from application.controllers.course_controller import *
 from application.services.auth import auth_service
@@ -17,11 +17,13 @@ async def create_course(
 
 @router.get('/',response_model = List[Course], status_code = 200)
 async def get_all_courses(
-                            apikey: Optional[str] = Header(None)
+                            apikey: Optional[str] = Header(None),
+                            category: Optional[List[str]] = Query(None),
+                            subscription_type: Optional[List[str]] = Query(None)
                         ):
 
     auth_service.check_api_key(apikey)
-    return await CourseController.get_all_courses()
+    return await CourseController.get_all_courses(category, subscription_type)
 
 
 @router.get('/{course_id}', response_model = CourseDB, status_code = 200)

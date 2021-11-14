@@ -9,9 +9,9 @@ class CourseController:
 
 
     @classmethod
-    async def get_all_courses(self):
+    async def get_all_courses(self, category, subscription_type):
 
-        return await get.get_all_courses()
+        return await get.get_all_courses(category, subscription_type)
 
 
     @classmethod
