@@ -53,4 +53,3 @@ async def delete_course(
 
     auth_service.check_api_key(apikey)
     return await CourseController.delete_course(course_id)
-
