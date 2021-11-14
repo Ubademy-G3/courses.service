@@ -3,9 +3,9 @@ from errors.http_error import NotFoundError
 
 crp = CourseRepositoryPostgres()
 
-async def get_all_courses():
+async def get_all_courses(category, subscription_type):
 
-    courses = await crp.get_all_courses()
+    courses = await crp.get_all_courses(category, subscription_type)
     if courses is None or len(courses) == 0:
         raise NotFoundError("Courses")
     return courses

@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from uuid import uuid4, UUID
-from typing import Optional
+from typing import Optional, List
 
 
 class Course(BaseModel):

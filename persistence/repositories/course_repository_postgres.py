@@ -1,8 +1,8 @@
-from domain.course_model import (Course, CoursePatch, uuid4, UUID)
+from domain.course_model import (Course, CoursePatch, List)
 from infrastructure.db.database import database
 from infrastructure.db.course_schema import courses
 from domain.course_repository import CourseRepository
-
+from sqlalchemy import and_
 
 class CourseRepositoryPostgres(CourseRepository):
 
@@ -11,8 +11,16 @@ class CourseRepositoryPostgres(CourseRepository):
         return await database.execute(query=query)
 
 
-    async def get_all_courses(self):
-        query = courses.select()
+    async def get_all_courses(self, category: List, subscription_type: List):
+        if category == None and subscription_type == None:
+            query = courses.select()
+        elif category != None and subscription_type == None:
+            query = courses.select().where(courses.c.category.in_(category))
+        elif category == None and subscription_type != None:
+            query = courses.select().where(courses.c.subscription_type.in_(subscription_type))
+        else:
+            query = courses.select().where(and_(courses.c.category.in_(category),
+                                            courses.c.subscription_type.in_(subscription_type)))
         return await database.fetch_all(query=query)
         
 
