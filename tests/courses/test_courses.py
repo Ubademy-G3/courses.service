@@ -5,7 +5,7 @@ from tests.conftest import test_app
 
 from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
 
-header = {"api-key": "@L4u71"}
+header = {"apikey": "@L4u71"}
 
 global_id = None
 
@@ -14,7 +14,7 @@ test_request_payload = {
     "description": "asd",
     "category": "coding",
     "kind": "online",
-    "subscription_type": ["free"],
+    "subscription_type": "free",
     "location": "arg",
     "info": {"hola": "as"}
 }
@@ -66,7 +66,7 @@ def test_get_existing_course(test_app, monkeypatch):
         "description": "asd",
         "category": "coding",
         "kind": "online",
-        "subscription_type": ["free"],
+        "subscription_type": "free",
         "location": "arg",
         "info": {"hola": "as"}
     }   
@@ -74,7 +74,7 @@ def test_get_existing_course(test_app, monkeypatch):
     async def mock_get(cls, id):
         return test_response_payload
 
-    monkeypatch.setattr(CourseRepositoryPostgres, "get_course", mock_get)
+    monkeypatch.setattr(CourseRepositoryPostgres, "get_course_by_id", mock_get)
 
     response = test_app.get("/courses/"+str(course_id), headers = header)
 
