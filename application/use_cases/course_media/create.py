@@ -7,6 +7,7 @@ cmrp = CourseMediaRepositoryPostgres()
 async def add_course_media(course_id, args):
 
     new_course_media = CourseMedia(
+        id = uuid4(),
         course_id = course_id,
         url = args.url
     )

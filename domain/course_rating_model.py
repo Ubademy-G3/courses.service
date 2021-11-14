@@ -4,7 +4,7 @@ from typing import List
 
 
 class CourseRating(BaseModel):
-    id: UUID = uuid4()
+    id: UUID
     course_id: UUID
     user_id: UUID
     score: int

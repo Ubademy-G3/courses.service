@@ -16,6 +16,11 @@ class CourseUserRepository(ABC):
     @abstractmethod
     def get_course_user(self, course_id, user_id):
         pass
+
+
+    @abstractmethod
+    def update_course_user(self, course_id, user_id, new_args):
+        pass
         
 
     @abstractmethod

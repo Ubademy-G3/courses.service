@@ -7,7 +7,7 @@ crp = CourseRepositoryPostgres()
 
 async def update_course(course_id, new_args):
     
-    course_to_update = await crp.get_course_by_id(course_id)
+    course_to_update = await crp.get_course(course_id)
     if not course_to_update:
         raise NotFoundError("Course {}".format(course_id))
 

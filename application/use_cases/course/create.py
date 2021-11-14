@@ -7,6 +7,7 @@ crp = CourseRepositoryPostgres()
 async def add_course(args):
     
     new_course = Course(
+        id = uuid4(),
         name = args.name,
         description = args.description,
         category = args.category,

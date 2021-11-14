@@ -9,8 +9,9 @@ router = APIRouter()
 async def create_course_user(
                             payload: CourseUserSchema,
                             course_id: str,
-                            apikey: str = Header(None)
+                            apikey: Optional[str] = Header(None)
                         ):
+
     auth_service.check_api_key(apikey)
     return await CourseUserController.create_course_user(payload, course_id)
     
@@ -18,21 +19,34 @@ async def create_course_user(
 @router.get('/',response_model = Dict, status_code = 200)
 async def get_all_course_users(
                                 course_id: str,
-                                apikey: str = Header(None)
+                                apikey: Optional[str] = Header(None),
+                                user_type: Optional[str] = None
                             ):
 
     auth_service.check_api_key(apikey)                       
-    course_users_list = await CourseUserController.get_all_course_users(course_id)
+    course_users_list = await CourseUserController.get_all_course_users(course_id, user_type)
     return {"amount": len(course_users_list),
             "course_id": course_id,
             "users": course_users_list}
+
+
+@router.patch('/{user_id}', response_model = CourseUserDB, status_code = 200)
+async def update_course_user(
+                        course_id: str,
+                        user_id: str,
+                        user: CourseUserPatch,
+                        apikey: Optional[str] = Header(None)
+                    ):
+
+    auth_service.check_api_key(apikey)
+    return await CourseUserController.update_course_user(course_id, user_id, user)
 
 
 @router.delete('/{user_id}', response_model = str, status_code = 200)
 async def delete_course_user(
                             course_id: str,
                             user_id: str,
-                            apikey: str = Header(None)
+                            apikey: Optional[str] = Header(None)
                         ):
 
     auth_service.check_api_key(apikey)                    

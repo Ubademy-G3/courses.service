@@ -4,12 +4,12 @@ from typing import Optional
 
 
 class Course(BaseModel):
-    id: UUID = uuid4()
+    id: UUID
     name: str
     description: str
     category: str
     kind: str
-    subscription_type: list
+    subscription_type: str
     location: str
     info: dict
 
@@ -19,7 +19,7 @@ class CoursePatch(BaseModel):
     description: Optional[str] = None
     category: Optional[str] = None
     kind: Optional[str] = None
-    subscription_type: Optional[list] = None
+    subscription_type: Optional[str] = None
     location: Optional[str] = None
     info: Optional[dict] = None
     
@@ -29,6 +29,9 @@ class CourseSchema(BaseModel):
     description: str
     category: str
     kind: str
-    subscription_type: list
+    subscription_type: str
     location: str
     info: dict
+
+class CourseDB(CourseSchema):
+    id: UUID

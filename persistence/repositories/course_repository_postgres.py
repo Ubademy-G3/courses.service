@@ -21,9 +21,9 @@ class CourseRepositoryPostgres(CourseRepository):
         return await database.fetch_one(query=query)
 
 
-    async def update_course(self, id: str, payload: CoursePatch):
+    async def update_course(self, course_id: str, payload: CoursePatch):
         query = (courses.update().
-                 where(courses.c.id == id)
+                 where(courses.c.id == course_id)
                  .values(**payload.dict()))
         return await database.execute(query=query)
 

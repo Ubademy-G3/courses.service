@@ -3,17 +3,17 @@ from uuid import UUID, uuid4
 from typing import List,Optional
 
 class CourseUser(BaseModel):
-    id: UUID = uuid4()
+    id: UUID
     course_id: UUID
     user_id: UUID
-    user_type: list
+    user_type: str
     progress: int = 0
     aprobal_state: bool = False
 
 
 class CourseUserSchema(BaseModel):
     user_id: UUID
-    user_type: list
+    user_type: str
     progress: int = 0
     aprobal_state: bool = False
 
@@ -30,6 +30,6 @@ class CourseUserList(CourseUserDB):
     
 
 class CourseUserPatch(BaseModel):
-    user_type: Optional[list] = None
+    user_type: Optional[str] = None
     progress: Optional[int] = None
     aprobal_state: Optional[bool] = None

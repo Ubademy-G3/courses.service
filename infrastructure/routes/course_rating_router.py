@@ -9,20 +9,20 @@ router = APIRouter()
 async def add_course_rating(
                             payload: CourseRatingSchema,
                             course_id: str,
-                            api_key: Optional[str] = Header(None)
+                            apikey: Optional[str] = Header(None)
                         ):
 
-    auth_service.check_api_key(api_key)
+    auth_service.check_api_key(apikey)
     return await CourseRatingController.create_course_rating(payload, course_id)
 
 
 @router.get('/', response_model = Dict, status_code = 200)
 async def get_all_course_ratings(
                                 course_id: str,
-                                api_key: Optional[str] = Header(None)
+                                apikey: Optional[str] = Header(None)
                             ):
 
-    auth_service.check_api_key(api_key)
+    auth_service.check_api_key(apikey)
     course_ratings = await CourseRatingController.get_all_course_ratings(course_id)
     return {
         "amount": len(course_ratings),
@@ -35,9 +35,9 @@ async def get_all_course_ratings(
 async def delete_course_rating(
                                 course_id: str,
                                 rating_id: str,
-                                api_key: Optional[str] = Header(None)
+                                apikey: Optional[str] = Header(None)
                             ):
 
-    auth_service.check_api_key(api_key)
+    auth_service.check_api_key(apikey)
     rating_deleted = await CourseRatingController.delete_course_rating(course_id, rating_id)
     return "The review {} was deleted successfully".format(rating_id)

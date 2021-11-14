@@ -4,7 +4,7 @@ from typing import List
 
 
 class CourseMedia(BaseModel):
-    id: UUID = uuid4()
+    id: UUID
     course_id: UUID
     url: str
 
