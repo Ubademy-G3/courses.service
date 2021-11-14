@@ -91,3 +91,6 @@ def test_get_existing_course(test_app, monkeypatch):
     assert response_json['info'] == test_request_payload['info']
 
 '''
+
+def test_basic_course():
+    assert 2 == 1+1
