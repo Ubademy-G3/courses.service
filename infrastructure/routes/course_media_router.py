@@ -9,20 +9,20 @@ router = APIRouter()
 async def create_course_media(
                             payload: CourseMediaSchema,
                             course_id: str,
-                            api_key: Optional[str] = Header(None)
+                            apikey: Optional[str] = Header(None)
                         ):
 
-    auth_service.check_api_key(api_key)
+    auth_service.check_api_key(apikey)
     return await CourseMediaController.create_course_media(payload, course_id)
 
 
 @router.get('/', response_model = CourseMediaList, status_code = 200)
 async def get_all_course_media(
                             course_id: str,
-                            api_key: Optional[str] = Header(None)
+                            apikey: Optional[str] = Header(None)
                             ):
 
-    auth_service.check_api_key(api_key)
+    auth_service.check_api_key(apikey)
     course_media_list = await CourseMediaController.get_all_course_media(course_id)
     return {"amount": len(course_media_list),
             "course_id": course_id,
@@ -33,10 +33,10 @@ async def get_all_course_media(
 async def get_course_media(
                             course_id: str,
                             media_id: str,
-                            api_key: Optional[str] = Header(None)
+                            apikey: Optional[str] = Header(None)
                         ):
 
-    auth_service.check_api_key(api_key)
+    auth_service.check_api_key(apikey)
     return await CourseMediaController.get_course_media(course_id, media_id)
     
 
@@ -44,9 +44,9 @@ async def get_course_media(
 async def delete_course_media(
                                 course_id: str,
                                 media_id: str,
-                                api_key: Optional[str] = Header(None)
+                                apikey: Optional[str] = Header(None)
                             ):    
                             
-    auth_service.check_api_key(api_key)                    
+    auth_service.check_api_key(apikey)                    
     course_deleted = await CourseMediaController.delete_course_media(course_id, media_id)
     return "The media {} was deleted successfully".format(media_id)
