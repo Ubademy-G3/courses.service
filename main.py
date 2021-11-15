@@ -26,21 +26,21 @@ async def shutdown():
 
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request, exc):
-    error = {"error": exc.detail}
+    error = {"message": exc.detail}
     logging.error(f"status_code: {exc.status_code} message: {exc.detail}")
     return JSONResponse(status_code = exc.status_code, content = error)
 
 
 @app.exception_handler(UbademyException)
 async def ubademy_exception_hanlder(request, exc):
-    error = {"error": exc.detail}
+    error = {"message": exc.detail}
     logging.error(f"status_code: {exc.status_code} message: {exc.detail}")
     return JSONResponse(status_code = exc.status_code, content = error)
 
 
 @app.exception_handler(AuthorizationException)
 async def auth_exception_handler(request, exc):
-    error = {"error": exc.detail}
+    error = {"message": exc.detail}
     logging.error(f"status_code: {exc.status_code} message: {exc.detail}")
     return JSONResponse(status_code = exc.status_code, content = error)
 
