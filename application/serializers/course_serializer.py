@@ -13,5 +13,6 @@ class CourseSerializer:
             "kind": course.kind,
             "subscription_type": course.subscription_type,
             "location": course.location,
-            "info": course.info
+            "info": course.info,
+            "profile_picture": course.profile_picture
         }

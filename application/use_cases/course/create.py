@@ -14,7 +14,8 @@ async def add_course(args):
         kind = args.kind,
         subscription_type = args.subscription_type,
         location = args.location,
-        info = args.info
+        info = args.info,
+        profile_picture = args.profile_picture
     )
 
     await crp.add_course(new_course)
