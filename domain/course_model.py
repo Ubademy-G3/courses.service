@@ -12,6 +12,7 @@ class Course(BaseModel):
     subscription_type: str
     location: str
     info: dict
+    profile_picture: str
 
 
 class CoursePatch(BaseModel):
@@ -22,6 +23,7 @@ class CoursePatch(BaseModel):
     subscription_type: Optional[str] = None
     location: Optional[str] = None
     info: Optional[dict] = None
+    profile_picture: Optional[str] = None
     
 
 class CourseSchema(BaseModel):
@@ -32,6 +34,7 @@ class CourseSchema(BaseModel):
     subscription_type: str
     location: str
     info: dict
+    profile_picture: str
 
 class CourseDB(CourseSchema):
     id: UUID

@@ -29,6 +29,12 @@ async def update_course(course_id, new_args):
 
     if new_args.location is not None:
         course_in_db.location = new_args.location
+
+    if new_args.info is not None:
+        course_in_db.info = new_args.info
+
+    if new_args.profile_picture is not None:
+        course_in_db.profile_picture = new_args.profile_picture
                 
     update_data = course_in_db.dict(exclude_unset=True)
     updated_course = course_in_db.copy(update=update_data)

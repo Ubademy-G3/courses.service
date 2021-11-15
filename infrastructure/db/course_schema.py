@@ -14,5 +14,6 @@ courses = Table(
     Column('kind', String(255), nullable = False),
     Column('subscription_type', String(255), nullable = False),
     Column('location', String(255), nullable = False),
-    Column('info', JSON, nullable = False)
+    Column('info', JSON, nullable = False),
+    Column('profile_picture', String(255), nullable = False)
 )
