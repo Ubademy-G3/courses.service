@@ -1,7 +1,6 @@
-'''import json
+import json
 import pytest
 import uuid
-from tests.conftest import test_app
 
 from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
 
@@ -12,11 +11,12 @@ global_id = None
 test_request_payload = {
     "name": "Python3",
     "description": "asd",
-    "category": "coding",
+    "category": 1,
     "kind": "online",
     "subscription_type": "free",
     "location": "arg",
-    "info": {"hola": "as"}
+    "info": {"hola": "as"},
+    "profile_picture": "una_url.com"
 }
 
 
@@ -44,6 +44,7 @@ def test_create_course(test_app, monkeypatch):
     assert response_json['subscription_type'] == test_request_payload['subscription_type']
     assert response_json['location'] == test_request_payload['location']
     assert response_json['info'] == test_request_payload['info']
+    assert response_json['profile_picture'] == test_request_payload['profile_picture']
 
 
 def test_create_course_without_apikey(test_app, monkeypatch):
@@ -53,7 +54,7 @@ def test_create_course_without_apikey(test_app, monkeypatch):
 
     response_json = response.json()
 
-    assert response_json['error'] == "Error with API Key"
+    assert response_json['message'] == "Error with API Key"
 
 
 def test_get_existing_course(test_app, monkeypatch):
@@ -64,11 +65,12 @@ def test_get_existing_course(test_app, monkeypatch):
         "id": course_id,
         "name": "Python3",
         "description": "asd",
-        "category": "coding",
+        "category": 1,
         "kind": "online",
         "subscription_type": "free",
         "location": "arg",
-        "info": {"hola": "as"}
+        "info": {"hola": "as"},
+        "profile_picture": "una_url.com"
     }   
 
     async def mock_get(cls, id):
@@ -89,8 +91,8 @@ def test_get_existing_course(test_app, monkeypatch):
     assert response_json['subscription_type'] == test_request_payload['subscription_type']
     assert response_json['location'] == test_request_payload['location']
     assert response_json['info'] == test_request_payload['info']
+    assert response_json['profile_picture'] == test_request_payload['profile_picture']
 
-'''
 
 def test_basic_course():
     assert 2 == 1+1
