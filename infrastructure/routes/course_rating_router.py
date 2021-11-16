@@ -24,9 +24,15 @@ async def get_all_course_ratings(
 
     auth_service.check_api_key(apikey)
     course_ratings = await CourseRatingController.get_all_course_ratings(course_id)
+    
+    avg = 0
+    for rating in course_ratings:
+        avg += rating["score"]
+    
     return {
         "amount": len(course_ratings),
         "course_id": course_id,
+        "rating": avg / len(course_ratings),
         "reviews": course_ratings
     }
 
