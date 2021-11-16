@@ -28,11 +28,12 @@ async def get_all_course_ratings(
     avg = 0
     for rating in course_ratings:
         avg += rating["score"]
+    avg /= len(course_ratings)  
     
     return {
         "amount": len(course_ratings),
         "course_id": course_id,
-        "rating": avg / len(course_ratings),
+        "rating": avg,
         "reviews": course_ratings
     }
 
