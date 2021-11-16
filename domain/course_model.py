@@ -7,7 +7,7 @@ class Course(BaseModel):
     id: UUID
     name: str
     description: str
-    category: str
+    category: int
     kind: str
     subscription_type: str
     location: str
@@ -18,7 +18,7 @@ class Course(BaseModel):
 class CoursePatch(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
-    category: Optional[str] = None
+    category: Optional[int] = None
     kind: Optional[str] = None
     subscription_type: Optional[str] = None
     location: Optional[str] = None
@@ -29,7 +29,7 @@ class CoursePatch(BaseModel):
 class CourseSchema(BaseModel):
     name: str
     description: str
-    category: str
+    category: int
     kind: str
     subscription_type: str
     location: str

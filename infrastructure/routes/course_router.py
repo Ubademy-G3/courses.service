@@ -18,7 +18,7 @@ async def create_course(
 @router.get('/',response_model = List[Course], status_code = 200)
 async def get_all_courses(
                             apikey: Optional[str] = Header(None),
-                            category: Optional[List[str]] = Query(None),
+                            category: Optional[List[int]] = Query(None),
                             subscription_type: Optional[List[str]] = Query(None)
                         ):
 
