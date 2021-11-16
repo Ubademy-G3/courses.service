@@ -7,13 +7,13 @@ class CourseRating(BaseModel):
     id: UUID
     course_id: UUID
     user_id: UUID
-    score: int
+    score: float
     opinion: str
 
 
 class CourseRatingSchema(BaseModel):
     user_id: UUID
-    score: int
+    score: float
     opinion:str
 
 
