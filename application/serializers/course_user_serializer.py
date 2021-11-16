@@ -1,4 +1,4 @@
-from domain.course_user_model import CourseUser
+from infrastructure.db.course_user_schema import CourseUser
 
 class CourseUserSerializer:
 

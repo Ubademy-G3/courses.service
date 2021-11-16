@@ -1,5 +1,5 @@
 from persistence.repositories.course_user_repository_postgres import CourseUserRepositoryPostgres
-from domain.course_user_model import *
+from infrastructure.db.course_user_schema import CourseUser
 from errors.http_error import NotFoundError
 from errors.ubademy_error import CourseAlreadyAcquired
 from application.serializers.course_user_serializer import CourseUserSerializer
@@ -8,12 +8,12 @@ from application.use_cases.course_user.get import course_already_acquired
 
 curp = CourseUserRepositoryPostgres()
 
-async def add_course_user(course_id, args):
+def add_course_user(db, course_id, args):
     
-    if not await course_exists(course_id):
+    if not course_exists(db, course_id):
         raise NotFoundError("Course {}".format(course_id))
 
-    if await course_already_acquired(course_id, args.user_id):
+    if course_already_acquired(db, course_id, args.user_id):
         raise CourseAlreadyAcquired()
 
     new_user = CourseUser(
@@ -25,5 +25,5 @@ async def add_course_user(course_id, args):
         aprobal_state = args.aprobal_state
     )
     
-    await curp.add_course_user(new_user)
+    curp.add_course_user(db, new_user)
     return CourseUserSerializer.serialize(new_user)

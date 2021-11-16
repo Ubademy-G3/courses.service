@@ -1,4 +1,4 @@
-from domain.course_category_model import CourseCategory
+from infrastructure.db.course_category_schema import CourseCategory
 
 class CourseCategorySerializer:
 

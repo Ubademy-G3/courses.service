@@ -1,34 +1,29 @@
-from domain.course_rating_model import CourseRating
-from infrastructure.db.database import database
-from infrastructure.db.course_rating_schema import course_ratings
-from domain.course_rating_repository import CourseRatingRepository
-from sqlalchemy import and_
+from infrastructure.db.course_rating_schema import CourseRating
+from sqlalchemy import func
+
+class CourseRatingRepositoryPostgres():
+
+    def add_course_rating(self, db, payload):
+        db.add(payload)
+        db.commit()
 
 
-class CourseRatingRepositoryPostgres(CourseRatingRepository):
-
-    async def add_course_rating(self, payload: CourseRating):
-        query = course_ratings.insert().values(**payload.dict())
-        return await database.execute(query=query)
-
-
-    async def get_all_course_ratings(self, course_id: str):
-        query = course_ratings.select(course_ratings.c.course_id == course_id)
-        return await database.fetch_all(query=query)
+    def get_all_course_ratings(self, db, course_id):
+        course_rating_list = db.query(CourseRating).filter(CourseRating.course_id == course_id).all()
+        return course_rating_list
 
        
-    async def get_course_rating(self, course_id: str, rating_id: str):
-        query = course_ratings.select().where(and_(course_ratings.c.id == rating_id,
-                                            course_ratings.c.course_id == course_id))
-        return await database.fetch_one(query=query)
+    def get_course_rating(self, db, course_id, rating_id):
+        rating = db.query(CourseRating).filter(CourseRating.course_id == course_id).\
+                        filter(CourseRating.id == rating_id).first()
+        return rating
 
 
-    async def get_course_rating_from(self, user_id: str, course_id: str):
-        query = course_ratings.select().where(and_(course_ratings.c.course_id == course_id,
-                                            course_ratings.c.user_id == user_id))
-        return await database.fetch_one(query=query)
+    def get_course_rating_from(self, db, user_id, course_id):
+        rating = db.query(CourseRating).filter(CourseRating.course_id == course_id).\
+                        filter(CourseRating.user_id == user_id).first()
+        return rating
 
-    async def delete_course_rating(self, course_id: str, rating_id: str):
-        query = course_ratings.delete().where(and_(course_ratings.c.course_id == course_id,
-                                                course_ratings.c.id == rating_id))
-        return await database.execute(query=query)
+    async def delete_course_rating(self, db, rating):
+        db.delete(rating)
+        db.commit()

@@ -1,10 +1,13 @@
-from sqlalchemy import (Column, Integer, String, Table, MetaData)
+from infrastructure.db.database import Base
+from sqlalchemy import (Column, Integer, String)
 
-metadata = MetaData()
+class CourseCategory(Base):
 
-course_categories = Table(
-    'course_categories',
-    metadata,
-    Column('id', Integer, primary_key = True, autoincrement = True),
-    Column('name', String(255), nullable = False)
-)
+    __tablename__ = 'course_categories'
+    id = Column(Integer, primary_key = True)
+    name = Column(String(255), nullable = False)
+
+    def __init__(self, id, name):
+
+        self.id = id
+        self.name = name

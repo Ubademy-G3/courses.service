@@ -1,4 +1,4 @@
-from domain.course_model import Course
+from infrastructure.db.course_schema import Course
 
 class CourseSerializer:
 
@@ -10,9 +10,10 @@ class CourseSerializer:
             "name": course.name,
             "description": course.description,
             "category": course.category,
-            "kind": course.kind,
             "subscription_type": course.subscription_type,
             "location": course.location,
-            "info": course.info,
-            "profile_picture": course.profile_picture
+            "profile_picture": course.profile_picture,
+            "duration": course.duration,
+            "language": course.language,
+            "level": course.level
         }

@@ -3,9 +3,9 @@ from errors.http_error import NotFoundError
 
 crrp = CourseRatingRepositoryPostgres()
 
-async def delete_course_rating(course_id, rating_id):
+def delete_course_rating(db, course_id, rating_id):
 
-    rating = await crrp.get_course_rating(course_id, rating_id)
+    rating = crrp.get_course_rating(db, course_id, rating_id)
     if not rating:
         raise NotFoundError("Rating {} in Course {}".format(rating_id,course_id))
-    return await crrp.delete_course_rating(course_id, rating_id)
+    crrp.delete_course_rating(db, rating)

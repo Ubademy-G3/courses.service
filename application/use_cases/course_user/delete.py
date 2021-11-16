@@ -3,9 +3,9 @@ from errors.http_error import NotFoundError
 
 curp = CourseUserRepositoryPostgres()
 
-async def delete_course_user(course_id, user_id):
+def delete_course_user(db, course_id, user_id):
 
-    user = await curp.get_course_user(course_id, user_id)
+    user = curp.get_course_user(db, course_id, user_id)
     if not user:
         raise NotFoundError("User {} in Course {}".format(user_id,course_id))
-    return await curp.delete_course_user(course_id, user_id)
+    curp.delete_course_user(db, user)

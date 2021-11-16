@@ -1,16 +1,11 @@
 from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
 from errors.http_error import NotFoundError
 
-crp = CourseRepositoryPostgres()
+crp = CourseRepositoryPostgres()    
 
-async def delete_all_courses():
+def delete_course(db, course_id):
 
-    return await crp.delete_all_courses()
-    
-
-async def delete_course(course_id):
-
-    course = await crp.get_course(course_id)
+    course = crp.get_course_by_id(db, course_id)
     if not course:
         raise NotFoundError("Course {}".format(id))
-    return await crp.delete_course(course_id)
+    crp.delete_course(db, course)
