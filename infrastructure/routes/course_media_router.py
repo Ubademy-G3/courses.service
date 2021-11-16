@@ -40,7 +40,7 @@ async def get_course_media(
     return await CourseMediaController.get_course_media(course_id, media_id)
     
 
-@router.delete('/{media_id}', response_model = str, status_code = 200)
+@router.delete('/{media_id}', response_model = dict, status_code = 200)
 async def delete_course_media(
                                 course_id: str,
                                 media_id: str,
@@ -49,4 +49,6 @@ async def delete_course_media(
                             
     auth_service.check_api_key(apikey)                    
     course_deleted = await CourseMediaController.delete_course_media(course_id, media_id)
-    return "The media {} was deleted successfully".format(media_id)
+    return {
+        "message": "The media {} was deleted successfully".format(media_id)
+    }

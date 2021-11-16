@@ -10,7 +10,7 @@ courses = Table(
     Column('id', UUID, primary_key = True,default = uuid.uuid4),
     Column('name', String(255), nullable = False),
     Column('description', Text, nullable = False),
-    Column('category', String(255), nullable = False),
+    Column('category', Integer, nullable = False),
     Column('kind', String(255), nullable = False),
     Column('subscription_type', String(255), nullable = False),
     Column('location', String(255), nullable = False),
