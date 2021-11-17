@@ -1,25 +1,29 @@
 from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
 from errors.http_error import NotFoundError
+from application.serializers.course_serializer import CourseSerializer
 
 crp = CourseRepositoryPostgres()
 
-async def get_all_courses(category, subscription_type):
+def get_all_courses(db, category, subscription_type):
 
-    courses = await crp.get_all_courses(category, subscription_type)
+    courses = crp.get_all_courses(db, category, subscription_type)
     if courses is None or len(courses) == 0:
         raise NotFoundError("Courses")
-    return courses
+    courses_list = []
+    for course in courses:
+        courses_list.append(CourseSerializer.serialize(course))
+    return courses_list
 
 
-async def get_course(course_id):
+def get_course(db, course_id):
 
-    course = await crp.get_course_by_id(course_id)
+    course = crp.get_course_by_id(db, course_id)
     if course is None:
         raise NotFoundError("Course {}".format(course_id))
-    return course
+    return CourseSerializer.serialize(course)
     
 
-async def course_exists(course_id):
+async def course_exists(db, course_id):
 
-    return await crp.get_course_by_id(course_id) != None
+    return crp.get_course_by_id(db, course_id) != None
     

@@ -3,9 +3,9 @@ from errors.http_error import NotFoundError
 
 ccrp = CourseCategoryRepositoryPostgres()
 
-async def delete_category(category_id):
+def delete_category(db, category_id):
 
-    category = await ccrp.get_course_category(category_id)
+    category = ccrp.get_course_category(db, category_id)
     if not category:
         raise NotFoundError("Category")
-    return await ccrp.delete_course_category(category_id)
+    ccrp.delete_course_category(db, category)
