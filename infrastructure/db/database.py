@@ -1,9 +1,26 @@
-from sqlalchemy import (create_engine)
 import os
-from databases import Database
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy.ext.declarative import declarative_base
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 
 engine = create_engine(DATABASE_URL)
 
-database = Database(DATABASE_URL)
+Session = sessionmaker(autocommit = False, autoflush = False, bind = engine)
+session = Session()
+
+#Base class for models
+Base = declarative_base()
+
+def recreate_database():
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+
+def get_db():
+    db = Session()
+    try:
+        yield db    
+    finally:
+        db.close()
+

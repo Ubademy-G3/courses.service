@@ -5,25 +5,19 @@ from fastapi import HTTPException
 from infrastructure.routes import (course_router, course_media_router,
                                 course_user_router, course_rating_router,
                                 course_category_router)
-from infrastructure.db.database import database, engine
-from infrastructure.db.course_schema import metadata
+
+from infrastructure.db.database import Base, engine
+from sqlalchemy.exc import SQLAlchemyError
 from errors.ubademy_error import UbademyException
 from errors.auth_error import AuthorizationException
 
-metadata.create_all(engine)
+Base.metadata.create_all(engine)
 
-app = FastAPI()
-
-
-@app.on_event("startup")
-async def startup():
-    await database.connect()
-
-
-@app.on_event("shutdown")
-async def shutdown():
-    await database.disconnect()
-
+app = FastAPI(
+                title = "Ubademy - Courses service",
+                description = "Courses service API"
+            )
+            
 
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request, exc):

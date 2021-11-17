@@ -1,11 +1,23 @@
 from persistence.repositories.course_category_repository_postgres import CourseCategoryRepositoryPostgres
 from errors.http_error import NotFoundError
+from application.serializers.course_category_serializer import CourseCategorySerializer
 
 ccrp = CourseCategoryRepositoryPostgres()
 
-async def get_course_category(category_id):
+def get_course_category(db, category_id):
 
-    category = await ccrp.get_course_category(category_id)
+    category = ccrp.get_course_category(db, category_id)
     if category is None:
         raise NotFoundError("Category")
-    return category
+    return CourseCategorySerializer.serialize(course_media)
+
+
+def get_all_categories(db):
+
+    categories = ccrp.get_all_categories(db)
+    if categories is None or len(categories) == 0:
+        raise NotFoundError("Categories")
+    cat_list = []
+    for c in categories:
+        cat_list.append(CourseCategorySerializer.serialize(c))
+    return cat_list

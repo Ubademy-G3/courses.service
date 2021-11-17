@@ -1,4 +1,4 @@
-from domain.course_media_model import CourseMedia
+from infrastructure.db.course_media_schema import CourseMedia
 
 class CourseMediaSerializer:
 

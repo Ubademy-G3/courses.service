@@ -1,4 +1,4 @@
-from domain.course_rating_model import CourseRating
+from infrastructure.db.course_rating_schema import CourseRating
 
 class CourseRatingSerializer:
 

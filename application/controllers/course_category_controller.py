@@ -1,21 +1,26 @@
 from application.use_cases.course_category import (create, get, delete)
-from domain.course_category_model import *
 
 class CourseCategoryController:
 
     @classmethod
-    async def create_category(self, args):
+    def create_category(self, db, args):
         
-        return await create.add_course_category(args)
+        return create.add_course_category(db, args)
 
     
     @classmethod
-    async def get_course_category(self, category_id):
+    def get_course_category(self, db, category_id):
 
-        return await get.get_course_category(category_id)
+        return get.get_course_category(db, category_id)
 
 
     @classmethod
-    async def delete_course_category(self, category_id):
+    def get_all_course_categories(self, db):
 
-        return await delete.delete_course_category(category_id)
+        return get.get_all_categories(db)
+
+
+    @classmethod
+    def delete_course_category(self, db, category_id):
+
+        return delete.delete_course_category(db, category_id)

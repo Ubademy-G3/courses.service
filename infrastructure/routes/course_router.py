@@ -1,57 +1,70 @@
-from fastapi import APIRouter, Header, Query
+from fastapi import APIRouter, Header, Query, Depends
+from infrastructure.db.database import Session, get_db
 from typing import List, Optional
 from application.controllers.course_controller import *
 from application.services.auth import auth_service
+from domain.course_model import *
 
 router = APIRouter()
 
-@router.post('/',response_model = Course, status_code = 201)
+@router.post('/',response_model = CourseDB, status_code = 201)
 async def create_course(
                         payload: CourseSchema,
+                        db: Session = Depends(get_db),
                         apikey: Optional[str] = Header(None)
                     ):
 
     auth_service.check_api_key(apikey)
-    return await CourseController.create_course(payload)
+    return CourseController.create_course(db, payload)
 
 
-@router.get('/',response_model = List[Course], status_code = 200)
+@router.get('/',response_model = CourseList, status_code = 200)
 async def get_all_courses(
+                            db: Session = Depends(get_db),
                             apikey: Optional[str] = Header(None),
                             category: Optional[List[int]] = Query(None),
                             subscription_type: Optional[List[str]] = Query(None)
                         ):
 
     auth_service.check_api_key(apikey)
-    return await CourseController.get_all_courses(category, subscription_type)
-
+    courses_list = CourseController.get_all_courses(db, category, subscription_type)
+    return {
+        "amount": len(courses_list),
+        "courses": courses_list
+    }
 
 @router.get('/{course_id}', response_model = CourseDB, status_code = 200)
 async def get_course(
                     course_id: str,
+                    db: Session = Depends(get_db),
                     apikey: Optional[str] = Header(None)
                 ):
 
     auth_service.check_api_key(apikey)
-    return await CourseController.get_course(course_id)
+    return CourseController.get_course(db, course_id)
 
 
-@router.patch('/{course_id}', response_model = Course, status_code = 200)
+@router.patch('/{course_id}', response_model = CourseDB, status_code = 200)
 async def update_course(
                         course_id: str,
                         course: CoursePatch,
+                        db: Session = Depends(get_db),
                         apikey: Optional[str] = Header(None)
                     ):
 
     auth_service.check_api_key(apikey)
-    return await CourseController.update_course(course_id, course)
+    return CourseController.update_course(db, course_id, course)
 
 
-@router.delete('/{course_id}')
+@router.delete('/{course_id}', response_model = dict, status_code = 200)
 async def delete_course(
                         course_id: str,
+                        db: Session = Depends(get_db),
                         apikey: Optional[str] = Header(None)
                     ):
 
     auth_service.check_api_key(apikey)
-    return await CourseController.delete_course(course_id)
+    CourseController.delete_course(db, course_id)
+    return {
+        "message": "Course {} deleted successfully".format(course_id)
+    }

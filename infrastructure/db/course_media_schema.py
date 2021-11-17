@@ -1,13 +1,17 @@
-from sqlalchemy import (Column, String, Table, MetaData, ForeignKey)
+from infrastructure.db.database import Base
+from sqlalchemy import (Column, String, ForeignKey)
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 
-metadata = MetaData()
+class CourseMedia(Base):
 
-course_media = Table(
-    'course_media',
-    metadata,
-    Column('id', UUID, primary_key=True,default=uuid.uuid4),
-    Column('course_id', UUID, ForeignKey('courses.id')),
-    Column('url', String(255))
-)
+    __tablename__ = "course_media"
+    id = Column(UUID(as_uuid=True), primary_key = True, default = uuid.uuid4())
+    course_id = Column(UUID(as_uuid=True), ForeignKey('courses.id', ondelete="CASCADE"), nullable = False)
+    url = Column(String(255), nullable = False)
+
+    def __init__(self, id, course_id, url):
+
+        self.id = id
+        self.course_id = course_id
+        self.url = url

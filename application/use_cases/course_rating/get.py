@@ -1,24 +1,28 @@
 from persistence.repositories.course_rating_repository_postgres import CourseRatingRepositoryPostgres
 from errors.http_error import NotFoundError
+from application.serializers.course_rating_serializer import CourseRatingSerializer
 
 crrp = CourseRatingRepositoryPostgres()
 
-async def get_all_course_ratings(course_id):
+def get_all_course_ratings(db, course_id):
 
-    ratings_list = await crrp.get_all_course_ratings(course_id)
-    if ratings_list is None or len(ratings_list) == 0:
+    ratings = crrp.get_all_course_ratings(course_id)
+    if ratings is None or len(ratings) == 0:
         raise NotFoundError("Ratings")
+    ratings_list = []
+    for rating in ratings:
+        ratings_list.append(CourseRatingSerializer.serialize(rating))
     return ratings_list
 
 
-async def get_course_rating(course_id, rating_id):
+def get_course_rating(db, course_id, rating_id):
 
-    rating = await crrp.get_course_rating(course_id, rating_id)
+    rating = crrp.get_course_rating(db, course_id, rating_id)
     if rating is None:
-        raise NotFoundError("Rating {} in course {}".format(rating_id,course_id))
-    return rating
+        raise NotFoundError("Rating {}".format(rating_id))
+    return CourseRatingSerializer.serialize(rating)
 
 
-async def course_already_scored(course_id, user_id):
+def course_already_scored(db, course_id, user_id):
 
-    return await crrp.get_course_rating_from(user_id, course_id) != None
+    return crrp.get_course_rating_from(db, user_id, course_id) != None

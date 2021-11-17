@@ -1,23 +1,28 @@
 from persistence.repositories.course_user_repository_postgres import CourseUserRepositoryPostgres
 from errors.http_error import NotFoundError
+from application.serializers.course_user_serializer import CourseUserSerializer
+
 curp = CourseUserRepositoryPostgres()
 
-async def get_all_course_users(course_id, user_type):
+def get_all_course_users(db, course_id, user_type):
 
-    users_list = await curp.get_all_course_users(course_id, user_type)
-    if users_list is None or len(users_list) == 0:
+    users = curp.get_all_course_users(db, course_id, user_type)
+    if users is None or len(users) == 0:
         raise NotFoundError("Users")
+    users_list = []
+    for user in users:
+        users_list.append(CourseUserSerializer.serialize(user))
     return users_list
 
 
-async def get_course_user(course_id, user_id):
+def get_course_user(db, course_id, user_id):
 
-    user = await curp.get_course_user(course_id, user_id)
+    user = curp.get_course_user(db, course_id, user_id)
     if user is None:
         raise NotFoundError("User {} in course {}".format(user_id,course_id))
-    return user
+    return CourseUserSerializer.serialize(user)
 
 
-async def course_already_acquired(course_id, user_id):
+def course_already_acquired(db, course_id, user_id):
 
-    return await curp.get_course_user(course_id, user_id) != None
+    return curp.get_course_user(db, course_id, user_id) != None
