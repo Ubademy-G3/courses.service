@@ -13,7 +13,7 @@ class CourseUserDB(CourseUserSchema):
     id: UUID
 
 
-class CourseUserList(CourseUserDB):
+class CourseUserList(BaseModel):
     amount: int
     course_id: UUID
     users: List[CourseUserDB]
