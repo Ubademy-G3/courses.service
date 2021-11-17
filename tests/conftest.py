@@ -1,7 +1,7 @@
-'''import os
+import os
 import pytest
-from main import app
-from infrastructure.db.database import Base, get_db, engine
+from ..main import app
+from ..infrastructure.db.database import Base, get_db, engine
 from sqlalchemy.orm import sessionmaker
 from fastapi.testclient import TestClient
 
@@ -26,4 +26,4 @@ def test_app():
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
-    yield client'''
+    yield client

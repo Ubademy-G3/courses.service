@@ -1,8 +1,8 @@
-def test_course():
+'''def test_course():
 
-    assert 1+1 == 2
+    assert 1+1 == 2'''
 
-'''import json
+import json
 import pytest
 
 
@@ -75,4 +75,3 @@ class TestCourse:
         assert response_json['language'] == test_request_payload['language']
         assert response_json['level'] == test_request_payload['level']
 
-'''
