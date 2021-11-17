@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from uuid import uuid4, UUID
 from typing import Optional, List
 
-
 class CoursePatch(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None

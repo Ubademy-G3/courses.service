@@ -7,7 +7,7 @@ from domain.course_media_model import *
 
 router = APIRouter()
 
-@router.post('/', response_model = CourseMediaSchema, status_code = 201)
+@router.post('/', response_model = CourseMediaDB, status_code = 201)
 async def create_course_media(
                             payload: CourseMediaSchema,
                             course_id: str,

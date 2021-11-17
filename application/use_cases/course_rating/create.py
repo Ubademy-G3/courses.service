@@ -7,6 +7,7 @@ from application.serializers.course_rating_serializer import CourseRatingSeriali
 from application.use_cases.course.get import course_exists
 from application.use_cases.course_user.get import course_already_acquired
 from application.use_cases.course_rating.get import course_already_scored
+from uuid import uuid4
 
 crrp = CourseRatingRepositoryPostgres()
 

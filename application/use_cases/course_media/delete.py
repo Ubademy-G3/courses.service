@@ -3,7 +3,7 @@ from errors.http_error import NotFoundError
 
 cmrp = CourseMediaRepositoryPostgres()
 
-async def delete_course_media(db, course_id, media_id):
+def delete_course_media(db, course_id, media_id):
 
     course_media = cmrp.get_course_media(db, course_id, media_id)
     if not course_media:

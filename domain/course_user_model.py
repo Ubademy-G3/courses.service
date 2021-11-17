@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from uuid import UUID, uuid4
 from typing import List,Optional
 
-
 class CourseUserSchema(BaseModel):
     user_id: UUID
     user_type: str

@@ -14,7 +14,7 @@ from errors.auth_error import AuthorizationException
 Base.metadata.create_all(engine)
 
 app = FastAPI(
-                title = "ubademy-coursesservice",
+                title = "Ubademy - Courses service",
                 description = "Courses service API"
             )
             

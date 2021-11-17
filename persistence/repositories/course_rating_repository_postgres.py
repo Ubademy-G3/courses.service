@@ -24,6 +24,6 @@ class CourseRatingRepositoryPostgres():
                         filter(CourseRating.user_id == user_id).first()
         return rating
 
-    async def delete_course_rating(self, db, rating):
+    def delete_course_rating(self, db, rating):
         db.delete(rating)
         db.commit()

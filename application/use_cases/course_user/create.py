@@ -5,6 +5,7 @@ from errors.ubademy_error import CourseAlreadyAcquired
 from application.serializers.course_user_serializer import CourseUserSerializer
 from application.use_cases.course.get import course_exists
 from application.use_cases.course_user.get import course_already_acquired
+from uuid import uuid4
 
 curp = CourseUserRepositoryPostgres()
 

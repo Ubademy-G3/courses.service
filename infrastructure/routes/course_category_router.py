@@ -7,7 +7,7 @@ from domain.course_category_model import *
 
 router = APIRouter()
 
-@router.post('/', response_model = CourseCategoryDB, status_code = 201)
+@router.post('/', response_model = CourseCategorySchema, status_code = 201)
 async def create_category(
                             payload: CourseCategorySchema,
                             db: Session = Depends(get_db),
@@ -18,7 +18,7 @@ async def create_category(
     return CourseCategoryController.create_category(db, payload)
 
 
-@router.get('/{category_id}', response_model = CourseCategoryDB, status_code = 200)
+@router.get('/{category_id}', response_model = CourseCategorySchema, status_code = 200)
 async def get_category(
                         category_id: int,
                         db: Session = Depends(get_db),
@@ -27,6 +27,16 @@ async def get_category(
 
     auth_service.check_api_key(apikey)
     return CourseCategoryController.get_course_category(db, category_id)
+
+
+@router.get('/', response_model = List[CourseCategorySchema], status_code = 200)
+async def get_all_categories(
+                            db: Session = Depends(get_db),
+                            apikey: Optional[str] = Header(None)
+                        ):
+
+    auth_service.check_api_key(apikey)
+    return CourseCategoryController.get_all_course_categories(db)
 
 
 @router.delete('/{category_id}', response_model = dict, status_code = 200)

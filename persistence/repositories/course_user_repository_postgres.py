@@ -1,7 +1,6 @@
 from infrastructure.db.course_user_schema import CourseUser
 from sqlalchemy import func
 
-
 class CourseUserRepositoryPostgres():
 
     def add_course_user(self, db, payload):
@@ -21,13 +20,13 @@ class CourseUserRepositoryPostgres():
     def get_course_user(self, db, course_id, user_id):
         user = db.query(CourseUser).filter(CourseUser.course_id == course_id).\
                         filter(CourseUser.user_id == user_id).first()
-        return course_media
+        return user
 
 
     def update_course_user(self, db):
         db.commit()
         
 
-    async def delete_course_user(self, db, user):
+    def delete_course_user(self, db, user):
         db.delete(user)
         db.commit()

@@ -5,7 +5,7 @@ from uuid import uuid4
 
 cmrp = CourseMediaRepositoryPostgres()
 
-async def add_course_media(db, course_id, args):
+def add_course_media(db, course_id, args):
 
     new_course_media = CourseMedia(
         id = uuid4(),

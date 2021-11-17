@@ -1,4 +1,4 @@
-from infrastructure.db.database import Base
+from infrastructure.db.database import Base, relationship
 from sqlalchemy import (Column, Integer, String, Table, Text, Float)
 from sqlalchemy.dialects.postgresql import (UUID, ARRAY)
 import uuid
@@ -16,6 +16,11 @@ class Course(Base):
     duration = Column(Float, nullable = False)
     language = Column(String(255), nullable = False)
     level = Column(String(255), nullable = False)
+
+    #Relationships
+    media = relationship("CourseMedia", cascade = "all, delete")
+    user = relationship("CourseUser", cascade = "all, delete")
+    rating = relationship("CourseRating", cascade = "all, delete")
 
     def __init__(self, id, name, description, category, subscription_type,
                 location, profile_picture, duration, language, level):

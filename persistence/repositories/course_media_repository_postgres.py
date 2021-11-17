@@ -1,7 +1,6 @@
 from infrastructure.db.course_media_schema import CourseMedia
 from sqlalchemy import func
 
-
 class CourseMediaRepositoryPostgres():
 
     def add_course_media(self, db, payload):

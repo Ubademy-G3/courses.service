@@ -6,9 +6,9 @@ import uuid
 class CourseUser(Base):
 
     __tablename__ = 'course_users'
-    id = Column(UUID, primary_key = True, default = uuid.uuid4())
-    course_id = Column(UUID, ForeignKey('courses.id'), nullable = False)
-    user_id = Column(UUID, nullable = False)
+    id = Column(UUID(as_uuid=True), primary_key = True, default = uuid.uuid4())
+    course_id = Column(UUID(as_uuid=True), ForeignKey('courses.id', ondelete="CASCADE"), nullable = False)
+    user_id = Column(UUID(as_uuid=True), nullable = False)
     user_type = Column(String(255), nullable = False)
     progress = Column(Float, nullable = False)
     aprobal_state = Column(Boolean, nullable = False)

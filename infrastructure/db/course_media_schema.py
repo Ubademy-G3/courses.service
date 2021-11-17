@@ -7,7 +7,7 @@ class CourseMedia(Base):
 
     __tablename__ = "course_media"
     id = Column(UUID(as_uuid=True), primary_key = True, default = uuid.uuid4())
-    course_id = Column(UUID, ForeignKey('courses.id'), nullable = False)
+    course_id = Column(UUID(as_uuid=True), ForeignKey('courses.id', ondelete="CASCADE"), nullable = False)
     url = Column(String(255), nullable = False)
 
     def __init__(self, id, course_id, url):

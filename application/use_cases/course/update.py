@@ -4,9 +4,9 @@ from application.serializers.course_serializer import CourseSerializer
 
 crp = CourseRepositoryPostgres()
 
-async def update_course(db, course_id, new_args):
+def update_course(db, course_id, new_args):
     
-    course_to_update = crp.get_course(db, course_id)
+    course_to_update = crp.get_course_by_id(db, course_id)
     if not course_to_update:
         raise NotFoundError("Course {}".format(course_id))
 

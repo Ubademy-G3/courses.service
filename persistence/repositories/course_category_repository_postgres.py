@@ -13,6 +13,11 @@ class CourseCategoryRepositoryPostgres():
         return category
 
 
+    def get_all_categories(self, db):
+        categories = db.query(CourseCategory).all()
+        return categories
+
+
     def delete_course_category(self, db, category):
         db.delete(category)
         db.commit()

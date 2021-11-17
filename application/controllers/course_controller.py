@@ -1,6 +1,5 @@
 from application.use_cases.course import (create,delete,get,update)
 
-
 class CourseController:
     
     @classmethod
