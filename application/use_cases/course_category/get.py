@@ -9,7 +9,7 @@ def get_course_category(db, category_id):
     category = ccrp.get_course_category(db, category_id)
     if category is None:
         raise NotFoundError("Category")
-    return CourseCategorySerializer.serialize(course_media)
+    return CourseCategorySerializer.serialize(category)
 
 
 def get_all_categories(db):
