@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Header, Depends
 from infrastructure.db.database import Session, get_db
-from typing import List, Optional
+from typing import List
 from application.controllers.course_media_controller import *
 from application.services.auth import auth_service
 from domain.course_media_model import *
@@ -12,7 +12,7 @@ async def create_course_media(
                             payload: CourseMediaSchema,
                             course_id: str,
                             db: Session = Depends(get_db),
-                            apikey: Optional[str] = Header(None)
+                            apikey: str = Header(None)
                         ):
 
     auth_service.check_api_key(apikey)
@@ -23,7 +23,7 @@ async def create_course_media(
 async def get_all_course_media(
                             course_id: str,
                             db: Session = Depends(get_db),
-                            apikey: Optional[str] = Header(None)
+                            apikey: str = Header(None)
                             ):
 
     auth_service.check_api_key(apikey)
@@ -38,7 +38,7 @@ async def get_course_media(
                             course_id: str,
                             media_id: str,
                             db: Session = Depends(get_db),
-                            apikey: Optional[str] = Header(None)
+                            apikey: str = Header(None)
                         ):
 
     auth_service.check_api_key(apikey)
@@ -50,7 +50,7 @@ async def delete_course_media(
                                 course_id: str,
                                 media_id: str,
                                 db: Session = Depends(get_db),
-                                apikey: Optional[str] = Header(None)
+                                apikey: str = Header(None)
                             ):    
                             
     auth_service.check_api_key(apikey)                    

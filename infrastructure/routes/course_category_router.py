@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Header, Depends
-from typing import Optional
 from infrastructure.db.database import Session, get_db
 from application.controllers.course_category_controller import *
 from application.services.auth import auth_service
@@ -11,7 +10,7 @@ router = APIRouter()
 async def create_category(
                             payload: CourseCategorySchema,
                             db: Session = Depends(get_db),
-                            apikey: Optional[str] = Header(None)
+                            apikey: str = Header(None)
                         ):
 
     auth_service.check_api_key(apikey)
@@ -22,7 +21,7 @@ async def create_category(
 async def get_category(
                         category_id: int,
                         db: Session = Depends(get_db),
-                        apikey: Optional[str] = Header(None)                        
+                        apikey: str = Header(None)                        
                     ):
 
     auth_service.check_api_key(apikey)
@@ -32,7 +31,7 @@ async def get_category(
 @router.get('/', response_model = List[CourseCategorySchema], status_code = 200)
 async def get_all_categories(
                             db: Session = Depends(get_db),
-                            apikey: Optional[str] = Header(None)
+                            apikey: str = Header(None)
                         ):
 
     auth_service.check_api_key(apikey)
@@ -43,7 +42,7 @@ async def get_all_categories(
 async def delete_category(
                             category_id: int,
                             db: Session = Depends(get_db),
-                            apikey: Optional[str] = Header(None)                            
+                            apikey: str = Header(None)                            
                         ):
 
     auth_service.check_api_key(apikey)
