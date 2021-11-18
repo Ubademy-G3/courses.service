@@ -1,5 +1,5 @@
 from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
-from errors.http_error import NotFoundError
+from exceptions.http_error import NotFoundError
 from application.serializers.course_serializer import CourseSerializer
 
 crp = CourseRepositoryPostgres()

@@ -8,8 +8,8 @@ from infrastructure.routes import (course_router, course_media_router,
 
 from infrastructure.db.database import Base, engine
 from sqlalchemy.exc import SQLAlchemyError
-from errors.ubademy_error import UbademyException
-from errors.auth_error import AuthorizationException
+from exceptions.ubademy_error import UbademyException
+from exceptions.auth_error import AuthorizationException
 
 Base.metadata.create_all(engine)
 
