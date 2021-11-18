@@ -27,7 +27,7 @@ async def http_exception_handler(request, exc):
 
 
 @app.exception_handler(UbademyException)
-async def ubademy_exception_hanlder(request, exc):
+async def ubademy_exception_handler(request, exc):
     error = {"message": exc.detail}
     logging.error(f"status_code: {exc.status_code} message: {exc.detail}")
     return JSONResponse(status_code = exc.status_code, content = error)
@@ -38,6 +38,13 @@ async def auth_exception_handler(request, exc):
     error = {"message": exc.detail}
     logging.error(f"status_code: {exc.status_code} message: {exc.detail}")
     return JSONResponse(status_code = exc.status_code, content = error)
+
+
+@app.exception_handler(SQLAlchemyError)
+async def sql_exception_handler(request, exc):
+    error = {"message": str(exc.__dict__['orig'])}
+    logging.error(f"status_code: 500 message: {str(exc.__dict__['orig'])}")
+    return JSONResponse(status_code = 500, content = error)
 
 
 app.include_router(course_router.router, prefix='/courses', tags=['courses'])

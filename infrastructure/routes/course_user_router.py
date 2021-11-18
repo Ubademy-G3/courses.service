@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Header, Depends
-from typing import List, Dict, Optional
 from infrastructure.db.database import Session, get_db
 from application.controllers.course_user_controller import *
 from application.services.auth import auth_service
@@ -12,7 +11,7 @@ async def create_course_user(
                             payload: CourseUserSchema,
                             course_id: str,
                             db: Session = Depends(get_db),
-                            apikey: Optional[str] = Header(None)
+                            apikey: str = Header(None)
                         ):
 
     auth_service.check_api_key(apikey)
@@ -23,7 +22,7 @@ async def create_course_user(
 async def get_all_course_users(
                                 course_id: str,
                                 db: Session = Depends(get_db),
-                                apikey: Optional[str] = Header(None),
+                                apikey: str = Header(None),
                                 user_type: Optional[str] = None
                             ):
 
@@ -40,7 +39,7 @@ async def update_course_user(
                         user_id: str,
                         user: CourseUserPatch,
                         db: Session = Depends(get_db),
-                        apikey: Optional[str] = Header(None)
+                        apikey: str = Header(None)
                     ):
 
     auth_service.check_api_key(apikey)
@@ -52,7 +51,7 @@ async def delete_course_user(
                             course_id: str,
                             user_id: str,
                             db: Session = Depends(get_db),
-                            apikey: Optional[str] = Header(None)
+                            apikey: str = Header(None)
                         ):
 
     auth_service.check_api_key(apikey)                    

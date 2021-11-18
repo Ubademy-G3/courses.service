@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Header, Depends
-from typing import List, Dict, Optional
 from infrastructure.db.database import Session, get_db
 from application.controllers.course_rating_controller import *
 from application.services.auth import auth_service
@@ -12,7 +11,7 @@ async def add_course_rating(
                             payload: CourseRatingSchema,
                             course_id: str,
                             db: Session = Depends(get_db),
-                            apikey: Optional[str] = Header(None)
+                            apikey: str = Header(None)
                         ):
 
     auth_service.check_api_key(apikey)
@@ -23,7 +22,7 @@ async def add_course_rating(
 async def get_all_course_ratings(
                                 course_id: str,
                                 db: Session = Depends(get_db),
-                                apikey: Optional[str] = Header(None)
+                                apikey: str = Header(None)
                             ):
 
     auth_service.check_api_key(apikey)
@@ -47,7 +46,7 @@ async def delete_course_rating(
                                 course_id: str,
                                 rating_id: str,
                                 db: Session = Depends(get_db),
-                                apikey: Optional[str] = Header(None)
+                                apikey: str = Header(None)
                             ):
 
     auth_service.check_api_key(apikey)

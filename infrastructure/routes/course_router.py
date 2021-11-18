@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Header, Query, Depends
 from infrastructure.db.database import Session, get_db
-from typing import List, Optional
 from application.controllers.course_controller import *
 from application.services.auth import auth_service
 from domain.course_model import *
@@ -11,7 +10,7 @@ router = APIRouter()
 async def create_course(
                         payload: CourseSchema,
                         db: Session = Depends(get_db),
-                        apikey: Optional[str] = Header(None)
+                        apikey: str = Header(None)
                     ):
 
     auth_service.check_api_key(apikey)
@@ -21,7 +20,7 @@ async def create_course(
 @router.get('/',response_model = CourseList, status_code = 200)
 async def get_all_courses(
                             db: Session = Depends(get_db),
-                            apikey: Optional[str] = Header(None),
+                            apikey: str = Header(None),
                             category: Optional[List[int]] = Query(None),
                             subscription_type: Optional[List[str]] = Query(None)
                         ):
@@ -37,7 +36,7 @@ async def get_all_courses(
 async def get_course(
                     course_id: str,
                     db: Session = Depends(get_db),
-                    apikey: Optional[str] = Header(None)
+                    apikey: str = Header(None)
                 ):
 
     auth_service.check_api_key(apikey)
@@ -49,7 +48,7 @@ async def update_course(
                         course_id: str,
                         course: CoursePatch,
                         db: Session = Depends(get_db),
-                        apikey: Optional[str] = Header(None)
+                        apikey: str = Header(None)
                     ):
 
     auth_service.check_api_key(apikey)
@@ -60,7 +59,7 @@ async def update_course(
 async def delete_course(
                         course_id: str,
                         db: Session = Depends(get_db),
-                        apikey: Optional[str] = Header(None)
+                        apikey: str = Header(None)
                     ):
 
     auth_service.check_api_key(apikey)
