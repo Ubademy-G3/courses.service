@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from errors.auth_error import ApiKeyError
+from exceptions.auth_error import ApiKeyError
 
 load_dotenv()
 

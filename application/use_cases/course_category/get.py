@@ -1,5 +1,5 @@
 from persistence.repositories.course_category_repository_postgres import CourseCategoryRepositoryPostgres
-from errors.http_error import NotFoundError
+from exceptions.http_error import NotFoundError
 from application.serializers.course_category_serializer import CourseCategorySerializer
 
 ccrp = CourseCategoryRepositoryPostgres()

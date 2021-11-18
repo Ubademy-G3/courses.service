@@ -1,5 +1,5 @@
 from persistence.repositories.course_user_repository_postgres import CourseUserRepositoryPostgres
-from errors.http_error import NotFoundError
+from exceptions.http_error import NotFoundError
 
 curp = CourseUserRepositoryPostgres()
 
