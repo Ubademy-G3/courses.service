@@ -9,7 +9,7 @@ class CourseCategoryRepositoryPostgres():
 
 
     def get_course_category(self, db, category_id):
-        category = db.query(CourseCategory).filter(CourseCategory.id == category_id)
+        category = db.query(CourseCategory).filter(CourseCategory.id == category_id).first()
         return category
 
 
