@@ -6,7 +6,7 @@ crrp = CourseRatingRepositoryPostgres()
 
 def get_all_course_ratings(db, course_id):
 
-    ratings = crrp.get_all_course_ratings(course_id)
+    ratings = crrp.get_all_course_ratings(db, course_id)
     if ratings is None or len(ratings) == 0:
         raise NotFoundError("Ratings")
     ratings_list = []

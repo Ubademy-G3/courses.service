@@ -16,5 +16,6 @@ class CourseRatingDB(CourseRatingSchema):
 class CourseRatingList(BaseModel):
     amount: int
     course_id: UUID
-    rating: List[CourseRatingDB]
+    rating: float
+    reviews: List[CourseRatingDB]
     

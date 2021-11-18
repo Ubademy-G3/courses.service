@@ -15,6 +15,6 @@ class CourseRatingController:
 
 
     @classmethod
-    async def delete_course_rating(self, db, course_id, rating_id):
+    def delete_course_rating(self, db, course_id, rating_id):
         
-        return await delete.delete_course_rating(db, course_id, rating_id)
+        return delete.delete_course_rating(db, course_id, rating_id)
