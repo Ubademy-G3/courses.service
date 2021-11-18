@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 from fastapi import HTTPException
 from infrastructure.routes import (course_router, course_media_router,
                                 course_user_router, course_rating_router,
-                                course_category_router)
+                                course_category_router, user_courses_router)
 
 from infrastructure.db.database import Base, engine
 from sqlalchemy.exc import SQLAlchemyError
@@ -56,3 +56,5 @@ app.include_router(course_user_router.router, prefix='/courses/{course_id}/users
 app.include_router(course_rating_router.router, prefix='/courses/{course_id}/ratings', tags=['ratings'])
 
 app.include_router(course_category_router.router, prefix='/courses/category', tags=['category'])
+
+app.include_router(user_courses_router.router, prefix='/courses/user/{user_id}', tags=['user courses'])
