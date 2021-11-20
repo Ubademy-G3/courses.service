@@ -1,5 +1,7 @@
-def test_course():
+from infrastructure.db.database import Base, get_db, engine, DATABASE_URL
 
+def test_course():
+    print("DATABASE_URL: {}".format(DATABASE_URL))
     assert 1+1 == 2
 
 '''import json
