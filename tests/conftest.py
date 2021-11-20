@@ -1,10 +1,10 @@
-'''import os
+import os
 import pytest
 from main import app
 from infrastructure.db.database import Base, get_db, engine
 from sqlalchemy.orm import sessionmaker
 from fastapi.testclient import TestClient
-
+'''
 @pytest.fixture(scope = "class", autouse = False)
 def test_app():
     
