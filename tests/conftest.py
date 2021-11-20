@@ -1,6 +1,6 @@
 import os
 import pytest
-from main import app
+#from main import app
 from infrastructure.db.database import Base, get_db, engine, DATABASE_URL
 from sqlalchemy.orm import sessionmaker
 from fastapi.testclient import TestClient
