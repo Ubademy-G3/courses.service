@@ -29,9 +29,10 @@ async def get_all_course_ratings(
     course_ratings = CourseRatingController.get_all_course_ratings(db, course_id)
     
     avg = 0
-    for rating in course_ratings:
-        avg += rating["score"]
-    avg /= len(course_ratings)  
+    if len(course_ratings) != 0:
+        for rating in course_ratings:
+            avg += rating["score"]
+        avg /= len(course_ratings)  
     
     return {
         "amount": len(course_ratings),

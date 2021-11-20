@@ -8,7 +8,7 @@ def get_all_course_ratings(db, course_id):
 
     ratings = crrp.get_all_course_ratings(db, course_id)
     if ratings is None or len(ratings) == 0:
-        raise NotFoundError("Ratings")
+        return []
     ratings_list = []
     for rating in ratings:
         ratings_list.append(CourseRatingSerializer.serialize(rating))

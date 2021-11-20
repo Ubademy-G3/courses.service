@@ -8,7 +8,7 @@ def get_all_course_users(db, course_id, user_type):
 
     users = curp.get_all_course_users(db, course_id, user_type)
     if users is None or len(users) == 0:
-        raise NotFoundError("Users")
+        return []
     users_list = []
     for user in users:
         users_list.append(CourseUserSerializer.serialize(user))
