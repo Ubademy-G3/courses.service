@@ -17,7 +17,8 @@ def add_course(db, args):
         profile_picture = args.profile_picture,
         duration = args.duration,
         language = args.language,
-        level = args.level
+        level = args.level,
+        modules = args.modules
     )
 
     crp.add_course(db, new_course)
