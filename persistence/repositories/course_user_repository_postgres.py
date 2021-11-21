@@ -35,6 +35,25 @@ class CourseUserRepositoryPostgres():
         return user
 
 
+    def get_course_metrics(self, db, course_id):
+        partial_query = db.query(CourseUser).filter(CourseUser.course_id == course_id)
+        if partial_query == None:
+            total_users_in_course = 0
+            users_approved = 0
+            users_currently_in_course = 0
+        else:
+            total_users_in_course = partial_query.count()
+            users_approved = partial_query.filter(CourseUser.aprobal_state == True).count()
+            users_currently_in_course = partial_query.filter(CourseUser.aprobal_state == False).count()
+
+        return {
+            "total_users": total_users_in_course,
+            "users_approved": users_approved,
+            "users_currently_studying": users_currently_in_course
+        }
+
+
+
     def update_course_user(self, db):
         db.commit()
         
