@@ -15,6 +15,12 @@ class CourseUserController:
 
 
     @classmethod
+    def get_course_metrics(self, db, course_id):
+
+        return get.get_course_metrics(db, course_id)
+
+
+    @classmethod
     def get_all_user_courses(self, db, user_id, aprobal_state, user_type):
 
         return get.get_all_user_courses(db, user_id, aprobal_state, user_type)
