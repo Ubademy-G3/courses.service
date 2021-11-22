@@ -8,7 +8,7 @@ class CourseModule(Base):
     __tablename__ = "course_modules"
     id = Column(UUID(as_uuid=True), primary_key = True, default = uuid.uuid4())
     title = Column(String(255), nullable = False)
-    media_id = Column(UUID(as_uuid=True), ForeignKey('course_media.id', ondelete="CASCADE"), nullable = False)
+    media_id = Column(UUID(as_uuid=True), ForeignKey('course_media.id', ondelete="CASCADE"), nullable = True)
     content = Column(Text, nullable = True)
     exam_id = Column(UUID(as_uuid=True), nullable = True)
 
