@@ -22,11 +22,12 @@ async def get_all_courses(
                             db: Session = Depends(get_db),
                             apikey: str = Header(None),
                             category: Optional[List[int]] = Query(None),
-                            subscription_type: Optional[List[str]] = Query(None)
+                            subscription_type: Optional[List[str]] = Query(None),
+                            text: Optional[str] = None
                         ):
 
     auth_service.check_api_key(apikey)
-    courses_list = CourseController.get_all_courses(db, category, subscription_type)
+    courses_list = CourseController.get_all_courses(db, category, subscription_type, text)
     return {
         "amount": len(courses_list),
         "courses": courses_list

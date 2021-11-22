@@ -1,4 +1,4 @@
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from infrastructure.db.course_schema import Course
 
 class CourseRepositoryPostgres():
@@ -8,21 +8,18 @@ class CourseRepositoryPostgres():
         db.commit()        
 
 
-    def get_all_courses(self, db, category, subscription_type):
+    def get_all_courses(self, db, category, subscription_type, text):
 
         partial_query = db.query(Course)
-        if category == None and subscription_type == None:
-            pass
 
-        elif category != None and subscription_type == None:
+        if category != None:
             partial_query = partial_query.filter(Course.category.in_(category))
 
-        elif category == None and subscription_type != None:
+        if subscription_type != None:
             partial_query = partial_query.filter(Course.subscription_type.in_(subscription_type))
 
-        else:
-            partial_query = partial_query.filter((Course.category.in_(category)) & 
-                                                 (Course.subscription_type.in_(subscription_type)))
+        if text != None:
+            partial_query = partial_query.filter(or_(func.lower(Course.name).contains(text.lower()), func.lower(Course.description).contains(text.lower())))
 
         courses_list = partial_query.all()
         return courses_list

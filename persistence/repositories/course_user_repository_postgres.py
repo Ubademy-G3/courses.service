@@ -23,7 +23,7 @@ class CourseUserRepositoryPostgres():
             query = query.filter(CourseUser.aprobal_state == aprobal_state)
 
         if user_type != None:
-            query = query.filter(CourseUser.user_type == user_type)
+            query = query.filter(CourseUser.user_type == user_type.lower())
             
         user_courses_list = query.all()
         return user_courses_list
