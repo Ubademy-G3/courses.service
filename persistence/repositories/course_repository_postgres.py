@@ -15,14 +15,14 @@ class CourseRepositoryPostgres():
             pass
 
         elif category != None and subscription_type == None:
-            partial_query = partial_query.filter(Course.category in category)
+            partial_query = partial_query.filter(Course.category.in_(category))
 
         elif category == None and subscription_type != None:
-            partial_query = partial_query.filter(Course.subscription_type in subscription_type)
-       
+            partial_query = partial_query.filter(Course.subscription_type.in_(subscription_type))
+
         else:
-            partial_query = partial_query.filter((Course.category in category) & 
-                                                 (Course.subscription_type in subscription_type))
+            partial_query = partial_query.filter((Course.category.in_(category)) & 
+                                                 (Course.subscription_type.in_(subscription_type)))
 
         courses_list = partial_query.all()
         return courses_list
