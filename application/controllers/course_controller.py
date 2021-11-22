@@ -9,9 +9,9 @@ class CourseController:
 
 
     @classmethod
-    def get_all_courses(self, db, category, subscription_type):
+    def get_all_courses(self, db, category, subscription_type, text):
 
-        return get.get_all_courses(db, category, subscription_type)
+        return get.get_all_courses(db, category, subscription_type, text)
 
 
     @classmethod

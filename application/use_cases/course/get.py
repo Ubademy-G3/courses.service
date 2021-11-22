@@ -4,9 +4,9 @@ from application.serializers.course_serializer import CourseSerializer
 
 crp = CourseRepositoryPostgres()
 
-def get_all_courses(db, category, subscription_type):
+def get_all_courses(db, category, subscription_type, text):
 
-    courses = crp.get_all_courses(db, category, subscription_type)
+    courses = crp.get_all_courses(db, category, subscription_type, text)
     if courses is None or len(courses) == 0:
         raise NotFoundError("Courses")
     courses_list = []
