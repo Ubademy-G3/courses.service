@@ -4,7 +4,7 @@ from typing import List, Optional
 
 class CourseModuleSchema(BaseModel):
     title: str
-    media_id: UUID
+    media_id: Optional[UUID] = None
     content: Optional[str] = None
     exam_id: Optional[UUID] = None
 
