@@ -13,8 +13,7 @@ class CourseRepositoryPostgres():
         partial_query = db.query(Course)
 
         if category != None:
-            category_lower = [c.lower() for c in category]
-            partial_query = partial_query.filter(Course.category.in_(category_lower))
+            partial_query = partial_query.filter(Course.category.in_(category))
 
         if subscription_type != None:
             subscription_lower = [subs.lower() for subs in subscription_type]
