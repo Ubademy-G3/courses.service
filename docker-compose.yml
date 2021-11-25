@@ -15,7 +15,7 @@ services:
       - db
     networks:
       - my-network
-      - external-net
+      #- external-net
   db:
     container_name: db
     image: postgres:13-alpine
