@@ -11,6 +11,7 @@ from infrastructure.db.database import Base, engine
 from sqlalchemy.exc import SQLAlchemyError
 from exceptions.ubademy_error import UbademyException
 from exceptions.auth_error import AuthorizationException
+from fastapi.middleware.cors import CORSMiddleware
 
 Base.metadata.create_all(engine)
 
@@ -18,6 +19,14 @@ app = FastAPI(
                 title = "Ubademy - Courses service",
                 description = "Courses service API"
             )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
             
 
 @app.exception_handler(HTTPException)

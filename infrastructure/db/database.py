@@ -3,9 +3,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 
-DATABASE_URL = os.getenv('DATABASE_URL')
+#DATABASE_URL = os.getenv('DATABASE_URL')
 
-engine = create_engine(DATABASE_URL)
+engine = create_engine("postgresql://hello_fastapi:hello_fastapi@db:5432/hello_fastapi_dev")
 
 Session = sessionmaker(autocommit = False, autoflush = False, bind = engine)
 session = Session()
