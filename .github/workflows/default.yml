@@ -33,6 +33,7 @@ jobs:
     needs: [run_linter]
     env:
       CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
+      DATABASE_URL: postgresql://hello_fastapi:hello_fastapi@db/hello_fastapi_dev
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
