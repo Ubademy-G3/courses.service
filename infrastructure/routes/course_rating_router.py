@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Header, Depends
-from infrastructure.db.database import Session, get_db
+from infrastructure.db.database import get_db
+from sqlalchemy.orm import Session
 from application.controllers.course_rating_controller import *
 from application.services.auth import auth_service
 from domain.course_rating_model import *

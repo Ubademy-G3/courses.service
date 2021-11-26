@@ -2,9 +2,8 @@ def test_course():
 
     assert 1+1 == 2
 
-'''import json
+import json
 import pytest
-
 
 header = {"apikey": "@L4u71"}
 
@@ -19,7 +18,8 @@ test_request_payload = {
     "profile_picture": "www.google.com",
     "duration": 43.2,
     "language": "english",
-    "level": "easy"
+    "level": "easy",
+    "modules": []
 }
 
 @pytest.mark.usefixtures("test_app")
@@ -43,7 +43,7 @@ class TestCourse:
         assert response_json['duration'] == test_request_payload['duration']
         assert response_json['language'] == test_request_payload['language']
         assert response_json['level'] == test_request_payload['level']
-
+        assert response_json['modules'] == test_request_payload['modules']
     
     def test_create_course_without_apikey(self, test_app):
 
@@ -74,5 +74,4 @@ class TestCourse:
         assert response_json['duration'] == test_request_payload['duration']
         assert response_json['language'] == test_request_payload['language']
         assert response_json['level'] == test_request_payload['level']
-
-'''
+        assert response_json['modules'] == test_request_payload['modules']

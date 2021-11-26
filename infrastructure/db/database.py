@@ -7,13 +7,13 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 
 engine = create_engine(DATABASE_URL)
 
-Session = sessionmaker(autocommit = False, autoflush = False, bind = engine)
-session = Session()
+SessionLocal = sessionmaker(autocommit = False, autoflush = False, bind = engine)
+
 
 #Base class for models
 Base = declarative_base()
 
-def recreate_database():
+'''def recreate_database():
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
@@ -22,5 +22,11 @@ def get_db():
     try:
         yield db    
     finally:
-        db.close()
+        db.close()'''
 
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
