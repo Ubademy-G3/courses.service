@@ -48,7 +48,7 @@ jobs:
       run: |
         pytest --cov=./ --cov-report=xml
       env:
-        DATABASE_URL=postgresql://hello_fastapi:hello_fastapi@db:5432/hello_fastapi_dev
+        DATABASE_URL: postgresql://hello_fastapi:hello_fastapi@db:5432/hello_fastapi_dev
     - name: Codecov
       uses: codecov/codecov-action@v1
       if: ${{ github.ref == 'refs/heads/main' }}
