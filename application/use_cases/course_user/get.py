@@ -19,7 +19,7 @@ def get_all_user_courses(db, user_id, aprobal_state, user_type):
 
     courses = curp.get_all_user_courses(db, user_id, aprobal_state, user_type)
     if courses is None or len(courses) == 0:
-        raise NotFoundError("Courses of user {}".format(user_id))
+        return []
     courses_list = []
     for user in courses:
         dicty = CourseUserSerializer.serialize(user)
