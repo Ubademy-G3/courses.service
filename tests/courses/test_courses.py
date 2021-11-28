@@ -4,9 +4,9 @@ from unittest.mock import Mock, patch
 import json
 import pytest
 import uuid
-from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
+#from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
 
-crp = CourseRepositoryPostgres()
+#crp = CourseRepositoryPostgres()
 
 global_id = None
 
