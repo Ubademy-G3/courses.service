@@ -36,15 +36,18 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
+      run: docker-compose up -d --build
       uses: actions/setup-python@v2
       with:
         python-version: "3.8"
     - name: Install dependencies
       run: |
         pip install -r requirements.txt 
+    - name: check db connection
+      run: docker exec web bash -c 'while !</dev/tcp/db/5432; do sleep 1; done;'
     - name: Test with pytest
       run: |
-        pytest --cov=./ --cov-report=xml
+        docker exec web pytest --cov=./ --cov-report=xml
     - name: Codecov
       uses: codecov/codecov-action@v1
       if: ${{ github.ref == 'refs/heads/main' }}
