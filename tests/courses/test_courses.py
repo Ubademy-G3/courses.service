@@ -64,7 +64,7 @@ import pytest
 
 
 header = {"apikey": "@L4u71"}
-y
+
 global_id = None
 
 test_request_payload = {
