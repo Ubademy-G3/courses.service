@@ -25,8 +25,9 @@ test_request_payload = {
 
 class TestCourse(unittest.TestCase):
 
+    @patch('infrastructure.db.database.Session')
     @patch('persistence.repositories.course_repository_postgres.CourseRepositoryPostgres')
-    def test_add_course(self, mockRepo):
+    def test_add_course(self, mockSession, mockRepo):
 
         global global_id
         global_id = uuid.uuid4()
@@ -34,7 +35,7 @@ class TestCourse(unittest.TestCase):
         mockRepo.add_course.return_value.status_code = 201
         mockRepo.add_course.return_value.id = global_id
 
-        db = AlchemyMagicMock()
+        #db = AlchemyMagicMock()
 
         mock_response = {
             "id": global_id,
@@ -51,7 +52,7 @@ class TestCourse(unittest.TestCase):
         }
         mockRepo.add_course.return_value = mock_response
 
-        response = mockRepo.add_course(db, json.dumps(test_request_payload))
+        response = mockRepo.add_course(mockSession, json.dumps(test_request_payload))
 
         self.assertEqual(response, mock_response)
         
