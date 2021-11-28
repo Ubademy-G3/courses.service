@@ -1,13 +1,69 @@
-def test_course():
+from mock_alchemy.mocking import AlchemyMagicMock
+import unittest
+from unittest.mock import Mock, patch
+import json
+import pytest
+import uuid
+from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
 
-    assert 1+1 == 2
+crp = CourseRepositoryPostgres()
 
+global_id = None
+
+test_request_payload = {
+    "name": "Python3",
+    "description": "asd",
+    "category": 2,
+    "subscription_type": "free",
+    "location": "arg",
+    "profile_picture": "www.google.com",
+    "duration": 43.2,
+    "language": "english",
+    "level": "easy",
+    "modules": []
+}
+
+class TestCourse(unittest.TestCase):
+
+    @patch('persistence.repositories.course_repository_postgres.CourseRepositoryPostgres')
+    def test_add_course(self, mockRepo):
+
+        global global_id
+        global_id = uuid.uuid4()
+
+        mockRepo.add_course.return_value.status_code = 201
+        mockRepo.add_course.return_value.id = global_id
+
+        db = AlchemyMagicMock()
+
+        mock_response = {
+            "id": global_id,
+            "name": "Python3",
+            "description": "asd",
+            "category": 2,
+            "subscription_type": "free",
+            "location": "arg",
+            "profile_picture": "www.google.com",
+            "duration": 43.2,
+            "language": "english",
+            "level": "easy",
+            "modules": []
+        }
+        mockRepo.add_course.return_value = mock_response
+
+        response = mockRepo.add_course(db, json.dumps(test_request_payload))
+
+        self.assertEqual(response, mock_response)
+        
+
+
+            
 '''import json
 import pytest
 
 
 header = {"apikey": "@L4u71"}
-
+y
 global_id = None
 
 test_request_payload = {
