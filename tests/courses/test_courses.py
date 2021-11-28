@@ -1,4 +1,4 @@
-from mock_alchemy.mocking import AlchemyMagicMock
+'''from mock_alchemy.mocking import AlchemyMagicMock
 import unittest
 from unittest.mock import Mock, patch
 import json
@@ -54,12 +54,12 @@ class TestCourse(unittest.TestCase):
 
         response = mockRepo.add_course(mockSession, json.dumps(test_request_payload))
 
-        self.assertEqual(response, mock_response)
+        self.assertEqual(response, mock_response)'''
         
 
 
             
-'''import json
+import json
 import pytest
 
 
@@ -131,5 +131,3 @@ class TestCourse:
         assert response_json['duration'] == test_request_payload['duration']
         assert response_json['language'] == test_request_payload['language']
         assert response_json['level'] == test_request_payload['level']
-
-'''

@@ -37,9 +37,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set up Python
       run: docker-compose up -d --build
-    #- name: Install dependencies
-      #run: |
-      #  pip install -r requirements.txt 
     - name: check db connection
       run: docker-compose exec -T web bash -c 'while !</dev/tcp/db/5432; do sleep 1; done;'
     - name: Test with pytest
