@@ -7,12 +7,13 @@ from infrastructure.routes import (course_router, course_media_router,
                                 course_category_router, user_courses_router,
                                 course_metrics_router, course_module_router)
 
-from infrastructure.db.database import Base, engine
+from infrastructure.db.database import Base, engine, DATABASE_URL
 from sqlalchemy.exc import SQLAlchemyError
 from exceptions.ubademy_error import UbademyException
 from exceptions.auth_error import AuthorizationException
 
-Base.metadata.create_all(engine)
+if DATABASE_URL is not None:
+    Base.metadata.create_all(engine)
 
 app = FastAPI(
                 title = "Ubademy - Courses service",
