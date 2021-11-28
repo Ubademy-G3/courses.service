@@ -41,7 +41,7 @@ jobs:
       run: |
         pip install -r requirements.txt 
     - name: check db connection
-      run: docker exec web bash -c 'while !</dev/tcp/db/5432; do sleep 1; done;'
+      run: docker-compose exec web bash -c 'while !</dev/tcp/db/5432; do sleep 1; done;'
     - name: Test with pytest
       run: |
         docker exec web pytest --cov=./ --cov-report=xml
