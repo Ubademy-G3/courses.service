@@ -26,7 +26,7 @@ class CourseTest(TestCase):
     @mock.patch.object(CourseRepositoryPostgres, "add_course")
     def test_create_course(self, mock_method):
 
-        mock_method.return_value = None
+        mock_method.return_value.status_code = 201
         response = test_app.post("/courses/",
                                 data = json.dumps(test_request_payload),
                                 headers = header)
@@ -51,6 +51,7 @@ class CourseTest(TestCase):
     def test_create_course_without_apikey(self, mock_method):
 
         response = test_app.post("/courses/", data = json.dumps(test_request_payload))
+        mock_method.return_value.status_code = 401
         assert response.status_code == 401
 
         response_json = response.json()
@@ -75,6 +76,7 @@ class CourseTest(TestCase):
             level= "easy",
             modules= []
         )
+        mock_method.return_value.status_code = 200
         response = test_app.get("/courses/"+str(course_id), headers = header)
 
         assert response.status_code == 200
