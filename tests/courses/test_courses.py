@@ -47,19 +47,6 @@ class CourseTest(TestCase):
         assert response_json['language'] == test_request_payload['language']
         assert response_json['level'] == test_request_payload['level']
         assert response_json['modules'] == test_request_payload['modules']
-    
-    @mock.patch.object(CourseRepositoryPostgres, "add_course")
-    def test_create_course_without_apikey(self, mock_method):
-
-        response = test_app.post("/courses/", data = json.dumps(test_request_payload))
-
-        mock_method.return_value.status_code = 401
-        print(response.status_code)
-        
-        response_json = response.json()
-        print(response_json)
-
-        assert response_json['message'] == "Error with API Key"
 
 
     @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
