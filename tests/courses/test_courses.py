@@ -1,9 +1,8 @@
 import json
-import pytest
+from tests.conftest import test_app
 from unittest import TestCase, mock
 from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
-
-crp = CourseRepositoryPostgres()
+from infrastructure.db.course_schema import Course
 
 header = {"apikey": "@L4u71"}
 
@@ -22,11 +21,12 @@ test_request_payload = {
     "modules": []
 }
 
-@pytest.mark.usefixtures("test_app")
-class TestCourse():
+class CourseTest(TestCase):
 
-    #@mock.patch.object(CourseRepositoryPostgres, "add_course")
-    def test_create_course(self, test_app, mock_method=None):
+    @mock.patch.object(CourseRepositoryPostgres, "add_course")
+    def test_create_course(self, mock_method):
+
+        mock_method.return_value = None
         response = test_app.post("/courses/",
                                 data = json.dumps(test_request_payload),
                                 headers = header)
@@ -47,8 +47,8 @@ class TestCourse():
         assert response_json['level'] == test_request_payload['level']
         assert response_json['modules'] == test_request_payload['modules']
     
-    #@mock.patch.object(CourseRepositoryPostgres, "add_course")
-    def test_create_course_without_apikey(self, test_app, mock_method=None):
+    @mock.patch.object(CourseRepositoryPostgres, "add_course")
+    def test_create_course_without_apikey(self, mock_method):
 
         response = test_app.post("/courses/", data = json.dumps(test_request_payload))
         assert response.status_code == 401
@@ -58,23 +58,23 @@ class TestCourse():
         assert response_json['message'] == "Error with API Key"
 
 
-    #@mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
-    def test_get_existing_course(self, test_app, mock_method=None):
+    @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
+    def test_get_existing_course(self, mock_method):
 
         course_id = global_id 
-        '''mock_method.return_value = {
-            "id": course_id,
-            "name": "Python3",
-            "description": "asd",
-            "category": 2,
-            "subscription_type": "free",
-            "location": "arg",
-            "profile_picture": "www.google.com",
-            "duration": 43.2,
-            "language": "english",
-            "level": "easy",
-            "modules": []
-        }'''
+        mock_method.return_value = Course(
+            id= course_id,
+            name= "Python3",
+            description= "asd",
+            category= 2,
+            subscription_type= "free",
+            location= "arg",
+            profile_picture= "www.google.com",
+            duration= 43.2,
+            language= "english",
+            level= "easy",
+            modules= []
+        )
         response = test_app.get("/courses/"+str(course_id), headers = header)
 
         assert response.status_code == 200
