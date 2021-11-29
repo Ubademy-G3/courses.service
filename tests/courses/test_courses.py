@@ -1,10 +1,11 @@
 import json
+import os
 from tests.conftest import test_app
 from unittest import TestCase, mock
 from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
 from infrastructure.db.course_schema import Course
 
-header = {"apikey": "@L4u71"}
+header = {"apikey": os.getenv('API_KEY')}
 
 global_id = None
 
