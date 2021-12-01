@@ -22,6 +22,7 @@ class Course(Base):
     media = relationship("CourseMedia", cascade = "all, delete")
     user = relationship("CourseUser", cascade = "all, delete")
     rating = relationship("CourseRating", cascade = "all, delete")
+    certificate = relationship("CourseCertificate", cascade = "all, delete")
 
     def __init__(self, id, name, description, category, subscription_type,
                 location, profile_picture, duration, language, level, modules):

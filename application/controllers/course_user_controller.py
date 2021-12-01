@@ -26,9 +26,9 @@ class CourseUserController:
         return get.get_all_user_courses(db, user_id, aprobal_state, user_type)
 
     @classmethod
-    def update_course_user(self, db, course_id, user_id, update_args):
+    def update_course_user(self, db, course_id, user_id, update_args, username):
        
-        return update.update_course_user(db, course_id, user_id, update_args)
+        return update.update_course_user(db, course_id, user_id, update_args, username)
 
 
     @classmethod
