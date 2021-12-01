@@ -1,7 +1,13 @@
 #Imports Required Packages from PIL
 import PIL
 from PIL import Image, ImageDraw, ImageFont
+import os
 import datetime
+from firebase_admin import credentials, initialize_app, storage
+
+#Init firebase with credentials
+cred = credentials.Certificate("application/services/certificate_generator/ubademy-mobile-ae5a598939c9.json")
+initialize_app(cred, {'storageBucket': 'ubademy-mobile.appspot.com'})
 
 #Defining pixels in template
 START_NAME_POS = 1108
@@ -50,5 +56,11 @@ class CertificateGenerator:
         #SAVE
         path = "application/services/certificate_generator/output/certificate_"+user_name+".pdf"
         img_rgb.save(path)
+        bucket = storage.bucket()
+        blob = bucket.blob(path)
+        blob.upload_from_filename(path)
+        blob.make_public()
 
-        return path
+        #DELETE
+        os.remove("application/services/certificate_generator/output/certificate_"+user_name+".pdf")
+        return blob.public_url
