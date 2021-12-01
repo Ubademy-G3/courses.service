@@ -5,7 +5,8 @@ from fastapi import HTTPException
 from infrastructure.routes import (course_router, course_media_router,
                                 course_user_router, course_rating_router,
                                 course_category_router, user_courses_router,
-                                course_metrics_router, course_module_router)
+                                course_metrics_router, course_module_router,
+                                course_certificate_router)
 
 from infrastructure.db.database import Base, engine, DATABASE_URL
 from sqlalchemy.exc import SQLAlchemyError
@@ -64,3 +65,5 @@ app.include_router(course_category_router.router, prefix='/courses/category', ta
 app.include_router(user_courses_router.router, prefix='/courses/user/{user_id}', tags=['user courses'])
 
 app.include_router(course_module_router.router, prefix='/courses/module', tags=['modules'])
+
+app.include_router(course_certificate_router.router, prefix='/courses/certificates/{user_id}', tags=['certificates'])

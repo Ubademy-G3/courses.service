@@ -39,11 +39,12 @@ async def update_course_user(
                         user_id: str,
                         user: CourseUserPatch,
                         db: Session = Depends(get_db),
-                        apikey: str = Header(None)
+                        apikey: str = Header(None),
+                        username: Optional[str] = None
                     ):
 
     auth_service.check_api_key(apikey)
-    return CourseUserController.update_course_user(db, course_id, user_id, user)
+    return CourseUserController.update_course_user(db, course_id, user_id, user, username)
 
 
 @router.delete('/{user_id}', response_model = dict, status_code = 200)
