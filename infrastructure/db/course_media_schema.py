@@ -10,8 +10,6 @@ class CourseMedia(Base):
     course_id = Column(UUID(as_uuid=True), ForeignKey('courses.id', ondelete="CASCADE"), nullable = False)
     url = Column(String(255), nullable = False)
 
-    #Relationships
-    modules = relationship("CourseModule", cascade = "all, delete")
     
     def __init__(self, id, course_id, url):
 
