@@ -22,7 +22,7 @@ async def get_all_courses(
                             db: Session = Depends(get_db),
                             apikey: str = Header(None),
                             category: Optional[List[int]] = Query(None, alias="category[]"),
-                            subscription_type: Optional[List[str]] = Query(None, alias="subscription[]"),
+                            subscription_type: Optional[List[str]] = Query(None, alias="subscription_type[]"),
                             text: Optional[str] = None
                         ):
 
