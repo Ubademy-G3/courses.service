@@ -30,6 +30,7 @@ class CourseSchema(BaseModel):
 
 class CourseDB(CourseSchema):
     id: UUID
+    metrics: dict
 
 
 class CourseList(BaseModel):

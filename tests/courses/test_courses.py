@@ -108,7 +108,7 @@ class CourseTest(TestCase):
 
         response = test_app.get("/courses/", headers = header)   
         response_json = response.json()
-
+        print(response_json)
         assert response.status_code == 200
         assert response_json == {
             "amount": 1,
@@ -123,7 +123,12 @@ class CourseTest(TestCase):
                 "duration": 43.2,
                 "language": "english",
                 "level": "easy",
-                "modules": []
+                "modules": [],
+                "metrics": {
+                    "total_users": 0,
+                    "users_approved": 0,
+                    "users_currently_studying": 0
+                }
             }]
         }
 
@@ -142,7 +147,8 @@ class CourseTest(TestCase):
             "duration": 44,
             "language": "spanish",
             "level": "easy",
-            "modules": []
+            "modules": [],
+            "metrics": {}
         }
         course_id = global_id
 
@@ -178,7 +184,8 @@ class CourseTest(TestCase):
             "duration": 44,
             "language": "spanish",
             "level": "easy",
-            "modules": []
+            "modules": [],
+            "metrics": {}
         }
 
 
