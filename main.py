@@ -5,7 +5,7 @@ from fastapi import HTTPException
 from infrastructure.routes import (course_router, course_media_router,
                                 course_user_router, course_rating_router,
                                 course_category_router, user_courses_router,
-                                course_metrics_router, course_module_router,
+                                course_module_router,
                                 course_certificate_router)
 
 from infrastructure.db.database import Base, engine, DATABASE_URL
@@ -57,8 +57,6 @@ app.include_router(course_media_router.router, prefix='/courses/{course_id}/medi
 app.include_router(course_user_router.router, prefix='/courses/{course_id}/users', tags=['users'])
 
 app.include_router(course_rating_router.router, prefix='/courses/{course_id}/ratings', tags=['ratings'])
-
-app.include_router(course_metrics_router.router, prefix='/courses/{course_id}/metrics', tags=['metrics'])
 
 app.include_router(course_category_router.router, prefix='/courses/category', tags=['category'])
 
