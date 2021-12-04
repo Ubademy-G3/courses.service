@@ -4,9 +4,8 @@ from typing import List, Optional
 
 class CourseModuleSchema(BaseModel):
     title: str
-    media_id: Optional[UUID] = None
+    media_id: Optional[list] = None
     content: Optional[str] = None
-    exam_id: Optional[UUID] = None
 
 
 class CourseModuleDB(CourseModuleSchema):
@@ -20,6 +19,5 @@ class CourseModuleList(BaseModel):
 
 class CourseModulePatch(BaseModel):
     title: Optional[str] = None
-    media_id: Optional[UUID] = None
+    media_id: Optional[list] = None
     content: Optional[str] = None
-    exam_id: Optional[UUID] = None

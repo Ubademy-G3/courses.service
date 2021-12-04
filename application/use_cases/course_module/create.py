@@ -11,8 +11,7 @@ def add_module(db, args):
         id = uuid4(),
         title = args.title,
         media_id = args.media_id,
-        content = args.content,
-        exam_id = args.exam_id
+        content = args.content
     )
 
     cmorp.add_module(db, new_module)

@@ -18,9 +18,6 @@ def update_module(db, module_id, new_args):
 
     if new_args.content is not None:
         module_to_update.content = new_args.content
-        
-    if new_args.exam_id is not None:
-        module_to_update.exam_id = new_args.exam_id
                 
     cmorp.update_module(db)
     return CourseModuleSerializer.serialize(module_to_update)
