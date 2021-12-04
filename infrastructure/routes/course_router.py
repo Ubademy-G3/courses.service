@@ -21,8 +21,8 @@ async def create_course(
 async def get_all_courses(
                             db: Session = Depends(get_db),
                             apikey: str = Header(None),
-                            category: Optional[List[int]] = Query(None),
-                            subscription_type: Optional[List[str]] = Query(None),
+                            category: Optional[List[int]] = Query(None, alias="category[]"),
+                            subscription_type: Optional[List[str]] = Query(None, alias="subscription[]"),
                             text: Optional[str] = None
                         ):
 
