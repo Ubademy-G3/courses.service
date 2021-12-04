@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import logging
 from fastapi.responses import JSONResponse
 from fastapi import HTTPException
@@ -21,6 +22,17 @@ app = FastAPI(
                 description = "Courses service API"
             )
             
+origins = [
+    "*",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request, exc):
