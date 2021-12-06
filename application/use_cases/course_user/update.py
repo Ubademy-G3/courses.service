@@ -16,11 +16,11 @@ def update_course_user(db, course_id, user_id, new_args, username):
     if new_args.progress is not None:
         user_to_update.progress = new_args.progress
         if new_args.progress == float(100):
-            user_to_update.aprobal_state = True
+            user_to_update.approval_state = True
             add_course_certificate(db, course_id, user_id, username)
 
-    if new_args.aprobal_state is not None:
-        user_to_update.aprobal_state = new_args.aprobal_state
+    if new_args.approval_state is not None:
+        user_to_update.approval_state = new_args.approval_state
                 
     curp.update_course_user(db)
     return CourseUserSerializer.serialize(user_to_update)

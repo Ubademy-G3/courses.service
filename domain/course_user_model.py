@@ -6,7 +6,7 @@ class CourseUserSchema(BaseModel):
     user_id: UUID
     user_type: str
     progress: float = 0.0
-    aprobal_state: bool = False
+    approval_state: bool = False
 
 
 class CourseUserDB(CourseUserSchema):
@@ -22,4 +22,4 @@ class CourseUserList(BaseModel):
 class CourseUserPatch(BaseModel):
     user_type: Optional[str] = None
     progress: Optional[float] = None
-    aprobal_state: Optional[bool] = None
+    approval_state: Optional[bool] = None

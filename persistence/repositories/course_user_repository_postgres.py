@@ -17,10 +17,10 @@ class CourseUserRepositoryPostgres():
         return users_list
 
 
-    def get_all_user_courses(self, db, user_id, aprobal_state, user_type):
+    def get_all_user_courses(self, db, user_id, approval_state, user_type):
         query = db.query(CourseUser).filter(CourseUser.user_id == user_id)
-        if aprobal_state != None:
-            query = query.filter(CourseUser.aprobal_state == aprobal_state)
+        if approval_state != None:
+            query = query.filter(CourseUser.approval_state == approval_state)
 
         if user_type != None:
             query = query.filter(CourseUser.user_type == user_type.lower())
@@ -43,8 +43,8 @@ class CourseUserRepositoryPostgres():
             users_currently_in_course = 0
         else:
             total_users_in_course = partial_query.count()
-            users_approved = partial_query.filter(CourseUser.aprobal_state == True).count()
-            users_currently_in_course = partial_query.filter(CourseUser.aprobal_state == False).count()
+            users_approved = partial_query.filter(CourseUser.approval_state == True).count()
+            users_currently_in_course = partial_query.filter(CourseUser.approval_state == False).count()
 
         return {
             "total_users": total_users_in_course,
