@@ -54,7 +54,7 @@ class CourseTest(TestCase):
     def test_get_existing_course(self, mock_method):
         
         course_id = global_id 
-        mock_method.return_value = Course(
+        '''mock_method.return_value = Course(
             id= course_id,
             name= "Python3",
             description= "asd",
@@ -67,7 +67,7 @@ class CourseTest(TestCase):
             level= "easy",
             modules= []
         )
-        mock_method.return_value.status_code = 200
+        mock_method.return_value.status_code = 200'''
         response = test_app.get("/courses/"+str(course_id), headers = header)
         response_json = response.json()
         assert response.status_code == 200
@@ -92,7 +92,7 @@ class CourseTest(TestCase):
     def test_get_all_courses(self, mock_method):
         
         course_id = global_id 
-        mock_method.return_value = [
+        '''mock_method.return_value = [
             Course(
                 id= course_id,
                 name= "Python3",
@@ -106,7 +106,7 @@ class CourseTest(TestCase):
                 level= "easy",
                 modules= []
             )
-        ]        
+        ]   '''     
 
         response = test_app.get("/courses/", headers = header)   
         response_json = response.json()
