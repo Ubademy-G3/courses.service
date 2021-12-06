@@ -17,7 +17,7 @@ test_request_payload = {
     "user_id": str(global_user_id),
     "user_type": "student",
     "progress": 0.0,
-    "aprobal_state": False
+    "approval_state": False
 }
 
 class CourseUserTest(TestCase):
@@ -44,7 +44,7 @@ class CourseUserTest(TestCase):
             "user_id": str(global_user_id),
             "user_type": "student",
             "progress": 0.0,
-            "aprobal_state": False,
+            "approval_state": False,
             "id": global_user_id_pkey
         }
     
@@ -59,7 +59,7 @@ class CourseUserTest(TestCase):
                 user_id = global_user_id,
                 user_type = "student",
                 progress = 0.0,
-                aprobal_state = False
+                approval_state = False
             )
         ]
 
@@ -74,9 +74,39 @@ class CourseUserTest(TestCase):
                 "user_id": str(global_user_id),
                 "user_type": "student",
                 "progress": 0.0,
-                "aprobal_state": False,
+                "approval_state": False,
                 "id": global_user_id_pkey
             }]
         }
         
+    
+    @mock.patch.object(CourseUserRepositoryPostgres, "update_course_user")
+    @mock.patch.object(CourseUserRepositoryPostgres, "get_course_user")    
+    def test_update_user(self, mock_update, mock_get):
+
+        test_patch_payload = {
+            "user_type": "instructor",
+            "progress": 50.0,
+            "approval_state": False
+        }
+
+        mock_update.return_value = CourseUser(
+            id = global_user_id_pkey,
+            course_id = global_course_id,
+            user_id = global_user_id,
+            user_type = "instructor",
+            progress = 50.0,
+            approval_state = False
+        )
+
+        response = test_app.patch("/courses/"+str(global_course_id)+"/users/"+str(global_user_id_pkey),
+                                data = json.dumps(test_patch_payload),
+                                headers = header)
+        response_json = response.json()
         
+        assert response.status_code == 200
+        assert response_json['user_id'] == str(global_user_id)
+        assert response_json['user_type'] == "instructor"
+        assert response_json['progress'] == 50.0
+        assert response_json['approval_state'] == False
+        assert response_json['id'] == str(global_user_id_pkey)

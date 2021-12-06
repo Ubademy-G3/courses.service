@@ -15,9 +15,9 @@ def get_all_course_users(db, course_id, user_type):
     return users_list
 
 
-def get_all_user_courses(db, user_id, aprobal_state, user_type):
+def get_all_user_courses(db, user_id, approval_state, user_type):
 
-    courses = curp.get_all_user_courses(db, user_id, aprobal_state, user_type)
+    courses = curp.get_all_user_courses(db, user_id, approval_state, user_type)
     if courses is None or len(courses) == 0:
         return []
     courses_list = []

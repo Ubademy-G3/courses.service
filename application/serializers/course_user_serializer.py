@@ -11,5 +11,5 @@ class CourseUserSerializer:
             "user_id": user.user_id,
             "user_type": user.user_type,
             "progress": user.progress,
-            "aprobal_state": user.aprobal_state
+            "approval_state": user.approval_state
         }

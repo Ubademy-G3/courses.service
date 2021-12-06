@@ -23,7 +23,7 @@ def add_course_user(db, course_id, args):
         user_id = args.user_id,
         user_type = args.user_type.lower(),
         progress = args.progress,
-        aprobal_state = args.aprobal_state
+        approval_state = args.approval_state
     )
     
     curp.add_course_user(db, new_user)

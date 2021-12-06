@@ -50,7 +50,7 @@ class CourseTest(TestCase):
         assert response_json['modules'] == test_request_payload['modules']
 
 
-    '''@mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
+    @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
     def test_get_existing_course(self, mock_method):
         
         course_id = global_id 
@@ -69,8 +69,10 @@ class CourseTest(TestCase):
         )
         mock_method.return_value.status_code = 200
         response = test_app.get("/courses/"+str(course_id), headers = header)
-
+        response_json = response.json()
         assert response.status_code == 200
+
+        '''assert response.status_code == 200
         response_json = response.json()
 
         assert response_json['id'] == course_id
@@ -86,7 +88,7 @@ class CourseTest(TestCase):
         assert response_json['modules'] == test_request_payload['modules']'''
 
 
-    '''@mock.patch.object(CourseRepositoryPostgres, "get_all_courses")
+    @mock.patch.object(CourseRepositoryPostgres, "get_all_courses")
     def test_get_all_courses(self, mock_method):
         
         course_id = global_id 
@@ -108,9 +110,9 @@ class CourseTest(TestCase):
 
         response = test_app.get("/courses/", headers = header)   
         response_json = response.json()
-        print(response_json)
+        
         assert response.status_code == 200
-        assert response_json == {
+        '''assert response_json == {
             "amount": 1,
             "courses": [{
                 "id": course_id,
