@@ -19,7 +19,7 @@ def add_course_user(db, course_id, args):
         raise NotFoundError("Course {}".format(course_id))
 
     if course_already_acquired(db, course_id, args.user_id):
-        logger.warning("Course %s already acquired by user %s", course_id, user_id)
+        logger.warning("Course %s already acquired by user %s", course_id, args.user_id)
         raise CourseAlreadyAcquired()
 
     new_user = CourseUser(
