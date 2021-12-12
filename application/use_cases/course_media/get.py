@@ -21,3 +21,20 @@ def get_course_media(db, course_id, media_id):
     if course_media is None:
         raise NotFoundError("Media {}".format(media_id))
     return CourseMediaSerializer.serialize(course_media)
+
+
+def get_all_module_media(db, module_id):
+
+    media = cmrp.get_all_course_module_media(db, module_id)
+    if media is None or len(media) == 0:
+        raise NotFoundError("Media of module {}".format(module_id))
+    media_list = []
+    for m in media:
+        media_list.append(CourseMediaSerializer.serialize(m))
+    return {
+        "amount": len(media_list),
+        "module_id": module_id,
+        "course_media": media_list
+    }    
+
+    

@@ -45,6 +45,18 @@ async def get_course_media(
     return CourseMediaController.get_course_media(db, course_id, media_id)
     
 
+@router.get('/module/{module_id}', response_model = CourseMediaByModuleList, status_code = 200)
+async def get_all_module_media(
+                            course_id: str,
+                            module_id: str,
+                            db: Session = Depends(get_db),
+                            apikey: str = Header(None)
+                        ):
+
+    auth_service.check_api_key(apikey)
+    return CourseMediaController.get_all_module_media(db, module_id)
+    
+
 @router.delete('/{media_id}', response_model = dict, status_code = 200)
 async def delete_course_media(
                                 course_id: str,

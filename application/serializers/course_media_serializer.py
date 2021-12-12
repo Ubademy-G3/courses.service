@@ -8,5 +8,6 @@ class CourseMediaSerializer:
         return {
             "id": media.id,
             "course_id": media.course_id,
+            "module_id": media.module_id,
             "url": media.url
         }

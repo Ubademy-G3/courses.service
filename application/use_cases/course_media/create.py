@@ -10,6 +10,7 @@ def add_course_media(db, course_id, args):
     new_course_media = CourseMedia(
         id = uuid4(),
         course_id = course_id,
+        module_id = args.module_id,
         url = args.url
     )
     

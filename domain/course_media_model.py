@@ -4,6 +4,7 @@ from typing import List
 
 class CourseMediaSchema(BaseModel):
     url: str
+    module_id: UUID
 
 
 class CourseMediaDB(CourseMediaSchema):
@@ -13,4 +14,10 @@ class CourseMediaDB(CourseMediaSchema):
 class CourseMediaList(BaseModel):
     amount: int
     course_id: UUID
+    course_media: List[CourseMediaDB]
+
+
+class CourseMediaByModuleList(BaseModel):
+    amount: int
+    module_id: UUID
     course_media: List[CourseMediaDB]
