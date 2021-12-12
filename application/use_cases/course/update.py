@@ -1,6 +1,9 @@
 from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
 from exceptions.http_error import NotFoundError
 from application.serializers.course_serializer import CourseSerializer
+import logging
+
+logger = logging.getLogger(__name__)
 
 crp = CourseRepositoryPostgres()
 
@@ -39,6 +42,8 @@ def update_course(db, course_id, new_args):
 
     if new_args.modules is not None:
         course_to_update.modules = new_args.modules
-                
+    
+    logger.debug("Update course %s", course_id)
     crp.update_course(db)
+    logger.info("Course updated")
     return CourseSerializer.serialize(course_to_update)

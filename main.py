@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import logging
+import logging.config
+import os
 from fastapi.responses import JSONResponse
 from fastapi import HTTPException
 from infrastructure.routes import (course_router, course_media_router,
@@ -13,6 +15,10 @@ from infrastructure.db.database import Base, engine, DATABASE_URL
 from sqlalchemy.exc import SQLAlchemyError
 from exceptions.ubademy_error import UbademyException
 from exceptions.auth_error import AuthorizationException
+
+logging_conf_path = os.path.join(os.path.dirname(__file__), "logging.ini")
+logging.config.fileConfig(logging_conf_path, disable_existing_loggers=False)
+
 
 if DATABASE_URL is not None:
     Base.metadata.create_all(engine)
@@ -58,7 +64,7 @@ async def auth_exception_handler(request, exc):
 @app.exception_handler(SQLAlchemyError)
 async def sql_exception_handler(request, exc):
     error = {"message": str(exc.__dict__['orig'])}
-    logging.error(f"status_code: 500 message: {str(exc.__dict__['orig'])}")
+    logging.critical(f"status_code: 500 message: {str(exc.__dict__['orig'])}")
     return JSONResponse(status_code = 500, content = error)
 
 

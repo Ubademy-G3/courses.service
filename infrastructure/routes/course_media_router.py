@@ -4,6 +4,9 @@ from typing import List
 from application.controllers.course_media_controller import *
 from application.services.auth import auth_service
 from domain.course_media_model import *
+import logging
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -15,6 +18,7 @@ async def create_course_media(
                             apikey: str = Header(None)
                         ):
 
+    logger.debug("Adding media in course %s ...", course_id)
     auth_service.check_api_key(apikey)
     return CourseMediaController.create_course_media(db, payload, course_id)
 

@@ -2,6 +2,10 @@ from persistence.repositories.course_user_repository_postgres import CourseUserR
 from exceptions.http_error import NotFoundError
 from application.serializers.course_user_serializer import CourseUserSerializer
 from application.use_cases.course_certificate.create import add_course_certificate
+import logging
+
+logger = logging.getLogger(__name__)
+
 curp = CourseUserRepositoryPostgres()
 
 def update_course_user(db, course_id, user_id, new_args, username):
@@ -21,6 +25,8 @@ def update_course_user(db, course_id, user_id, new_args, username):
 
     if new_args.approval_state is not None:
         user_to_update.approval_state = new_args.approval_state
-                
+    
+    logger.debug("Update user %s in course %s", user_id, course_id)
     curp.update_course_user(db)
+    logger.info("User updated")
     return CourseUserSerializer.serialize(user_to_update)

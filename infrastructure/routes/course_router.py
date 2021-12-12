@@ -3,6 +3,9 @@ from infrastructure.db.database import Session, get_db
 from application.controllers.course_controller import *
 from application.services.auth import auth_service
 from domain.course_model import *
+import logging
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -12,7 +15,8 @@ async def create_course(
                         db: Session = Depends(get_db),
                         apikey: str = Header(None)
                     ):
-
+                    
+    logger.debug("Creating course..")
     auth_service.check_api_key(apikey)
     return CourseController.create_course(db, payload)
 

@@ -3,6 +3,9 @@ from infrastructure.db.database import Session, get_db
 from application.controllers.course_rating_controller import *
 from application.services.auth import auth_service
 from domain.course_rating_model import *
+import logging
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -14,6 +17,7 @@ async def add_course_rating(
                             apikey: str = Header(None)
                         ):
 
+    logger.debug("Adding rating in course %s ...", course_id)
     auth_service.check_api_key(apikey)
     return CourseRatingController.create_course_rating(db, payload, course_id)
 
