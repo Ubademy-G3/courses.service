@@ -10,9 +10,11 @@ header = {"apikey": os.getenv('API_KEY')}
 
 global_course_id = uuid.uuid4()
 global_media_id = None
+global_module_id = str(uuid.uuid4())
 
 test_request_payload = {
-    "url": "www.google.com"
+    "url": "www.google.com",
+    "module_id": global_module_id
 }
 
 class CourseMediaTest(TestCase):
@@ -30,6 +32,7 @@ class CourseMediaTest(TestCase):
 
         assert response.status_code == 201
         assert response_json['url'] == test_request_payload['url']
+        assert response_json['module_id'] == test_request_payload['module_id']
 
     
     @mock.patch.object(CourseMediaRepositoryPostgres, "get_course_media")
@@ -38,6 +41,7 @@ class CourseMediaTest(TestCase):
         mock_method.return_value = CourseMedia(
             id = global_media_id,
             course_id = global_course_id,
+            module_id = global_module_id,
             url = "www.google.com"
         )
         response = test_app.get("/courses/"+str(global_course_id)+"/media/"+str(global_media_id),
@@ -48,6 +52,7 @@ class CourseMediaTest(TestCase):
         assert response.status_code == 200
         assert response_json['url'] == "www.google.com"
         assert response_json['id'] == global_media_id
+        assert response_json['module_id'] == global_module_id
 
 
     @mock.patch.object(CourseMediaRepositoryPostgres, "get_all_course_media")
@@ -57,6 +62,7 @@ class CourseMediaTest(TestCase):
             CourseMedia(
                 id = global_media_id,
                 course_id = global_course_id,
+                module_id = global_module_id,
                 url = "www.google.com"
             )
         ]
@@ -71,7 +77,36 @@ class CourseMediaTest(TestCase):
             "course_id": str(global_course_id),
             "course_media": [{
                 "url": "www.google.com",
-                "id": str(global_media_id)
+                "id": str(global_media_id),
+                "module_id": global_module_id
+            }]
+        }
+
+
+    @mock.patch.object(CourseMediaRepositoryPostgres, "get_all_module_media")
+    def test_get_all_media_by_module(self, mock_method):
+
+        mock_method.return_value = [
+            CourseMedia(
+                id = global_media_id,
+                course_id = global_course_id,
+                module_id = global_module_id,
+                url = "www.google.com"
+            )
+        ]
+
+        response = test_app.get("/courses/"+str(global_course_id)+"/media/"+global_module_id,
+                                headers = header)
+        response_json = response.json()
+
+        assert response.status_code == 200
+        assert response_json == {
+            "amount": 1,
+            "course_id": str(global_course_id),
+            "course_media": [{
+                "url": "www.google.com",
+                "id": str(global_media_id),
+                "module_id": global_module_id
             }]
         }
 

@@ -19,6 +19,11 @@ class CourseMediaRepositoryPostgres():
         return course_media
 
 
+    def get_all_module_media(self, db, module_id):
+        course_media_list = (db.query(CourseMedia).filter(CourseMedia.module_id == module_id).all())
+        return course_media_list
+
+
     def delete_course_media(self, db, media):
         db.delete(media)
         db.commit()
