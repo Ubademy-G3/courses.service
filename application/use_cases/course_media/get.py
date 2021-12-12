@@ -25,7 +25,7 @@ def get_course_media(db, course_id, media_id):
 
 def get_all_module_media(db, module_id):
 
-    media = cmrp.get_all_course_media(db, module_id)
+    media = cmrp.get_all_course_module_media(db, module_id)
     if media is None or len(media) == 0:
         raise NotFoundError("Media of module {}".format(module_id))
     media_list = []

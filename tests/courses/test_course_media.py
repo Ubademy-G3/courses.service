@@ -83,7 +83,7 @@ class CourseMediaTest(TestCase):
         }
 
 
-    @mock.patch.object(CourseMediaRepositoryPostgres, "get_all_module_media")
+    @mock.patch.object(CourseMediaRepositoryPostgres, "get_all_course_module_media")
     def test_get_all_media_by_module(self, mock_method):
 
         mock_method.return_value = [
@@ -95,14 +95,14 @@ class CourseMediaTest(TestCase):
             )
         ]
 
-        response = test_app.get("/courses/"+str(global_course_id)+"/media/"+global_module_id,
+        response = test_app.get("/courses/"+str(global_course_id)+"/media/module/"+global_module_id,
                                 headers = header)
         response_json = response.json()
 
         assert response.status_code == 200
         assert response_json == {
             "amount": 1,
-            "course_id": str(global_course_id),
+            "module_id": str(global_module_id),
             "course_media": [{
                 "url": "www.google.com",
                 "id": str(global_media_id),

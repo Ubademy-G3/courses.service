@@ -45,7 +45,7 @@ async def get_course_media(
     return CourseMediaController.get_course_media(db, course_id, media_id)
     
 
-@router.get('/{module_id}', response_model = CourseMediaByModuleList, status_code = 200)
+@router.get('/module/{module_id}', response_model = CourseMediaByModuleList, status_code = 200)
 async def get_all_module_media(
                             course_id: str,
                             module_id: str,

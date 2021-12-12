@@ -12,6 +12,10 @@ class CourseMediaRepositoryPostgres():
         course_media_list = (db.query(CourseMedia).filter(CourseMedia.course_id == course_id).all())
         return course_media_list
 
+
+    def get_all_course_module_media(self, db, module_id):
+        course_module_media_list = (db.query(CourseMedia).filter(CourseMedia.module_id == module_id).all())
+        return course_module_media_list
        
     def get_course_media(self, db, course_id, media_id):
         course_media = db.query(CourseMedia).filter(CourseMedia.course_id == course_id).\
