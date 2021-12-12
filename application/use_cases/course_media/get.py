@@ -37,10 +37,6 @@ def get_all_module_media(db, module_id):
     media_list = []
     for m in media:
         media_list.append(CourseMediaSerializer.serialize(m))
-    return {
-        "amount": len(media_list),
-        "module_id": module_id,
-        "course_media": media_list
-    }    
+    return media_list
 
     
