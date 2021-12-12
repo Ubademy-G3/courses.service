@@ -58,7 +58,12 @@ async def get_all_module_media(
                         ):
 
     auth_service.check_api_key(apikey)
-    return CourseMediaController.get_all_module_media(db, module_id)
+    lis = CourseMediaController.get_all_module_media(db, module_id)
+    return {
+        "amount": len(lis),
+        "module_id": module_id,
+        "course_media": lis
+    }
     
 
 @router.delete('/{media_id}', response_model = dict, status_code = 200)
