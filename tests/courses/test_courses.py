@@ -65,6 +65,7 @@ class CourseTest(TestCase):
     @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
     def test_get_without_apikey(self, mock_method):
 
+        mock_method.side_effect = ApiKeyError()
         response = test_app.get("/courses/"+str(global_id))
         response_json = response.json()
 
