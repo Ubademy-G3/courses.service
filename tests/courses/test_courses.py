@@ -65,11 +65,14 @@ class CourseTest(TestCase):
     @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
     def test_get_without_apikey(self, mock_method):
 
+        mock_method.return_value = {
+            "message": "Error with API Key"
+        }
         response = test_app.get("/courses/"+str(global_id))
         response_json = response.json()
 
         self.assertRaises(ApiKeyError)
-        #assert response_json['message'] == "Error with API Key"
+        assert response_json['message'] == "Error with API Key"
 
 
     ''' @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
@@ -173,13 +176,18 @@ class CourseTest(TestCase):
             "modules": []
         }
         course_id = global_id
+        mock_method_get.return_value = None
+        mock_method_update.return_value = {
+            "message": "Error with API Key"
+        }
+        
         response = test_app.patch("/courses/"+str(course_id),
                                 data = json.dumps(test_patch_payload))
         
         response_json = response.json()
         
         self.assertRaises(ApiKeyError)
-        #assert response_json['message'] == "Error with API Key"
+        assert response_json['message'] == "Error with API Key"
 
     @mock.patch.object(CourseRepositoryPostgres, "update_course")
     @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
