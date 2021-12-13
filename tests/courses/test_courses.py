@@ -4,6 +4,8 @@ from tests.conftest import test_app
 from unittest import TestCase, mock
 from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
 from infrastructure.db.course_schema import Course
+from exceptions.auth_error import ApiKeyError
+from exceptions.http_error import NotFoundError
 
 header = {"apikey": os.getenv('API_KEY')}
 
@@ -23,6 +25,16 @@ test_request_payload = {
 }
 
 class CourseTest(TestCase):
+
+    @mock.patch.object(CourseRepositoryPostgres, "add_course")
+    def test_post_without_apikey(self, mock_method):
+
+        response = test_app.post("/courses/",
+                                data = json.dumps(test_request_payload))
+        response_json = response.json()
+
+        self.assertRaises(ApiKeyError)
+
 
     @mock.patch.object(CourseRepositoryPostgres, "add_course")
     def test_create_course(self, mock_method):
@@ -50,91 +62,17 @@ class CourseTest(TestCase):
         assert response_json['modules'] == test_request_payload['modules']
 
 
-    ''' @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
-    def test_get_existing_course(self, mock_method):
-        
-        course_id = global_id 
-        mock_method.return_value = Course(
-            id= course_id,
-            name= "Python3",
-            description= "asd",
-            category= 2,
-            subscription_type= "free",
-            location= "arg",
-            profile_picture= "www.google.com",
-            duration= 43.2,
-            language= "english",
-            level= "easy",
-            modules= []
-        )
-        mock_method.return_value.status_code = 200
-        response = test_app.get("/courses/"+str(course_id), headers = header)
-        response_json = response.json()
-        assert response.status_code == 200
+    @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
+    def test_get_without_apikey(self, mock_method):
 
-        assert response.status_code == 200
+        mock_method.side_effect = ApiKeyError()
+        response = test_app.get("/courses/"+str(global_id))
         response_json = response.json()
 
-        assert response_json['id'] == course_id
-        assert response_json['name'] == test_request_payload['name']
-        assert response_json['description'] == test_request_payload['description']
-        assert response_json['category'] == test_request_payload['category']
-        assert response_json['subscription_type'] == test_request_payload['subscription_type']
-        assert response_json['location'] == test_request_payload['location']
-        assert response_json['profile_picture'] == test_request_payload['profile_picture']
-        assert response_json['duration'] == test_request_payload['duration']
-        assert response_json['language'] == test_request_payload['language']
-        assert response_json['level'] == test_request_payload['level']
-        assert response_json['modules'] == test_request_payload['modules']'''
+        self.assertRaises(ApiKeyError)
+        #assert response_json['message'] == "Error with API Key"
 
 
-    '''@mock.patch.object(CourseRepositoryPostgres, "get_all_courses")
-    def test_get_all_courses(self, mock_method):
-        
-        course_id = global_id 
-        mock_method.return_value = [
-            Course(
-                id= course_id,
-                name= "Python3",
-                description= "asd",
-                category= 2,
-                subscription_type= "free",
-                location= "arg",
-                profile_picture= "www.google.com",
-                duration= 43.2,
-                language= "english",
-                level= "easy",
-                modules= []
-            )
-        ]      
-
-        response = test_app.get("/courses/", headers = header)   
-        response_json = response.json()
-        
-        assert response.status_code == 200
-        assert response_json == {
-            "amount": 1,
-            "courses": [{
-                "id": course_id,
-                "name": "Python3",
-                "description": "asd",
-                "category": 2,
-                "subscription_type": "free",
-                "location": "arg",
-                "profile_picture": "www.google.com",
-                "duration": 43.2,
-                "language": "english",
-                "level": "easy",
-                "modules": [],
-                "metrics": {
-                    "total_users": 0,
-                    "users_approved": 0,
-                    "users_currently_studying": 0
-                }
-            }]
-        }'''
-
-    
     @mock.patch.object(CourseRepositoryPostgres, "update_course")
     @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
     def test_update_course(self, mock_method_update, mock_method_get):
@@ -202,3 +140,17 @@ class CourseTest(TestCase):
         response_json = response.json()
         assert response.status_code == 200
         assert response_json['message'] == "Course {} deleted successfully".format(course_id)
+
+
+    @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
+    def test_get_nonexistent_course(self, mock_method):
+        
+        course_id = global_id 
+        mock_method.return_value = None
+        
+        response = test_app.get("/courses/"+str(course_id), headers = header)
+        response_json = response.json()
+        
+        self.assertRaises(NotFoundError)
+        assert response_json['message'] == "Course {} not found".format(course_id)
+        

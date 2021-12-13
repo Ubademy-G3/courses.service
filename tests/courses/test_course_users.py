@@ -6,6 +6,9 @@ from unittest import TestCase, mock
 from persistence.repositories.course_user_repository_postgres import CourseUserRepositoryPostgres
 from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
 from infrastructure.db.course_user_schema import CourseUser
+from exceptions.auth_error import ApiKeyError
+from exceptions.ubademy_error import *
+from exceptions.http_error import NotFoundError
 
 header = {"apikey": os.getenv('API_KEY')}
 
@@ -21,6 +24,22 @@ test_request_payload = {
 }
 
 class CourseUserTest(TestCase):
+
+    @mock.patch.object(CourseUserRepositoryPostgres, "add_course_user")
+    @mock.patch.object(CourseUserRepositoryPostgres, "get_course_user")
+    @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id") 
+    def test_post_without_apikey(self, mock_post, mock_get, mock_course):
+
+        mock_get.return_value = None
+        mock_course.return_value = 1
+
+        response = test_app.post("/courses/"+str(global_course_id)+"/users/",
+                                data = json.dumps(test_request_payload))
+        response_json = response.json()
+
+        self.assertRaises(ApiKeyError)
+        #assert response_json['message'] == "Error with API Key"
+
 
     @mock.patch.object(CourseUserRepositoryPostgres, "add_course_user")
     @mock.patch.object(CourseUserRepositoryPostgres, "get_course_user")
@@ -47,6 +66,43 @@ class CourseUserTest(TestCase):
             "approval_state": False,
             "id": global_user_id_pkey
         }
+    
+
+    @mock.patch.object(CourseUserRepositoryPostgres, "add_course_user")
+    @mock.patch.object(CourseUserRepositoryPostgres, "get_course_user")
+    @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")   
+    def test_add_course_user_in_nonexistent_course(self, mock_method_post, mock_get, mock_course):
+
+        mock_get.return_value = None
+        mock_course.return_value = None
+        mock_method_post.return_value = None
+
+        response = test_app.post("/courses/03b4883c-ceaf-42fc-ae26-ba9e4ba270d4/users/",
+                                data = json.dumps(test_request_payload),
+                                headers = header)
+        
+        response_json = response.json()
+ 
+        self.assertRaises(NotFoundError)
+        assert response_json['message'] == "Course 03b4883c-ceaf-42fc-ae26-ba9e4ba270d4 not found"
+
+
+    @mock.patch.object(CourseUserRepositoryPostgres, "add_course_user")
+    @mock.patch.object(CourseUserRepositoryPostgres, "get_course_user")
+    @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")   
+    def test_add_course_user_in_existent_course(self, mock_method_post, mock_get, mock_course):
+
+        mock_get.return_value = 1
+        mock_course.return_value = 1
+        mock_method_post.return_value = None
+
+        response = test_app.post("/courses/03b4883c-ceaf-42fc-ae26-ba9e4ba270d4/users/",
+                                data = json.dumps(test_request_payload),
+                                headers = header)
+        
+        response_json = response.json()
+ 
+        self.assertRaises(CourseAlreadyAcquired)
     
 
     @mock.patch.object(CourseUserRepositoryPostgres, "get_all_course_users")
