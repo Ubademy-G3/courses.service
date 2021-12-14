@@ -20,7 +20,9 @@ def get_module(db, module_id):
 def get_all_modules_by_course_id(db, course_id):
 
     modules = cmorp.get_all_modules_by_course_id(db, course_id)
-    print(modules)
+    if modules is None:
+        logger.warning("No modules found in course", course_id)
+        return []
     module_list = []
     for m in modules:
         print(m)

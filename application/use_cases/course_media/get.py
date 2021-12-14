@@ -11,6 +11,9 @@ cmrp = CourseMediaRepositoryPostgres()
 def get_all_course_media(db, course_id):
 
     media = cmrp.get_all_course_media(db, course_id)
+    if media is None:
+        logger.warning("No media found in course %s", course_id)
+        return []
     media_list = []
     for m in media:
         media_list.append(CourseMediaSerializer.serialize(m))
@@ -29,6 +32,9 @@ def get_course_media(db, course_id, media_id):
 def get_all_module_media(db, module_id):
 
     media = cmrp.get_all_course_module_media(db, module_id)
+    if media is None:
+        logger.warning("No media found in module %s", module_id, course_id)
+        return []
     media_list = []
     for m in media:
         media_list.append(CourseMediaSerializer.serialize(m))

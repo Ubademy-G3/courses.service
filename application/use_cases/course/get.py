@@ -14,7 +14,7 @@ def get_all_courses(db, category, subscription_type, text):
     courses = crp.get_all_courses(db, category, subscription_type, text)
     if courses is None or len(courses) == 0:
         logger.warning("Courses not found")
-        raise NotFoundError("Courses")
+        return []
     courses_list = []
     for course in courses:
         serial = CourseSerializer.serialize(course)
