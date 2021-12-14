@@ -25,7 +25,7 @@ class CourseSchema(BaseModel):
     duration: float
     language: str
     level: str
-    modules: list
+    modules: Optional[list]
 
 
 class CourseDB(CourseSchema):

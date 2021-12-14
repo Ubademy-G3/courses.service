@@ -9,6 +9,7 @@ def add_module(db, args):
 
     new_module = CourseModule(
         id = uuid4(),
+        course_id = args.course_id,
         title = args.title,
         media_id = args.media_id,
         content = args.content

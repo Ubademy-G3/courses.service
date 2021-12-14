@@ -18,6 +18,12 @@ class CourseModuleRepositoryPostgres():
         logger.debug("Get module with id %s", module_id)
         return module
 
+
+    def get_all_modules_by_course_id(self, db, course_id):
+        modules = db.query(CourseModule).filter(CourseModule.course_id == course_id).all()
+        logger.debug("Get modules with course_id %s", course_id)
+        return modules
+
     
     def delete_module(self, db, module):
         db.delete(module)

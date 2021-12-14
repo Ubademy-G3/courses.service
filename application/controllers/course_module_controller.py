@@ -15,6 +15,12 @@ class CourseModuleController:
 
 
     @classmethod
+    def get_all_modules_by_course_id(self, db, course_id):
+
+        return get.get_all_modules_by_course_id(db, course_id)
+
+
+    @classmethod
     def delete_module(self, db, module_id):
 
         return delete.delete_module(db, module_id)

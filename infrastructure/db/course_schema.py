@@ -16,7 +16,7 @@ class Course(Base):
     duration = Column(Float, nullable = False)
     language = Column(String(255), nullable = False)
     level = Column(String(255), nullable = False)
-    modules = Column(ARRAY(String(255)), nullable = False)
+    modules = Column(ARRAY(String(255)), nullable = True)
 
     #Relationships
     media = relationship("CourseMedia", cascade = "all, delete")

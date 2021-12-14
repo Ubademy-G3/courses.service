@@ -14,3 +14,15 @@ def get_module(db, module_id):
         logger.warning("Module %s not found", module_id)
         raise NotFoundError("Module")
     return CourseModuleSerializer.serialize(module)
+
+
+def get_all_modules_by_course_id(db, course_id):
+
+    modules = cmorp.get_all_modules_by_course_id(db, course_id)
+    print(modules)
+    module_list = []
+    for m in modules:
+        print(m)
+        module_list.append(CourseModuleSerializer.serialize(m))
+        print(module_list)
+    return module_list
