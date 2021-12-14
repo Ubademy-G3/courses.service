@@ -13,6 +13,11 @@ class CourseController:
         return get.get_all_courses(db, category, subscription_type, text)
 
     @classmethod
+    def get_all_courses_from_list(self, db, course_list):
+
+        return get.get_all_courses_from_list(db, course_list)
+
+    @classmethod
     def get_course(self, db, course_id):
 
         return get.get_course(db, course_id)

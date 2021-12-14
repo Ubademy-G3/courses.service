@@ -36,6 +36,12 @@ class CourseRepositoryPostgres:
         logger.debug("Getting all courses")
         return courses_list
 
+    def get_all_courses_from_list(self, db, course_list):
+
+        courses_list = db.query(Course).filter(Course.id.in_(course_list)).all()
+        logger.debug("Getting all courses from list")
+        return courses_list
+
     def get_course_by_id(self, db, course_id):
         course = db.query(Course).get(course_id)
         logger.debug("Get course with id %s", course_id)

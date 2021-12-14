@@ -24,6 +24,21 @@ def get_all_courses(db, category, subscription_type, text):
     return courses_list
 
 
+def get_all_courses_from_list(db, course_list):
+
+    courses = crp.get_all_courses_from_list(db, course_list)
+    if courses is None or len(courses) == 0:
+        logger.warning("Courses not found")
+        return []
+    courses_list = []
+    for course in courses:
+        serial = CourseSerializer.serialize(course)
+        metrics = get_course_metrics(db, serial["id"])
+        serial["metrics"] = metrics
+        courses_list.append(serial)
+    return courses_list
+
+
 def get_course(db, course_id):
 
     course = crp.get_course_by_id(db, course_id)

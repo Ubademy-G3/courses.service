@@ -33,7 +33,7 @@ def get_all_module_media(db, module_id):
 
     media = cmrp.get_all_course_module_media(db, module_id)
     if media is None:
-        logger.warning("No media found in module %s", module_id, course_id)
+        logger.warning("No media found in module %s", module_id)
         return []
     media_list = []
     for m in media:
