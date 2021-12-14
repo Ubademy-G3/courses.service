@@ -7,16 +7,12 @@ from uuid import uuid4
 
 ccrp = CourseCertificateRepositoryPostgres()
 
+
 def add_course_certificate(db, course_id, user_id, username):
 
-    course_name = get_course(db, course_id)['name']
+    course_name = get_course(db, course_id)["name"]
     path_to_pdf = CertificateGenerator.create_certificate(username, course_name)
 
-    certificate = CourseCertificate(
-        id = uuid4(),
-        course_id = course_id,
-        user_id = user_id,
-        pdf_path = path_to_pdf
-    )
+    certificate = CourseCertificate(id=uuid4(), course_id=course_id, user_id=user_id, pdf_path=path_to_pdf)
 
     ccrp.add_course_certificate(db, certificate)

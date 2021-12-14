@@ -7,6 +7,7 @@ logger = logging.getLogger(__name__)
 
 ccrp = CourseCertificateRepositoryPostgres()
 
+
 def get_all_user_certificates(db, user_id):
 
     certificates = ccrp.get_all_user_certificates(db, user_id)

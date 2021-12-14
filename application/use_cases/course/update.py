@@ -7,21 +7,22 @@ logger = logging.getLogger(__name__)
 
 crp = CourseRepositoryPostgres()
 
+
 def update_course(db, course_id, new_args):
-    
+
     course_to_update = crp.get_course_by_id(db, course_id)
     if not course_to_update:
         raise NotFoundError("Course {}".format(course_id))
 
     if new_args.name is not None:
         course_to_update.name = new_args.name
-        
+
     if new_args.description is not None:
         course_to_update.description = new_args.description
 
     if new_args.category is not None:
         course_to_update.category = new_args.category
-        
+
     if new_args.subscription_type is not None:
         course_to_update.subscription_type = new_args.subscription_type
 

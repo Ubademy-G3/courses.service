@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from uuid import UUID, uuid4
-from typing import List,Optional
+from typing import List, Optional
+
 
 class CourseUserSchema(BaseModel):
     user_id: UUID
@@ -17,7 +18,7 @@ class CourseUserList(BaseModel):
     amount: int
     course_id: UUID
     users: List[CourseUserDB]
-    
+
 
 class CourseUserPatch(BaseModel):
     user_type: Optional[str] = None

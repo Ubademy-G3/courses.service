@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from uuid import UUID
 from typing import List, Optional
 
+
 class CourseModuleSchema(BaseModel):
     title: str
     course_id: UUID

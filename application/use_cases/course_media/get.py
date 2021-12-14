@@ -7,6 +7,7 @@ logger = logging.getLogger(__name__)
 
 cmrp = CourseMediaRepositoryPostgres()
 
+
 def get_all_course_media(db, course_id):
 
     media = cmrp.get_all_course_media(db, course_id)
@@ -14,7 +15,7 @@ def get_all_course_media(db, course_id):
     for m in media:
         media_list.append(CourseMediaSerializer.serialize(m))
     return media_list
-    
+
 
 def get_course_media(db, course_id, media_id):
 
@@ -32,5 +33,3 @@ def get_all_module_media(db, module_id):
     for m in media:
         media_list.append(CourseMediaSerializer.serialize(m))
     return media_list
-
-    

@@ -7,8 +7,9 @@ logger = logging.getLogger(__name__)
 
 cmorp = CourseModuleRepositoryPostgres()
 
+
 def update_module(db, module_id, new_args):
-    
+
     module_to_update = cmorp.get_module(db, module_id)
     if module_to_update is None:
         raise NotFoundError("Module {}".format(module_id))

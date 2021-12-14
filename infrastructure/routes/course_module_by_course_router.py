@@ -9,15 +9,10 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-@router.get('/', response_model = CourseModuleList, status_code = 200)
-async def get_all_modules_by_course_id(
-                            course_id: str,
-                            db: Session = Depends(get_db),
-                            apikey: str = Header(None)
-                        ):
+
+@router.get("/", response_model=CourseModuleList, status_code=200)
+async def get_all_modules_by_course_id(course_id: str, db: Session = Depends(get_db), apikey: str = Header(None)):
 
     auth_service.check_api_key(apikey)
     course_module_list = CourseModuleController.get_all_modules_by_course_id(db, course_id)
-    return {"amount": len(course_module_list),
-            "course_id": course_id,
-            "modules": course_module_list}
+    return {"amount": len(course_module_list), "course_id": course_id, "modules": course_module_list}

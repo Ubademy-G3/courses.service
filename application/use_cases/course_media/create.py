@@ -5,14 +5,10 @@ from uuid import uuid4
 
 cmrp = CourseMediaRepositoryPostgres()
 
+
 def add_course_media(db, course_id, args):
 
-    new_course_media = CourseMedia(
-        id = uuid4(),
-        course_id = course_id,
-        module_id = args.module_id,
-        url = args.url
-    )
-    
+    new_course_media = CourseMedia(id=uuid4(), course_id=course_id, module_id=args.module_id, url=args.url)
+
     cmrp.add_course_media(db, new_course_media)
     return CourseMediaSerializer.serialize(new_course_media)

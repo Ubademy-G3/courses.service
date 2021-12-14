@@ -7,6 +7,7 @@ logger = logging.getLogger(__name__)
 
 crrp = CourseRatingRepositoryPostgres()
 
+
 def get_all_course_ratings(db, course_id):
 
     ratings = crrp.get_all_course_ratings(db, course_id)

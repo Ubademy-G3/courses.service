@@ -3,6 +3,7 @@ from exceptions.http_error import NotFoundError
 
 cmorp = CourseModuleRepositoryPostgres()
 
+
 def delete_module(db, module_id):
 
     module = cmorp.get_module(db, module_id)

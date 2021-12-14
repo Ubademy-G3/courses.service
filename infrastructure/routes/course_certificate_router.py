@@ -6,17 +6,10 @@ from domain.course_certificate_model import *
 
 router = APIRouter()
 
-@router.get('/', response_model = dict, status_code = 200)
-async def get_all_user_certificates(
-                                    user_id: str,
-                                    db: Session = Depends(get_db),
-                                    apikey: str = Header(None)
-                                ):
-    
+
+@router.get("/", response_model=dict, status_code=200)
+async def get_all_user_certificates(user_id: str, db: Session = Depends(get_db), apikey: str = Header(None)):
+
     auth_service.check_api_key(apikey)
     user_certificates_list = CourseCertificateController.get_all_user_certificates(db, user_id)
-    return {
-        "amount": len(user_certificates_list),
-        "user_id": user_id,
-        "certificates": user_certificates_list
-    }
+    return {"amount": len(user_certificates_list), "user_id": user_id, "certificates": user_certificates_list}

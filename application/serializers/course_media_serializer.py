@@ -1,13 +1,8 @@
 from infrastructure.db.course_media_schema import CourseMedia
 
-class CourseMediaSerializer:
 
+class CourseMediaSerializer:
     @classmethod
     def serialize(self, media: CourseMedia):
-        
-        return {
-            "id": media.id,
-            "course_id": media.course_id,
-            "module_id": media.module_id,
-            "url": media.url
-        }
+
+        return {"id": media.id, "course_id": media.course_id, "module_id": media.module_id, "url": media.url}

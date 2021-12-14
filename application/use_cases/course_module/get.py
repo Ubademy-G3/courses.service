@@ -7,6 +7,7 @@ logger = logging.getLogger(__name__)
 
 cmorp = CourseModuleRepositoryPostgres()
 
+
 def get_module(db, module_id):
 
     module = cmorp.get_module(db, module_id)

@@ -4,8 +4,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class CourseCertificateRepositoryPostgres():
 
+class CourseCertificateRepositoryPostgres:
     def add_course_certificate(self, db, payload):
         db.add(payload)
         db.commit()

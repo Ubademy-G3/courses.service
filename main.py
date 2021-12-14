@@ -5,11 +5,17 @@ import logging.config
 import os
 from fastapi.responses import JSONResponse
 from fastapi import HTTPException
-from infrastructure.routes import (course_router, course_media_router,
-                                course_user_router, course_rating_router,
-                                course_category_router, user_courses_router,
-                                course_module_router, course_module_by_course_router,
-                                course_certificate_router)
+from infrastructure.routes import (
+    course_router,
+    course_media_router,
+    course_user_router,
+    course_rating_router,
+    course_category_router,
+    user_courses_router,
+    course_module_router,
+    course_module_by_course_router,
+    course_certificate_router,
+)
 
 from infrastructure.db.database import Base, engine, DATABASE_URL
 from sqlalchemy.exc import SQLAlchemyError
@@ -23,11 +29,8 @@ logging.config.fileConfig(logging_conf_path, disable_existing_loggers=False)
 if DATABASE_URL is not None:
     Base.metadata.create_all(engine)
 
-app = FastAPI(
-                title = "Ubademy - Courses service",
-                description = "Courses service API"
-            )
-            
+app = FastAPI(title="Ubademy - Courses service", description="Courses service API")
+
 origins = [
     "*",
 ]
@@ -40,48 +43,49 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request, exc):
     error = {"message": exc.detail}
     logging.error(f"status_code: {exc.status_code} message: {exc.detail}")
-    return JSONResponse(status_code = exc.status_code, content = error)
+    return JSONResponse(status_code=exc.status_code, content=error)
 
 
 @app.exception_handler(UbademyException)
 async def ubademy_exception_handler(request, exc):
     error = {"message": exc.detail}
     logging.error(f"status_code: {exc.status_code} message: {exc.detail}")
-    return JSONResponse(status_code = exc.status_code, content = error)
+    return JSONResponse(status_code=exc.status_code, content=error)
 
 
 @app.exception_handler(AuthorizationException)
 async def auth_exception_handler(request, exc):
     error = {"message": exc.detail}
     logging.error(f"status_code: {exc.status_code} message: {exc.detail}")
-    return JSONResponse(status_code = exc.status_code, content = error)
+    return JSONResponse(status_code=exc.status_code, content=error)
 
 
 @app.exception_handler(SQLAlchemyError)
 async def sql_exception_handler(request, exc):
-    error = {"message": str(exc.__dict__['orig'])}
+    error = {"message": str(exc.__dict__["orig"])}
     logging.critical(f"status_code: 500 message: {str(exc.__dict__['orig'])}")
-    return JSONResponse(status_code = 500, content = error)
+    return JSONResponse(status_code=500, content=error)
 
 
-app.include_router(course_router.router, prefix='/courses', tags=['courses'])
+app.include_router(course_router.router, prefix="/courses", tags=["courses"])
 
-app.include_router(course_media_router.router, prefix='/courses/{course_id}/media', tags=['media'])
+app.include_router(course_media_router.router, prefix="/courses/{course_id}/media", tags=["media"])
 
-app.include_router(course_user_router.router, prefix='/courses/{course_id}/users', tags=['users'])
+app.include_router(course_user_router.router, prefix="/courses/{course_id}/users", tags=["users"])
 
-app.include_router(course_rating_router.router, prefix='/courses/{course_id}/ratings', tags=['ratings'])
+app.include_router(course_rating_router.router, prefix="/courses/{course_id}/ratings", tags=["ratings"])
 
-app.include_router(course_category_router.router, prefix='/courses/category', tags=['category'])
+app.include_router(course_category_router.router, prefix="/courses/category", tags=["category"])
 
-app.include_router(user_courses_router.router, prefix='/courses/user/{user_id}', tags=['user courses'])
+app.include_router(user_courses_router.router, prefix="/courses/user/{user_id}", tags=["user courses"])
 
-app.include_router(course_module_router.router, prefix='/courses/module', tags=['modules'])
+app.include_router(course_module_router.router, prefix="/courses/module", tags=["modules"])
 
-app.include_router(course_module_by_course_router.router, prefix='/courses/{course_id}/modules', tags=['modules_by_course'])
+app.include_router(course_module_by_course_router.router, prefix="/courses/{course_id}/modules", tags=["modules_by_course"])
 
-app.include_router(course_certificate_router.router, prefix='/courses/certificates/{user_id}', tags=['certificates'])
+app.include_router(course_certificate_router.router, prefix="/courses/certificates/{user_id}", tags=["certificates"])

@@ -7,6 +7,7 @@ logger = logging.getLogger(__name__)
 
 curp = CourseUserRepositoryPostgres()
 
+
 def get_all_course_users(db, course_id, user_type):
 
     users = curp.get_all_course_users(db, course_id, user_type)
@@ -28,8 +29,8 @@ def get_all_user_courses(db, user_id, approval_state, user_type):
     courses_list = []
     for user in courses:
         dicty = CourseUserSerializer.serialize(user)
-        del dicty['id']
-        del dicty['user_id']
+        del dicty["id"]
+        del dicty["user_id"]
         courses_list.append(dicty)
     return courses_list
 
@@ -39,7 +40,7 @@ def get_course_user(db, course_id, user_id):
     user = curp.get_course_user(db, course_id, user_id)
     if user is None:
         logger.warning("User %s not found in %s", user_id, course_id)
-        raise NotFoundError("User {} in course {}".format(user_id,course_id))
+        raise NotFoundError("User {} in course {}".format(user_id, course_id))
     return CourseUserSerializer.serialize(user)
 
 

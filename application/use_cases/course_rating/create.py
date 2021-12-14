@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 crrp = CourseRatingRepositoryPostgres()
 
+
 def add_course_rating(db, course_id, args):
 
     if not course_exists(db, course_id):
@@ -29,12 +30,8 @@ def add_course_rating(db, course_id, args):
         raise CourseAlreadyScored()
 
     new_course_rating = CourseRating(
-        id = uuid4(),
-        course_id = course_id,
-        user_id = args.user_id,
-        score = args.score,
-        opinion = args.opinion
+        id=uuid4(), course_id=course_id, user_id=args.user_id, score=args.score, opinion=args.opinion
     )
-    
+
     crrp.add_course_rating(db, new_course_rating)
     return CourseRatingSerializer.serialize(new_course_rating)

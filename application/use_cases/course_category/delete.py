@@ -3,6 +3,7 @@ from exceptions.http_error import NotFoundError
 
 ccrp = CourseCategoryRepositoryPostgres()
 
+
 def delete_course_category(db, category_id):
 
     category = ccrp.get_course_category(db, category_id)

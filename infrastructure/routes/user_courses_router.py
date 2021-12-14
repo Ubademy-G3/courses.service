@@ -6,19 +6,16 @@ from domain.course_user_model import *
 
 router = APIRouter()
 
-@router.get('/', response_model = dict, status_code = 201)
+
+@router.get("/", response_model=dict, status_code=201)
 async def get_all_user_courses(
-                                user_id: str,
-                                db: Session = Depends(get_db),
-                                apikey: str = Header(None),
-                                approval_state: Optional[bool] = None,
-                                user_type: Optional[str] = None
-                            ):
+    user_id: str,
+    db: Session = Depends(get_db),
+    apikey: str = Header(None),
+    approval_state: Optional[bool] = None,
+    user_type: Optional[str] = None,
+):
 
     auth_service.check_api_key(apikey)
     user_courses_list = CourseUserController.get_all_user_courses(db, user_id, approval_state, user_type)
-    return {
-        "amount": len(user_courses_list),
-        "user_id": user_id,
-        "courses": user_courses_list
-    }
+    return {"amount": len(user_courses_list), "user_id": user_id, "courses": user_courses_list}

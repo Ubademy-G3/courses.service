@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from uuid import uuid4, UUID
 from typing import List
 
+
 class CourseMediaSchema(BaseModel):
     url: str
     module_id: UUID
