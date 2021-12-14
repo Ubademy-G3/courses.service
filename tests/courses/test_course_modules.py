@@ -1,6 +1,5 @@
 import json
 import os
-import uuid
 from tests.conftest import test_app
 from unittest import TestCase, mock
 from persistence.repositories.course_module_repository_postgres import CourseModuleRepositoryPostgres

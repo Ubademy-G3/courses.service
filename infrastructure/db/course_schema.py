@@ -1,5 +1,6 @@
-from infrastructure.db.database import Base, relationship
-from sqlalchemy import Column, Integer, String, Table, Text, Float
+from infrastructure.db.database import Base
+from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, Text, Float
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 

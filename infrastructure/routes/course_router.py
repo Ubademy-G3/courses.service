@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Header, Query, Depends
 from infrastructure.db.database import Session, get_db
-from application.controllers.course_controller import *
+from application.controllers.course_controller import CourseController
 from application.services.auth import auth_service
-from domain.course_model import *
+from domain.course_model import CourseSchema, CourseDB, CourseList, CoursePatch
+from typing import Optional, List
 import logging
 
 logger = logging.getLogger(__name__)

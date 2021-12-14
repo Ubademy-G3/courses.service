@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Header, Depends
 from infrastructure.db.database import Session, get_db
-from application.controllers.course_rating_controller import *
+from application.controllers.course_rating_controller import CourseRatingController
 from application.services.auth import auth_service
-from domain.course_rating_model import *
+from domain.course_rating_model import CourseRatingSchema, CourseRatingDB, CourseRatingList
 import logging
 
 logger = logging.getLogger(__name__)
@@ -39,5 +39,5 @@ async def get_all_course_ratings(course_id: str, db: Session = Depends(get_db), 
 async def delete_course_rating(course_id: str, rating_id: str, db: Session = Depends(get_db), apikey: str = Header(None)):
 
     auth_service.check_api_key(apikey)
-    rating_deleted = CourseRatingController.delete_course_rating(db, course_id, rating_id)
+    CourseRatingController.delete_course_rating(db, course_id, rating_id)
     return {"message": "The review {} was deleted successfully".format(rating_id)}

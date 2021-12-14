@@ -1,5 +1,4 @@
 from infrastructure.db.course_category_schema import CourseCategory
-from sqlalchemy import func
 import logging
 
 logger = logging.getLogger(__name__)

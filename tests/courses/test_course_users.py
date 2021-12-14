@@ -7,7 +7,7 @@ from persistence.repositories.course_user_repository_postgres import CourseUserR
 from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
 from infrastructure.db.course_user_schema import CourseUser
 from exceptions.auth_error import ApiKeyError
-from exceptions.ubademy_error import *
+from exceptions.ubademy_error import CourseAlreadyAcquired
 from exceptions.http_error import NotFoundError
 
 header = {"apikey": os.getenv("API_KEY")}
@@ -28,8 +28,7 @@ class CourseUserTest(TestCase):
         mock_get.return_value = None
         mock_course.return_value = 1
 
-        response = test_app.post("/courses/" + str(global_course_id) + "/users/", data=json.dumps(test_request_payload))
-        response_json = response.json()
+        test_app.post("/courses/" + str(global_course_id) + "/users/", data=json.dumps(test_request_payload))
 
         self.assertRaises(ApiKeyError)
         # assert response_json['message'] == "Error with API Key"
@@ -87,11 +86,9 @@ class CourseUserTest(TestCase):
         mock_course.return_value = 1
         mock_method_post.return_value = None
 
-        response = test_app.post(
+        test_app.post(
             "/courses/03b4883c-ceaf-42fc-ae26-ba9e4ba270d4/users/", data=json.dumps(test_request_payload), headers=header
         )
-
-        response_json = response.json()
 
         self.assertRaises(CourseAlreadyAcquired)
 
@@ -152,5 +149,5 @@ class CourseUserTest(TestCase):
         assert response_json["user_id"] == str(global_user_id)
         assert response_json["user_type"] == "instructor"
         assert response_json["progress"] == 50.0
-        assert response_json["approval_state"] == False
+        assert response_json["approval_state"] is False
         assert response_json["id"] == str(global_user_id_pkey)

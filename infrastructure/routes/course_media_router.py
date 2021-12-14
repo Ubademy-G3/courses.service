@@ -1,9 +1,8 @@
 from fastapi import APIRouter, Header, Depends
 from infrastructure.db.database import Session, get_db
-from typing import List
-from application.controllers.course_media_controller import *
+from application.controllers.course_media_controller import CourseMediaController
 from application.services.auth import auth_service
-from domain.course_media_model import *
+from domain.course_media_model import CourseMediaSchema, CourseMediaDB, CourseMediaList, CourseMediaByModuleList
 import logging
 
 logger = logging.getLogger(__name__)
@@ -48,5 +47,5 @@ async def get_all_module_media(course_id: str, module_id: str, db: Session = Dep
 async def delete_course_media(course_id: str, media_id: str, db: Session = Depends(get_db), apikey: str = Header(None)):
 
     auth_service.check_api_key(apikey)
-    course_deleted = CourseMediaController.delete_course_media(db, course_id, media_id)
+    CourseMediaController.delete_course_media(db, course_id, media_id)
     return {"message": "The media {} was deleted successfully".format(media_id)}

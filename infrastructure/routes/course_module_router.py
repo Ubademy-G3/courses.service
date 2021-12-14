@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Header, Depends
 from infrastructure.db.database import Session, get_db
-from application.controllers.course_module_controller import *
+from application.controllers.course_module_controller import CourseModuleController
 from application.services.auth import auth_service
-from domain.course_module_model import *
+from domain.course_module_model import CourseModuleDB, CourseModuleSchema, CourseModulePatch
 import logging
 
 logger = logging.getLogger(__name__)
@@ -36,5 +36,5 @@ async def update_module(module_id: str, module: CourseModulePatch, db: Session =
 async def delete_course_module(module_id: str, db: Session = Depends(get_db), apikey: str = Header(None)):
 
     auth_service.check_api_key(apikey)
-    module_deleted = CourseModuleController.delete_module(db, module_id)
+    CourseModuleController.delete_module(db, module_id)
     return {"message": "The module {} was deleted successfully".format(module_id)}

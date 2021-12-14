@@ -37,4 +37,4 @@ def get_course(db, course_id):
 
 def course_exists(db, course_id):
 
-    return crp.get_course_by_id(db, course_id) != None
+    return crp.get_course_by_id(db, course_id) is not None

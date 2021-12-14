@@ -1,5 +1,4 @@
 from infrastructure.db.course_rating_schema import CourseRating
-from sqlalchemy import func
 import logging
 
 logger = logging.getLogger(__name__)

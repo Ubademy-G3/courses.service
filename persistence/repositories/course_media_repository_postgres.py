@@ -1,5 +1,4 @@
 from infrastructure.db.course_media_schema import CourseMedia
-from sqlalchemy import func
 import logging
 
 logger = logging.getLogger(__name__)

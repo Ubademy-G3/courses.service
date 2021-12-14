@@ -1,5 +1,4 @@
 from infrastructure.db.course_module_schema import CourseModule
-from sqlalchemy import func
 import logging
 
 logger = logging.getLogger(__name__)

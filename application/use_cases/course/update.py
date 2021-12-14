@@ -8,11 +8,7 @@ logger = logging.getLogger(__name__)
 crp = CourseRepositoryPostgres()
 
 
-def update_course(db, course_id, new_args):
-
-    course_to_update = crp.get_course_by_id(db, course_id)
-    if not course_to_update:
-        raise NotFoundError("Course {}".format(course_id))
+def change_values(course_to_update, new_args):
 
     if new_args.name is not None:
         course_to_update.name = new_args.name
@@ -40,6 +36,15 @@ def update_course(db, course_id, new_args):
 
     if new_args.level is not None:
         course_to_update.level = new_args.level
+
+
+def update_course(db, course_id, new_args):
+
+    course_to_update = crp.get_course_by_id(db, course_id)
+    if not course_to_update:
+        raise NotFoundError("Course {}".format(course_id))
+
+    change_values(course_to_update, new_args)
 
     logger.debug("Update course %s", course_id)
     crp.update_course(db)

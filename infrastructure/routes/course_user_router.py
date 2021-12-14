@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Header, Depends
 from infrastructure.db.database import Session, get_db
-from application.controllers.course_user_controller import *
+from application.controllers.course_user_controller import CourseUserController
 from application.services.auth import auth_service
-from domain.course_user_model import *
+from domain.course_user_model import CourseUserSchema, CourseUserDB, CourseUserList, CourseUserPatch
+from typing import Optional
 import logging
 
 logger = logging.getLogger(__name__)
@@ -48,5 +49,5 @@ async def update_course_user(
 async def delete_course_user(course_id: str, user_id: str, db: Session = Depends(get_db), apikey: str = Header(None)):
 
     auth_service.check_api_key(apikey)
-    user_deleted = CourseUserController.delete_course_user(db, course_id, user_id)
+    CourseUserController.delete_course_user(db, course_id, user_id)
     return {"message": "The user {} was deleted successfully".format(user_id)}

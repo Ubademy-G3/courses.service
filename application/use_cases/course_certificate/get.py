@@ -1,5 +1,4 @@
 from persistence.repositories.course_certificate_repository_postgres import CourseCertificateRepositoryPostgres
-from exceptions.http_error import NotFoundError
 from application.serializers.course_certificate_serializer import CourseCertificateSerializer
 import logging
 

@@ -31,4 +31,4 @@ def get_course_rating(db, course_id, rating_id):
 
 def course_already_scored(db, course_id, user_id):
 
-    return crrp.get_course_rating_from(db, user_id, course_id) != None
+    return crrp.get_course_rating_from(db, user_id, course_id) is not None

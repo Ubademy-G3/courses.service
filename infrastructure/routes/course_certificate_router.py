@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Header, Depends
 from infrastructure.db.database import Session, get_db
-from application.controllers.course_certificate_controller import *
+from application.controllers.course_certificate_controller import CourseCertificateController
 from application.services.auth import auth_service
-from domain.course_certificate_model import *
 
 router = APIRouter()
 

@@ -1,5 +1,4 @@
 # Imports Required Packages from PIL
-import PIL
 from PIL import Image, ImageDraw, ImageFont
 import os
 import datetime

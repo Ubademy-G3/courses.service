@@ -46,7 +46,7 @@ def get_course_user(db, course_id, user_id):
 
 def course_already_acquired(db, course_id, user_id):
 
-    return curp.get_course_user(db, course_id, user_id) != None
+    return curp.get_course_user(db, course_id, user_id) is not None
 
 
 def get_course_metrics(db, course_id):

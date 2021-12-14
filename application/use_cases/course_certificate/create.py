@@ -1,6 +1,5 @@
 from persistence.repositories.course_certificate_repository_postgres import CourseCertificateRepositoryPostgres
 from infrastructure.db.course_certificate_schema import CourseCertificate
-from exceptions.http_error import NotFoundError
 from application.use_cases.course.get import get_course
 from application.services.certificate_generator.certificate_generator import CertificateGenerator
 from uuid import uuid4

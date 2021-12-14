@@ -28,8 +28,7 @@ class CourseTest(TestCase):
     @mock.patch.object(CourseRepositoryPostgres, "add_course")
     def test_post_without_apikey(self, mock_method):
 
-        response = test_app.post("/courses/", data=json.dumps(test_request_payload))
-        response_json = response.json()
+        test_app.post("/courses/", data=json.dumps(test_request_payload))
 
         self.assertRaises(ApiKeyError)
 
@@ -58,8 +57,7 @@ class CourseTest(TestCase):
     def test_get_without_apikey(self, mock_method):
 
         mock_method.side_effect = ApiKeyError()
-        response = test_app.get("/courses/" + str(global_id))
-        response_json = response.json()
+        test_app.get("/courses/" + str(global_id))
 
         self.assertRaises(ApiKeyError)
         # assert response_json['message'] == "Error with API Key"

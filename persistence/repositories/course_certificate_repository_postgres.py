@@ -1,5 +1,4 @@
 from infrastructure.db.course_certificate_schema import CourseCertificate
-from sqlalchemy import func
 import logging
 
 logger = logging.getLogger(__name__)
