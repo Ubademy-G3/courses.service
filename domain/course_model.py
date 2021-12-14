@@ -12,7 +12,6 @@ class CoursePatch(BaseModel):
     duration: Optional[float] = None
     language: Optional[str] = None
     level: Optional[str] = None
-    modules: Optional[list] = None
     
 
 class CourseSchema(BaseModel):
@@ -25,7 +24,6 @@ class CourseSchema(BaseModel):
     duration: float
     language: str
     level: str
-    modules: Optional[list]
 
 
 class CourseDB(CourseSchema):

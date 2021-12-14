@@ -16,6 +16,5 @@ class CourseSerializer:
             "duration": course.duration,
             "language": course.language,
             "level": course.level,
-            "modules": course.modules,
             "metrics": {}
         }

@@ -7,8 +7,6 @@ from persistence.repositories.course_module_repository_postgres import CourseMod
 from infrastructure.db.course_module_schema import CourseModule
 
 global_module_id = None
-media_id_1 = "cb2341d0-d46e-486f-b2ec-a977d78decf0"
-media_id_2 = "8b2ef0a0-33a9-401a-a4bb-afc458512c48"
 global_course_id = "9b2ef0a0-33a9-401a-a4bb-afc458512c48"
 
 header = {"apikey": os.getenv('API_KEY')}
@@ -16,7 +14,6 @@ header = {"apikey": os.getenv('API_KEY')}
 test_request_payload = {
     "course_id": global_course_id,
     "title": "Module 1",
-    "media_id": [media_id_1, media_id_2],
     "content": "asdf"
 }
 
@@ -34,7 +31,6 @@ class CourseModuleTest(TestCase):
 
         assert response.status_code == 201
         assert response_json['title'] == "Module 1"
-        assert response_json['media_id'] == [media_id_1, media_id_2]
         assert response_json['content'] == "asdf"
 
 
@@ -45,7 +41,6 @@ class CourseModuleTest(TestCase):
             id = global_module_id,
             course_id = global_course_id,
             title = "Module 1",
-            media_id = [media_id_1, media_id_2],
             content = "asdf"
         )
 
@@ -55,7 +50,6 @@ class CourseModuleTest(TestCase):
         
         assert response.status_code == 200
         assert response_json['title'] == "Module 1"
-        assert response_json['media_id'] == [media_id_1, media_id_2]
         assert response_json['content'] == "asdf"
 
 
@@ -67,7 +61,6 @@ class CourseModuleTest(TestCase):
                 id = global_module_id,
                 course_id = global_course_id,
                 title = "Module 1",
-                media_id = [media_id_1, media_id_2],
                 content = "asdf"
             )
         ]
@@ -79,7 +72,6 @@ class CourseModuleTest(TestCase):
         
         assert response.status_code == 200
         assert response_json['modules'][0]['title'] == "Module 1"
-        assert response_json['modules'][0]['media_id'] == [media_id_1, media_id_2]
         assert response_json['modules'][0]['content'] == "asdf"
 
 
@@ -89,7 +81,6 @@ class CourseModuleTest(TestCase):
 
         test_patch_payload = {
             "title": "Module number 1",
-            "media_id": None,
             "content": "abcd"
         }
 
@@ -97,7 +88,6 @@ class CourseModuleTest(TestCase):
             id = global_module_id,
             course_id = global_course_id,
             title = "Module number 1",
-            media_id = [media_id_1, media_id_2],
             content = "abcd"
         )
 
@@ -108,7 +98,6 @@ class CourseModuleTest(TestCase):
         
         assert response.status_code == 200
         assert response_json['title'] == "Module number 1"
-        assert response_json['media_id'] == [media_id_1, media_id_2]
         assert response_json['content'] == "abcd"
 
 

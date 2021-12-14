@@ -9,6 +9,5 @@ class CourseModuleSerializer:
             "id": module.id,
             "course_id": module.course_id,
             "title": module.title,
-            "media_id": module.media_id,
             "content": module.content
         }

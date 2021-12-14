@@ -15,9 +15,6 @@ def update_module(db, module_id, new_args):
 
     if new_args.title is not None:
         module_to_update.title = new_args.title
-        
-    if new_args.media_id is not None:
-        module_to_update.media_id = new_args.media_id
 
     if new_args.content is not None:
         module_to_update.content = new_args.content

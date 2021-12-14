@@ -20,8 +20,7 @@ test_request_payload = {
     "profile_picture": "www.google.com",
     "duration": 43.2,
     "language": "english",
-    "level": "easy",
-    "modules": []
+    "level": "easy"
 }
 
 class CourseTest(TestCase):
@@ -59,7 +58,6 @@ class CourseTest(TestCase):
         assert response_json['duration'] == test_request_payload['duration']
         assert response_json['language'] == test_request_payload['language']
         assert response_json['level'] == test_request_payload['level']
-        assert response_json['modules'] == test_request_payload['modules']
 
 
     @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
@@ -86,8 +84,7 @@ class CourseTest(TestCase):
             "profile_picture": "www.google.com",
             "duration": 44,
             "language": "spanish",
-            "level": "easy",
-            "modules": []
+            "level": "easy"
         }
         course_id = global_id
 
@@ -102,8 +99,7 @@ class CourseTest(TestCase):
             profile_picture= "www.google.com",
             duration= 44,
             language= "spanish",
-            level= "easy",
-            modules= []
+            level= "easy"
         )
                 
         response = test_app.patch("/courses/"+str(course_id),
@@ -123,7 +119,6 @@ class CourseTest(TestCase):
             "duration": 44,
             "language": "spanish",
             "level": "easy",
-            "modules": [],
             "metrics": {}
         }
 

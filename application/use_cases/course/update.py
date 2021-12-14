@@ -40,9 +40,6 @@ def update_course(db, course_id, new_args):
     if new_args.level is not None:
         course_to_update.level = new_args.level
 
-    if new_args.modules is not None:
-        course_to_update.modules = new_args.modules
-    
     logger.debug("Update course %s", course_id)
     crp.update_course(db)
     logger.info("Course updated")
