@@ -12,8 +12,9 @@ logger = logging.getLogger(__name__)
 
 curp = CourseUserRepositoryPostgres()
 
+
 def add_course_user(db, course_id, args):
-    
+
     if not course_exists(db, course_id):
         logger.warning("Course %s not found", course_id)
         raise NotFoundError("Course {}".format(course_id))
@@ -23,13 +24,13 @@ def add_course_user(db, course_id, args):
         raise CourseAlreadyAcquired()
 
     new_user = CourseUser(
-        id = uuid4(),
-        course_id = course_id,
-        user_id = args.user_id,
-        user_type = args.user_type.lower(),
-        progress = args.progress,
-        approval_state = args.approval_state
+        id=uuid4(),
+        course_id=course_id,
+        user_id=args.user_id,
+        user_type=args.user_type.lower(),
+        progress=args.progress,
+        approval_state=args.approval_state,
     )
-    
+
     curp.add_course_user(db, new_user)
     return CourseUserSerializer.serialize(new_user)

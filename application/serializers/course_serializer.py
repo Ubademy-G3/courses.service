@@ -1,10 +1,10 @@
 from infrastructure.db.course_schema import Course
 
-class CourseSerializer:
 
+class CourseSerializer:
     @classmethod
     def serialize(self, course: Course):
-        
+
         return {
             "id": course.id,
             "name": course.name,
@@ -16,6 +16,5 @@ class CourseSerializer:
             "duration": course.duration,
             "language": course.language,
             "level": course.level,
-            "modules": course.modules,
-            "metrics": {}
+            "metrics": {},
         }

@@ -1,15 +1,14 @@
-#Imports Required Packages from PIL
-import PIL
+# Imports Required Packages from PIL
 from PIL import Image, ImageDraw, ImageFont
 import os
 import datetime
 from firebase_admin import credentials, initialize_app, storage
 
-#Init firebase with credentials
+# Init firebase with credentials
 cred = credentials.Certificate("application/services/certificate_generator/ubademy-mobile-ae5a598939c9.json")
-initialize_app(cred, {'storageBucket': 'ubademy-mobile.appspot.com'})
+initialize_app(cred, {"storageBucket": "ubademy-mobile.appspot.com"})
 
-#Defining pixels in template
+# Defining pixels in template
 START_NAME_POS = 1108
 END_NAME_POS = 1824
 START_Y_NAME_POS = 530
@@ -22,45 +21,45 @@ START_COURSE_POS = 1066
 END_COURSE_POS = 1867
 START_Y_COURSE_POS = 863
 
-class CertificateGenerator:
 
+class CertificateGenerator:
     @classmethod
     def create_certificate(self, user_name: str, course_name: str):
         template = Image.open("application/services/certificate_generator/template-certificate.png")
-  
-        img_rgb = Image.new('RGB', template.size, (255, 255, 255))
-        img_rgb.paste(template, mask = template.split()[3])
-        draw = ImageDraw.Draw(img_rgb) 
 
-        text_color = (0,0,0)
+        img_rgb = Image.new("RGB", template.size, (255, 255, 255))
+        img_rgb.paste(template, mask=template.split()[3])
+        draw = ImageDraw.Draw(img_rgb)
 
-        #NAME
-        font = ImageFont.truetype('application/services/certificate_generator/CoreSansC-35Light.ttf',50, encoding="unic")
-        font_date = ImageFont.truetype('application/services/certificate_generator/CoreSansC-35Light.ttf',50, encoding="unic")
-        name_w,name_h = draw.textsize(user_name, font)
+        text_color = (0, 0, 0)
 
-        location_name = (START_NAME_POS +((END_NAME_POS-START_NAME_POS)-name_w)/2,START_Y_NAME_POS - 60)
-        draw.text(location_name, user_name, fill=text_color,font=font)
+        # NAME
+        font = ImageFont.truetype("application/services/certificate_generator/CoreSansC-35Light.ttf", 50, encoding="unic")
+        font_date = ImageFont.truetype("application/services/certificate_generator/CoreSansC-35Light.ttf", 50, encoding="unic")
+        name_w, name_h = draw.textsize(user_name, font)
 
-        #DATE
+        location_name = (START_NAME_POS + ((END_NAME_POS - START_NAME_POS) - name_w) / 2, START_Y_NAME_POS - 60)
+        draw.text(location_name, user_name, fill=text_color, font=font)
+
+        # DATE
         date = datetime.datetime.now()
-        date_str = date.strftime('%d/%m/%Y')
-        date_w,date_h = draw.textsize(date_str, font)
-        location_date = (START_DATE_POS + ((END_DATE_POS-START_DATE_POS)-date_w)/2,START_Y_DATE_POS - 60)
+        date_str = date.strftime("%d/%m/%Y")
+        date_w, date_h = draw.textsize(date_str, font)
+        location_date = (START_DATE_POS + ((END_DATE_POS - START_DATE_POS) - date_w) / 2, START_Y_DATE_POS - 60)
         draw.text(location_date, date_str, fill=text_color, font=font_date)
 
-        #COURSE
-        course_w,course_h = draw.textsize(course_name, font)
-        location_course = (START_COURSE_POS + ((END_COURSE_POS-START_COURSE_POS)-course_w)/2, START_Y_COURSE_POS - 70)
+        # COURSE
+        course_w, course_h = draw.textsize(course_name, font)
+        location_course = (START_COURSE_POS + ((END_COURSE_POS - START_COURSE_POS) - course_w) / 2, START_Y_COURSE_POS - 70)
         draw.text(location_course, course_name, fill=text_color, font=font)
-        #SAVE
-        path = "application/services/certificate_generator/output/certificate_"+user_name+".pdf"
+        # SAVE
+        path = "application/services/certificate_generator/output/certificate_" + user_name + ".pdf"
         img_rgb.save(path)
         bucket = storage.bucket()
         blob = bucket.blob(path)
         blob.upload_from_filename(path)
         blob.make_public()
 
-        #DELETE
-        os.remove("application/services/certificate_generator/output/certificate_"+user_name+".pdf")
+        # DELETE
+        os.remove("application/services/certificate_generator/output/certificate_" + user_name + ".pdf")
         return blob.public_url

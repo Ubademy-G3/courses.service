@@ -4,7 +4,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-crp = CourseRepositoryPostgres()    
+crp = CourseRepositoryPostgres()
+
 
 def delete_course(db, course_id):
 

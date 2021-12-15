@@ -7,6 +7,7 @@ logger = logging.getLogger(__name__)
 
 ccrp = CourseCategoryRepositoryPostgres()
 
+
 def get_course_category(db, category_id):
 
     category = ccrp.get_course_category(db, category_id)

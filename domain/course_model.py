@@ -1,6 +1,7 @@
 from pydantic import BaseModel
-from uuid import uuid4, UUID
+from uuid import UUID
 from typing import Optional, List
+
 
 class CoursePatch(BaseModel):
     name: Optional[str] = None
@@ -12,8 +13,7 @@ class CoursePatch(BaseModel):
     duration: Optional[float] = None
     language: Optional[str] = None
     level: Optional[str] = None
-    modules: Optional[list] = None
-    
+
 
 class CourseSchema(BaseModel):
     name: str
@@ -25,7 +25,6 @@ class CourseSchema(BaseModel):
     duration: float
     language: str
     level: str
-    modules: list
 
 
 class CourseDB(CourseSchema):
@@ -36,5 +35,3 @@ class CourseDB(CourseSchema):
 class CourseList(BaseModel):
     amount: int
     courses: List[CourseDB]
-
-

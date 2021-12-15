@@ -1,6 +1,7 @@
 from pydantic import BaseModel
-from uuid import UUID, uuid4
-from typing import List,Optional
+from uuid import UUID
+from typing import List
+
 
 class CourseCertificateSchema(BaseModel):
     course_id: UUID
@@ -16,5 +17,3 @@ class CourseCertificateList(BaseModel):
     amount: int
     user_id: UUID
     certificates: List[CourseCertificateDB]
-    
-

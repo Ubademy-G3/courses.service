@@ -14,12 +14,27 @@ def get_all_courses(db, category, subscription_type, text):
     courses = crp.get_all_courses(db, category, subscription_type, text)
     if courses is None or len(courses) == 0:
         logger.warning("Courses not found")
-        raise NotFoundError("Courses")
+        return []
     courses_list = []
     for course in courses:
         serial = CourseSerializer.serialize(course)
-        metrics = get_course_metrics(db, serial['id'])
-        serial['metrics'] = metrics
+        metrics = get_course_metrics(db, serial["id"])
+        serial["metrics"] = metrics
+        courses_list.append(serial)
+    return courses_list
+
+
+def get_all_courses_from_list(db, course_list):
+
+    courses = crp.get_all_courses_from_list(db, course_list)
+    if courses is None or len(courses) == 0:
+        logger.warning("Courses not found")
+        return []
+    courses_list = []
+    for course in courses:
+        serial = CourseSerializer.serialize(course)
+        metrics = get_course_metrics(db, serial["id"])
+        serial["metrics"] = metrics
         courses_list.append(serial)
     return courses_list
 
@@ -31,11 +46,10 @@ def get_course(db, course_id):
         logger.warning("Course %s not found", course_id)
         raise NotFoundError("Course {}".format(course_id))
     serial = CourseSerializer.serialize(course)
-    serial['metrics'] = get_course_metrics(db, course_id)
+    serial["metrics"] = get_course_metrics(db, course_id)
     return serial
-    
+
 
 def course_exists(db, course_id):
 
-    return crp.get_course_by_id(db, course_id) != None
-    
+    return crp.get_course_by_id(db, course_id) is not None
