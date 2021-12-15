@@ -35,7 +35,7 @@ async def get_all_courses(
 
 @router.get("/list/", response_model=CourseList, status_code=200)
 async def get_all_courses_from_list(
-    course_list: List[str] = Query(None, alias="course[]"),
+    course_list: List[str] = Query(None, alias="id"),
     db: Session = Depends(get_db),
     apikey: str = Header(None),
 ):
