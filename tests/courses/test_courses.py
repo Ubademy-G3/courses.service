@@ -21,6 +21,7 @@ test_request_payload = {
     "duration": 43.2,
     "language": "english",
     "level": "easy",
+    "total_exams": 3,
 }
 
 
@@ -52,6 +53,7 @@ class CourseTest(TestCase):
         assert response_json["duration"] == test_request_payload["duration"]
         assert response_json["language"] == test_request_payload["language"]
         assert response_json["level"] == test_request_payload["level"]
+        assert response_json["total_exams"] == test_request_payload["total_exams"]
 
     @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
     def test_get_without_apikey(self, mock_method):
@@ -91,6 +93,7 @@ class CourseTest(TestCase):
             duration=44,
             language="spanish",
             level="easy",
+            total_exams=test_request_payload["total_exams"]
         )
 
         response = test_app.patch("/courses/" + str(course_id), data=json.dumps(test_patch_payload), headers=header)
@@ -108,6 +111,7 @@ class CourseTest(TestCase):
             "duration": 44,
             "language": "spanish",
             "level": "easy",
+            "total_exams": 3,
             "metrics": {},
         }
 

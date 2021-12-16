@@ -13,6 +13,7 @@ class CoursePatch(BaseModel):
     duration: Optional[float] = None
     language: Optional[str] = None
     level: Optional[str] = None
+    total_exams: Optional[int] = None
 
 
 class CourseSchema(BaseModel):
@@ -25,6 +26,7 @@ class CourseSchema(BaseModel):
     duration: float
     language: str
     level: str
+    total_exams: int
 
 
 class CourseDB(CourseSchema):
