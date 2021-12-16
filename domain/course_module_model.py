@@ -5,12 +5,12 @@ from typing import List, Optional
 
 class CourseModuleSchema(BaseModel):
     title: str
-    course_id: UUID
     content: Optional[str] = None
 
 
 class CourseModuleDB(CourseModuleSchema):
     id: UUID
+    course_id: UUID
 
 
 class CourseModuleList(BaseModel):

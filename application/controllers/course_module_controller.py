@@ -3,9 +3,9 @@ from application.use_cases.course_module import create, get, delete, update
 
 class CourseModuleController:
     @classmethod
-    def create_module(self, db, args):
+    def create_module(self, db, course_id, args):
 
-        return create.add_module(db, args)
+        return create.add_module(db, course_id, args)
 
     @classmethod
     def get_module(self, db, module_id):

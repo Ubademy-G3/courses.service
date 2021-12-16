@@ -6,9 +6,9 @@ from uuid import uuid4
 cmorp = CourseModuleRepositoryPostgres()
 
 
-def add_module(db, args):
+def add_module(db, course_id, args):
 
-    new_module = CourseModule(id=uuid4(), course_id=args.course_id, title=args.title, content=args.content)
+    new_module = CourseModule(id=uuid4(), course_id=course_id, title=args.title, content=args.content)
 
     cmorp.add_module(db, new_module)
     return CourseModuleSerializer.serialize(new_module)
