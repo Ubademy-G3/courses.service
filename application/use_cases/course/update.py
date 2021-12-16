@@ -37,6 +37,9 @@ def change_values(course_to_update, new_args):
     if new_args.level is not None:
         course_to_update.level = new_args.level
 
+    if new_args.total_exams is not None:
+        course_to_update.total_exams = new_args.total_exams
+
 
 def update_course(db, course_id, new_args):
 

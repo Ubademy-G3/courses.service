@@ -18,6 +18,7 @@ class Course(Base):
     duration = Column(Float, nullable=False)
     language = Column(String(255), nullable=False)
     level = Column(String(255), nullable=False)
+    total_exams = Column(Integer, nullable=False)
 
     # Relationships
     media = relationship("CourseMedia", cascade="all, delete")
@@ -26,7 +27,8 @@ class Course(Base):
     certificate = relationship("CourseCertificate", cascade="all, delete")
 
     def __init__(
-        self, id, name, description, category, subscription_type, location, profile_picture, duration, language, level
+        self, id, name, description, category, subscription_type, location, profile_picture, duration, language, level,
+        total_exams
     ):
 
         self.id = id
@@ -39,3 +41,4 @@ class Course(Base):
         self.duration = duration
         self.language = language
         self.level = level
+        self.total_exams = total_exams

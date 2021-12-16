@@ -19,6 +19,7 @@ def add_course(db, args):
         duration=args.duration,
         language=args.language,
         level=args.level,
+        total_exams=args.total_exams
     )
 
     crp.add_course(db, new_course)

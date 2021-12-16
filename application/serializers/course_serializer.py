@@ -16,5 +16,6 @@ class CourseSerializer:
             "duration": course.duration,
             "language": course.language,
             "level": course.level,
+            "total_exams": course.total_exams,
             "metrics": {},
         }
