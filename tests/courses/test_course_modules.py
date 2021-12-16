@@ -5,7 +5,7 @@ from unittest import TestCase, mock
 from persistence.repositories.course_module_repository_postgres import CourseModuleRepositoryPostgres
 from infrastructure.db.course_module_schema import CourseModule
 
-global_module_id = None
+global_module_id = "8b2ef0a0-33a9-401a-a4bb-afc458512c48"
 global_course_id = "9b2ef0a0-33a9-401a-a4bb-afc458512c48"
 
 header = {"apikey": os.getenv("API_KEY")}
@@ -17,10 +17,13 @@ class CourseModuleTest(TestCase):
     @mock.patch.object(CourseModuleRepositoryPostgres, "add_module")
     def test_create_module(self, mock_method):
 
-        response = test_app.post("/courses/module/", data=json.dumps(test_request_payload), headers=header)
+        mock_method.return_value = CourseModule(
+            id=global_module_id, course_id=global_course_id, title="Module 1", content="asdf"
+        )
+
+        response = test_app.post("/courses/"+str(global_course_id)+"/modules/", data=json.dumps(test_request_payload), headers=header)
         response_json = response.json()
-        global global_module_id
-        global_module_id = response_json["id"]
+        print(response_json);
 
         assert response.status_code == 201
         assert response_json["title"] == "Module 1"
@@ -33,7 +36,7 @@ class CourseModuleTest(TestCase):
             id=global_module_id, course_id=global_course_id, title="Module 1", content="asdf"
         )
 
-        response = test_app.get("/courses/module/" + str(global_module_id + "/"), headers=header)
+        response = test_app.get("/courses/"+str(global_course_id)+"/modules/" + str(global_module_id + "/"), headers=header)
         response_json = response.json()
 
         assert response.status_code == 200
@@ -65,7 +68,7 @@ class CourseModuleTest(TestCase):
         )
 
         response = test_app.patch(
-            "/courses/module/" + str(global_module_id), data=json.dumps(test_patch_payload), headers=header
+            "/courses/"+str(global_course_id)+"/modules/" + str(global_module_id), data=json.dumps(test_patch_payload), headers=header
         )
         response_json = response.json()
 
@@ -77,7 +80,7 @@ class CourseModuleTest(TestCase):
     @mock.patch.object(CourseModuleRepositoryPostgres, "get_module")
     def test_delete_module(self, mock_delete, mock_get):
 
-        response = test_app.delete("/courses/module/" + str(global_module_id), headers=header)
+        response = test_app.delete("/courses/"+str(global_course_id)+"/modules/" + str(global_module_id), headers=header)
         response_json = response.json()
 
         assert response.status_code == 200
