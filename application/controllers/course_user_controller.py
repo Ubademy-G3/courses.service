@@ -8,9 +8,9 @@ class CourseUserController:
         return create.add_course_user(db, course_id, args)
 
     @classmethod
-    def get_all_course_users(self, db, course_id, user_type):
+    def get_all_course_users(self, db, course_id, user_type, approval_state, progress):
 
-        return get.get_all_course_users(db, course_id, user_type)
+        return get.get_all_course_users(db, course_id, user_type, approval_state, progress)
 
     @classmethod
     def get_course_metrics(self, db, course_id):

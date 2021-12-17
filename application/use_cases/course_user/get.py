@@ -8,9 +8,9 @@ logger = logging.getLogger(__name__)
 curp = CourseUserRepositoryPostgres()
 
 
-def get_all_course_users(db, course_id, user_type):
+def get_all_course_users(db, course_id, user_type, approval_state, progress):
 
-    users = curp.get_all_course_users(db, course_id, user_type)
+    users = curp.get_all_course_users(db, course_id, user_type, approval_state, progress)
     if users is None or len(users) == 0:
         logger.warning("Users not found in course %s", course_id)
         return []
