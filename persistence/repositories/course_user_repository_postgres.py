@@ -11,11 +11,19 @@ class CourseUserRepositoryPostgres:
         logger.info("Added new user in course %s", payload.course_id)
         logger.debug("ID of the new user: %s", payload.id)
 
-    def get_all_course_users(self, db, course_id, user_type):
+    def get_all_course_users(self, db, course_id, user_type, approval_state, progress):
         query = db.query(CourseUser).filter(CourseUser.course_id == course_id)
         if user_type is not None:
             logger.debug("Get users of course %s with filter user_type %s", course_id, user_type)
             query = query.filter(CourseUser.user_type == user_type.lower())
+
+        if approval_state is not None:
+            logger.debug("Get users of course %s with filter approval_state %s", course_id, approval_state)
+            query = query.filter(CourseUser.approval_state == approval_state)
+
+        if progress is not None:
+            logger.debug("Get users of course %s with filter progress %f", course_id, progress)
+            query = query.filter(CourseUser.progress >= progress)
 
         users_list = query.all()
         logger.debug("Getting all users of course %s", course_id)
