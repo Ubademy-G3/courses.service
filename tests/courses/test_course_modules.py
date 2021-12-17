@@ -3,6 +3,7 @@ import os
 from tests.conftest import test_app
 from unittest import TestCase, mock
 from persistence.repositories.course_module_repository_postgres import CourseModuleRepositoryPostgres
+from persistence.repositories.course_repository_postgres import CourseRepositoryPostgres
 from infrastructure.db.course_module_schema import CourseModule
 
 global_module_id = "8b2ef0a0-33a9-401a-a4bb-afc458512c48"
@@ -15,11 +16,13 @@ test_request_payload = {"course_id": global_course_id, "title": "Module 1", "con
 
 class CourseModuleTest(TestCase):
     @mock.patch.object(CourseModuleRepositoryPostgres, "add_module")
-    def test_create_module(self, mock_method):
+    @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
+    def test_create_module(self, mock_method, mock_get_course):
 
         mock_method.return_value = CourseModule(
             id=global_module_id, course_id=global_course_id, title="Module 1", content="asdf"
         )
+        mock_get_course.return_value = 1
 
         response = test_app.post("/courses/"+str(global_course_id)+"/modules/", data=json.dumps(test_request_payload), headers=header)
         response_json = response.json()

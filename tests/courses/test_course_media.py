@@ -4,7 +4,9 @@ import uuid
 from tests.conftest import test_app
 from unittest import TestCase, mock
 from persistence.repositories.course_media_repository_postgres import CourseMediaRepositoryPostgres
+from persistence.repositories.course_module_repository_postgres import CourseModuleRepositoryPostgres
 from infrastructure.db.course_media_schema import CourseMedia
+
 
 header = {"apikey": os.getenv("API_KEY")}
 
@@ -17,9 +19,11 @@ test_request_payload = {"url": "www.google.com", "module_id": global_module_id}
 
 class CourseMediaTest(TestCase):
     @mock.patch.object(CourseMediaRepositoryPostgres, "add_course_media")
-    def test_create_course_media(self, mock_method):
+    @mock.patch.object(CourseModuleRepositoryPostgres, "get_module")
+    def test_create_course_media(self, mock_method, mock_get_module):
 
         mock_method.return_value.status_code = 201
+        mock_get_module.return_value = 1
         response = test_app.post(
             "/courses/" + str(global_course_id) + "/media/", data=json.dumps(test_request_payload), headers=header
         )
