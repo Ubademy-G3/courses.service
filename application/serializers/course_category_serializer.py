@@ -5,4 +5,4 @@ class CourseCategorySerializer:
     @classmethod
     def serialize(self, category: CourseCategory):
 
-        return {"id": category.id, "name": category.name}
+        return {"id": category.id, "name": category.name, "photo_url": category.photo_url}
