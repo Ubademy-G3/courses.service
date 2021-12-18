@@ -7,7 +7,7 @@ ccrp = CourseCategoryRepositoryPostgres()
 
 def add_course_category(db, args):
 
-    new_category = CourseCategory(id=args.id, name=args.name)
+    new_category = CourseCategory(id=args.id, name=args.name, photo_url=args.photo_url)
 
     ccrp.add_course_category(db, new_category)
     return CourseCategorySerializer.serialize(new_category)
