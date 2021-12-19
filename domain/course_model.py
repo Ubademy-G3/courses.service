@@ -37,3 +37,13 @@ class CourseDB(CourseSchema):
 class CourseList(BaseModel):
     amount: int
     courses: List[CourseDB]
+
+
+class CourseWithRating(CourseDB):
+    rating_avg: float
+    rating_amount: int
+
+
+class CourseWithRatingList(BaseModel):
+    amount: int
+    courses: List[CourseWithRating]

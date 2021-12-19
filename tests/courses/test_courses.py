@@ -138,3 +138,41 @@ class CourseTest(TestCase):
 
         self.assertRaises(NotFoundError)
         assert response_json["message"] == "Course {} not found".format(course_id)
+
+
+'''
+    @mock.patch.object(CourseRepositoryPostgres, "get_course_by_id")
+    def test_get_single_course(self, mock_method):
+
+        mock_method.return_value = Course(
+            id=global_id,
+            name="Python 3",
+            description="Introduccion a ciencia de datos con python",
+            category=2,
+            subscription_type="free",
+            location="Argentina",
+            profile_picture="www.google.com",
+            duration=44,
+            language="spanish",
+            level="easy",
+            total_exams=test_request_payload["total_exams"]
+        )
+        response = test_app.get("/courses/" + str(global_id), headers= header)
+        response_json = response.json()
+
+        assert response.status_code == 200
+        assert response_json == {
+            "id": global_id,
+            "name": "Python 3",
+            "description": "Introduccion a ciencia de datos con python",
+            "category": 2,
+            "subscription_type": "free",
+            "location": "Argentina",
+            "profile_picture": "www.google.com",
+            "duration": 44,
+            "language": "spanish",
+            "level": "easy",
+            "total_exams": 3,
+            "metrics": {},
+        }
+'''

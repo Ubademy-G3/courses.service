@@ -13,6 +13,11 @@ class CourseController:
         return get.get_all_courses(db, category, subscription_type, text)
 
     @classmethod
+    def get_all_courses_with_rating(self, db, category, subscription_type, text):
+
+        return get.get_all_courses_with_rating(db, category, subscription_type, text)
+
+    @classmethod
     def get_all_courses_from_list(self, db, course_list):
 
         return get.get_all_courses_from_list(db, course_list)
@@ -21,6 +26,11 @@ class CourseController:
     def get_course(self, db, course_id):
 
         return get.get_course(db, course_id)
+
+    @classmethod
+    def get_course_with_rating(self, db, course_id):
+
+        return get.get_course_with_rating(db, course_id)
 
     @classmethod
     def update_course(self, db, course_id, update_args):
