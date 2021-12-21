@@ -47,6 +47,22 @@ async def get_all_courses_with_rating(
     return {"amount": len(courses_list), "courses": courses_list}
 
 
+@router.get("/rated/user/{user_id}", response_model=CourseWithRatingList, status_code=200)
+async def get_all_courses_by_user_with_rating(
+    user_id: str,
+    db: Session = Depends(get_db),
+    user_type: Optional[str] = None,
+    apikey: str = Header(None),
+    category: Optional[List[int]] = Query(None, alias="category[]"),
+    subscription_type: Optional[List[str]] = Query(None, alias="subscription_type[]"),
+    text: Optional[str] = None,
+):
+
+    auth_service.check_api_key(apikey)
+    courses_list = CourseController.get_all_courses_by_user_with_rating(db, user_id, user_type, category, subscription_type, text)
+    return {"amount": len(courses_list), "courses": courses_list}
+
+
 @router.get("/list/", response_model=CourseList, status_code=200)
 async def get_all_courses_from_list(
     course_list: List[str] = Query(None, alias="id"),

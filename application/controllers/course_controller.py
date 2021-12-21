@@ -18,6 +18,10 @@ class CourseController:
         return get.get_all_courses_with_rating(db, category, subscription_type, text)
 
     @classmethod
+    def get_all_courses_by_user_with_rating(self, db, user_id, user_type, category, subscription_type, text):
+        return get.get_all_courses_by_user_with_rating(db, user_id, user_type, category, subscription_type, text)
+
+    @classmethod
     def get_all_courses_from_list(self, db, course_list):
 
         return get.get_all_courses_from_list(db, course_list)
