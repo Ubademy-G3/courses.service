@@ -43,7 +43,7 @@ class CourseRepositoryPostgres:
 
         if user_type is not None:
             logger.debug("Get courses with filter user_type %s", str(user_type))
-            partial_query = partial_query.filter(CourseUser.user_type.in_(user_type))
+            partial_query = partial_query.filter(CourseUser.user_type == user_type.lower())
 
         if category is not None:
             logger.debug("Get courses with filter category %s", str(category))
