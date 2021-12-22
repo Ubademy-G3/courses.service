@@ -55,8 +55,8 @@ class CourseUserRepositoryPostgres:
             users_currently_in_course = 0
         else:
             total_users_in_course = partial_query.count()
-            users_approved = partial_query.filter(CourseUser.approval_state is True).count()
-            users_currently_in_course = partial_query.filter(CourseUser.approval_state is False).count()
+            users_approved = partial_query.filter(CourseUser.approval_state == True).count()
+            users_currently_in_course = partial_query.filter(CourseUser.approval_state == False).count()
         logger.debug("Getting metrics of course %s", course_id)
         return {
             "total_users": total_users_in_course,
