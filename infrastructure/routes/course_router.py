@@ -76,6 +76,18 @@ async def get_all_courses_from_list(
     return {"amount": len(courses_list), "courses": courses_list}
 
 
+@router.get("/list/rated/", response_model=CourseWithRatingList, status_code=200)
+async def get_all_courses_from_list_with_rating(
+    course_list: List[str] = Query(None, alias="id"),
+    db: Session = Depends(get_db),
+    apikey: str = Header(None),
+):
+
+    auth_service.check_api_key(apikey)
+    courses_list = CourseController.get_all_courses_from_list_with_rating(db, course_list)
+    return {"amount": len(courses_list), "courses": courses_list}
+
+
 @router.get("/{course_id}", response_model=CourseDB, status_code=200)
 async def get_course(course_id: str, db: Session = Depends(get_db), apikey: str = Header(None)):
 
