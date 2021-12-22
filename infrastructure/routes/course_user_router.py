@@ -32,6 +32,13 @@ async def get_all_course_users(
     return {"amount": len(course_users_list), "course_id": course_id, "users": course_users_list}
 
 
+@router.get("/{user_id}", response_model=CourseUserDB, status_code=200)
+async def get_course_user(course_id: str, user_id: str, db: Session = Depends(get_db), apikey: str = Header(None)):
+
+    auth_service.check_api_key(apikey)
+    return CourseUserController.get_course_user(db, course_id, user_id)
+
+
 @router.patch("/{user_id}", response_model=CourseUserDB, status_code=200)
 async def update_course_user(
     course_id: str,
