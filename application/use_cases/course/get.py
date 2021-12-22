@@ -48,9 +48,9 @@ def get_all_courses_with_rating(db, category, subscription_type, text):
     return courses_list
 
 
-def get_all_courses_by_user_with_rating(db, user_id, user_type, category, subscription_type, text):
+def get_all_courses_by_user_with_rating(db, user_id, user_type, approval_state, category, subscription_type, text):
 
-    courses = crp.get_all_courses_by_user(db, user_id, user_type, category, subscription_type, text)
+    courses = crp.get_all_courses_by_user(db, user_id, user_type, approval_state, category, subscription_type, text)
     if courses is None or len(courses) == 0:
         logger.warning("Courses not found")
         return []

@@ -37,13 +37,17 @@ class CourseRepositoryPostgres:
         logger.debug("Getting all courses")
         return courses_list
 
-    def get_all_courses_by_user(self, db, user_id, user_type, category, subscription_type, text):
+    def get_all_courses_by_user(self, db, user_id, user_type, approval_state, category, subscription_type, text):
         logger.debug("Get courses with by user_id %s", str(user_id))
         partial_query = db.query(Course, CourseUser).filter(Course.id == CourseUser.course_id).filter(CourseUser.user_id == user_id)
 
         if user_type is not None:
             logger.debug("Get courses with filter user_type %s", str(user_type))
             partial_query = partial_query.filter(CourseUser.user_type == user_type.lower())
+
+        if approval_state is not None:
+            logger.debug("Get courses with filter approval_state %s", str(approval_state))
+            partial_query = partial_query.filter(CourseUser.approval_state == approval_state)
 
         if category is not None:
             logger.debug("Get courses with filter category %s", str(category))
