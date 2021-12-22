@@ -24,7 +24,7 @@ START_Y_COURSE_POS = 863
 
 class CertificateGenerator:
     @classmethod
-    def create_certificate(self, user_name: str, course_name: str):
+    def create_certificate(self, user_name: str, course_name: str, id: str):
         template = Image.open("application/services/certificate_generator/template-certificate.png")
 
         img_rgb = Image.new("RGB", template.size, (255, 255, 255))
@@ -53,7 +53,7 @@ class CertificateGenerator:
         location_course = (START_COURSE_POS + ((END_COURSE_POS - START_COURSE_POS) - course_w) / 2, START_Y_COURSE_POS - 70)
         draw.text(location_course, course_name, fill=text_color, font=font)
         # SAVE
-        path = "application/services/certificate_generator/output/certificate_" + user_name + ".pdf"
+        path = "application/services/certificate_generator/output/" + user_name + "-" + str(id) + ".pdf"
         img_rgb.save(path)
         bucket = storage.bucket()
         blob = bucket.blob(path)
@@ -61,5 +61,5 @@ class CertificateGenerator:
         blob.make_public()
 
         # DELETE
-        os.remove("application/services/certificate_generator/output/certificate_" + user_name + ".pdf")
+        os.remove("application/services/certificate_generator/output/" + user_name + "-" + str(id) + ".pdf")
         return blob.public_url
