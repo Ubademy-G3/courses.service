@@ -141,6 +141,14 @@ Service dedicated to the management of courses: creation, edition, removal, and 
     └── __init__.py
 ```
 
+# Tech Stack
+
+* Python 3.x
+* FastAPI (as web framework to building the API with Python)
+* SQLAlchemy (as PostgreSQL Toolkit for Python and an ORM)
+* PostgreSQL (object-relational database)
+
+
 # Local Environment 
 
 ## Requirements 
